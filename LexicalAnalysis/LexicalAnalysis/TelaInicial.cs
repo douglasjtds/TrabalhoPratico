@@ -10,14 +10,19 @@ using System.Windows.Forms;
 
 namespace LexicalAnalysis
 {
-    public partial class Form1 : Form
+    public partial class TelaInicial : Form
     {
-        public Form1() { 
+        public TelaInicial() { 
         
             InitializeComponent();
         }
 
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TelaInicial_Load(object sender, EventArgs e)
         {
 
         }
