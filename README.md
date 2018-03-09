@@ -8,7 +8,7 @@ O trabalho será dividido em três partes
 O trabalho deverá ser entregue por e-mail até o dia **06/04/2017**: 
 - Colocar no assunto para o e-mail: CC-CMA-COMP-TP1
 - Não esqueça dos nomes no relatório técnico
-- Descrição do trabalho e outras informações estão acrescentadas no pdf **TP1_20180306114439.pdf**
+- Descrição detalhada do trabalho, regras, o que deve ser entregue e outras informações estão acrescentadas no pdf **TP1_20180306114439.pdf**
 
 
 ## Descrição do trabalho
@@ -37,10 +37,36 @@ O trabalho deverá ser entregue por e-mail até o dia **06/04/2017**:
 	aspas duplas para destacá-los, ou seja, *as aspas não são tokens.*
 </p>
 
-## Linguagem PasC
+### Gramática da Linguagem PasC
+prog → “program” “id” body  
+body → decl-list “{“ stmt-list “}”  
+decl-list → decl “;” decl-list | ε  
+decl → type id-list  
+type → “num” | “char”  
+id-list → “id” | “id” “,” id-list  
+stmt-list → stmt “;” stmt-list | ε  
+stmt → assign-stmt | if-stmt | while-stmt | read-stmt | write-stmt  
+assign-stmt → “id” “=” simple_expr  
+if-stmt → “if” “(“ condition “)” “{“ stmt-list “}” |  
+“if” “(“ condition “)” “{“ stmt-list “}” “else” “{“ stmt-list “}”  
+condition → expression  
+while-stmt → stmt-prefix “{“ stmt-list “}”  
+stmt-prefix → “while” “(“ condition “)”  
+read-stmt → “read” “id”  
+write-stmt → “write” writable  
+writable → simple-expr | “literal”  
+expression → simple-expr | simple-expr relop simple-expr  
+simple-expr → term | simple-expr addop term  
+term → factor-a | term mulop factor-a  
+factor-a → factor | “not” factor  
+factor → “id” | constant | “(“ expression “)”  
+relop → “==” | “>” | “>=” | “<” | “<=” | “!=”  
+addop → “+” | “-” | “or”  
+mulop → “*” | “/” | “and”  
+constant → “num_const” | “char_const”  
 
 
-### Gramática da Linguagem
+### Padrões para números, caracteres, literais e identificadores do PasC
 - 
 
 
