@@ -12,7 +12,7 @@ O trabalho deverá ser entregue por e-mail até o dia **06/04/2017**:
 
 
 ## Descrição do trabalho
-
+<p>
 	Nesta etapa, você deverá implementar um analisador léxico para a linguagem PasC cuja descrição
 	encontra-se nas páginas 3 e 4.
 	Seu analisador léxico deverá ser implementado conforme visto em sala de aula, com o auxílio de
@@ -34,8 +34,8 @@ O trabalho deverá ser entregue por e-mail até o dia **06/04/2017**:
 	Espaços em branco, tabulações, quebras de linhas e comentários não são tokens, ou seja, devem ser
 	descartados/ignorados pelo referido analisador.
 	Na gramática do PasC, os terminais de um lexema, bem como as palavras reservadas, estão entre
-	aspas duplas para destacá-los, ou seja, **as aspas não são tokens.**
-
+	aspas duplas para destacá-los, ou seja, *as aspas não são tokens.*
+</p>
 
 ## Linguagem PasC
 
