@@ -83,12 +83,12 @@ OP_NE: !=
 OP_LE: <=   
 OP_DIV: /  
 OP_GT: >  
-OP_AD: + 
+OP_AD: +   
 OP_ASS: =  
 OP_LT: <   
 OP_MIN: -  
 
-- Símbolos
+- Símbolos  
 SMB_OBC: {  
 SMB_COM: ,  
 SMB_CBC: }   
@@ -96,35 +96,34 @@ SMB_SEM: ;
 SMB_OPA: (  
 SMB_CPA: )
   
-- Palavras-chave
+- Palavras-chave  
 KW: program, if, else, while, write, read, num, char, not, or, and
 
-- Identificadores
+- Identificadores  
 ID
 
-- Literal
+- Literal  
 LIT
 
-- Constantes
+- Constantes  
 CON_NUM: num_const   
 CON_CHAR: char_const  
 
 ### Outras características de PasC
 - As palavras-chave de PasC são reservadas;
 - Toda variável deve ser declarada antes do seu uso;
-- A linguagem possui comentários de mais de uma linha. Um comentário começa com “/*” e
-- deve terminar com “*/”;
+- A linguagem possui comentários de mais de uma linha. Um comentário começa com “/*” e deve terminar com “*/”;
 - A linguagem possui comentários de uma linha. Um comentário começa com “//”;
 - A semântica dos demais comandos e expressões é a tradicional do Pascal, exceto que “=” é
 utilizado no comando de atribuição, “==” é operador relacional que verifica se os operandos
 são iguais, e “!=” é operador relacional que verifica se os operandos são diferentes;
 - Os tipos numeral e caractere não são compatíveis;
-- A linguagem não é case-sensitive;
+- A linguagem **não** é case-sensitive;
 - Cada tabulação, deverá contar como 3 espaços em branco;
 
 
 ###### Contato dos Criadores
-- Douglas Tertuliano
+- Douglas Tertuliano:  
 <douglasjtds@gmail.com>
-- Matheus Pires
+- Matheus Pires:  
 <matheuswith51@hotmail.com>
