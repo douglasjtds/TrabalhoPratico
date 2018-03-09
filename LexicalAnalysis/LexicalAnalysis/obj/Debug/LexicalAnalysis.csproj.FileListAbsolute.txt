@@ -1,0 +1,9 @@
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe.config
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.pdb
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csprojResolveAssemblyReference.cache
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Form1.resources
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.exe
+c:\users\mathe\documents\visual studio 2015\Projects\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.pdb
