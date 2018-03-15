@@ -26,3 +26,12 @@ D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\Lexic
 D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.CoreCompileInputs.cache
 D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.exe
 D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.pdb
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe.config
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.exe
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.pdb
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.pdb
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csprojResolveAssemblyReference.cache
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
+C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache

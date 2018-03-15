@@ -44,7 +44,7 @@ namespace LexicalAnalysis
 
         private void button4_Click(object sender, EventArgs e)
         {
-
+            e.GetType();
         }
 
         private void button5_Click(object sender, EventArgs e)
