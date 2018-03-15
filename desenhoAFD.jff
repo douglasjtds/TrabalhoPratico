@@ -72,6 +72,11 @@
 		<!--The list of transitions.-->&#13;
 		<transition>&#13;
 			<from>2</from>&#13;
+			<to>3</to>&#13;
+			<read>outro</read>&#13;
+		</transition>&#13;
+		<transition>&#13;
+			<from>2</from>&#13;
 			<to>2</to>&#13;
 			<read>letter | digit</read>&#13;
 		</transition>&#13;
@@ -90,10 +95,10 @@
 			<to>6</to>&#13;
 			<read>"program"</read>&#13;
 		</transition>&#13;
-		<transition>&#13;
-			<from>2</from>&#13;
-			<to>3</to>&#13;
-			<read>outro</read>&#13;
-		</transition>&#13;
+		<note>&#13;
+			<text>&lt; ID, lexema &gt;</text>&#13;
+			<x>672.0</x>&#13;
+			<y>122.0</y>&#13;
+		</note>&#13;
 	</automaton>&#13;
 </structure>
