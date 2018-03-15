@@ -16,3 +16,13 @@ F:\7º Semestre\Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\Lexical
 F:\7º Semestre\Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
 F:\7º Semestre\Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache
 F:\7º Semestre\Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe.config
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.pdb
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csprojResolveAssemblyReference.cache
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.cache
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.CoreCompileInputs.cache
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.exe
+D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.pdb
