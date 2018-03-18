@@ -1,24 +1,28 @@
 caractéres usados:
-{
-}
-(
-)
-;
-=
-==
->
-<
-<=
->=
-!=
-+
--
-*
-/
-letter
+{ -
+} - 
+( -
+) -
+; -
+, -
+= -
+== - 
+> -
+< -
+<= -
+>= -
+!= -
++ -
+- -
+* -
+/ -     ??? VAI DAR CONFLITO COM O ESTADO DO COMENTÁRIO
+letter -
 digit
+number
+comments  /* */  //
+como faz com essas constantes? 
 
-/* */
+coloquei "-" depois dos que eu já fiz
 
 
 links utéis:
