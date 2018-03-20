@@ -1,9 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LexicalAnalysis", "LexicalAnalysis\LexicalAnalysis.csproj", "{EB7D19E7-0F5F-4289-BA5E-1983D7DB7608}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Codigos PasC", "Codigos PasC", "{EF2D4B73-9672-4DE9-A719-920EAAAD91BA}"
+	ProjectSection(SolutionItems) = preProject
+		ErrorCase1.txt = ErrorCase1.txt
+		ErrorCase2.txt = ErrorCase2.txt
+		ErrorCase3.txt = ErrorCase3.txt
+		SuccessCase1.txt = SuccessCase1.txt
+		SuccessCase2.txt = SuccessCase2.txt
+		SuccessCase3.txt = SuccessCase3.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +28,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {01C6B875-D952-4029-8269-018C6CE003B3}
 	EndGlobalSection
 EndGlobal
