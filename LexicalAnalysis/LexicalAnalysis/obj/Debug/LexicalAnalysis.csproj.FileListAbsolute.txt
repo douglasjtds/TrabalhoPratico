@@ -35,3 +35,12 @@ C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores
 C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
 C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
 C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe.config
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.exe
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.pdb
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.exe
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalAnalysis.pdb
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csprojResolveAssemblyReference.cache
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
+C:\Users\Douglas Tertuliano\Documents\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache
