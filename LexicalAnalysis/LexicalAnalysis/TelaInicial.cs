@@ -30,20 +30,22 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             string codePath = Path.Combine(Environment.CurrentDirectory, "ErrorCase1.txt");
-            MessageBox.Show(codePath);
+
+            //MessageBox.Show(codePath);
+            Console.WriteLine(codePath);
 
             if (File.Exists(codePath))
             {
                 Stream entrada = File.Open(codePath, FileMode.Open);
                 StreamReader readText = new StreamReader(entrada);
-                int numRow = Convert.ToInt32(readText.ReadLine());
+                readText.ReadToEnd();
+               
+                MessageBox.Show(readText.ReadLine());
 
-                for (int i = 0; i < numRow; i++)
-                {
-                    MessageBox.Show(readText.ReadLine());
-                }
-
+                readText.Close();
+                entrada.Close();
             }
 
         }
