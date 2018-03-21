@@ -8,5 +8,9 @@ namespace LexicalAnalysis
 {
     class token
     {
+
+        #region[Reconhecendo tokens]
+
+        #endregion
     }
 }
