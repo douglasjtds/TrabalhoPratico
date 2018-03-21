@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Windows.Forms;
+using System.Text;
 
 namespace myExtension
 {
@@ -16,21 +17,37 @@ namespace myExtension
         public static void lerArquivo(String nomeArquivo)
         {
             string codePath = Path.Combine(@Environment.CurrentDirectory, nomeArquivo);
+            StringBuilder completeWord = new StringBuilder();
+
+            Stream entrada = File.Open(codePath, FileMode.Open);
+            StreamReader readText = new StreamReader(entrada);
+
+            int countLine = 0;
 
             if (File.Exists(codePath))
             {
-                Stream entrada = File.Open(codePath, FileMode.Open);
-                StreamReader readText = new StreamReader(entrada);
-                string str = readText.ReadToEnd().ToUpper();
+                do
+                {
+                    char currentCharacter = (char)readText.Read();
 
-                MessageBox.Show(str);
+                    if(!char.IsWhiteSpace(currentCharacter)){  //Senão for um espaço em branco, adiciona na StringBiulder
+                        completeWord.Append(currentCharacter);
+                        countLine++;
+                    }
+                    else
+                    {
+                        MessageBox.Show(completeWord.ToString());
+                        completeWord.Clear();
+                    }
+
+                } while (!readText.EndOfStream);
+
 
                 readText.Close();
                 entrada.Close();
+
             }
         }
-
-
 
     }
 }

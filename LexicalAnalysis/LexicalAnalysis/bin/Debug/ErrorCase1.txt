@@ -1,3 +1,2 @@
-program ErrorCase1{
-	
+program ErrorCase1 {
 }
