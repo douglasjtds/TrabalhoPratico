@@ -22,24 +22,50 @@ namespace myExtension
             Stream entrada = File.Open(codePath, FileMode.Open);
             StreamReader readText = new StreamReader(entrada);
 
-            int countLine = 0;
+            int countLine = 0;  int currentState = 0;
 
             if (File.Exists(codePath))
             {
                 do
                 {
-                    char currentCharacter = (char)readText.Read();
+                    char currentCharacter = (char)readText.Read();  //Só o estado final deve fazer o .Read(), aqui deve ser feito o .Peek();
 
-                    if(!char.IsWhiteSpace(currentCharacter)){  //Senão for um espaço em branco, adiciona na StringBiulder
-                        completeWord.Append(currentCharacter);
-                        countLine++;
-                    }
-                    else
+                    switch (currentState)
                     {
-                        MessageBox.Show(completeWord.ToString());
-                        completeWord.Clear();
-                    }
+                        case 0:     //Seria o estado inicial
 
+                            break;
+
+                        case 1: 
+
+                            break;
+
+                        case 2:
+
+                            break;
+
+                        case 3:
+
+                            break;
+
+                        case 4:
+
+                            break;
+
+                        default:
+
+                            break;
+
+                        if(!char.IsWhiteSpace(currentCharacter)){  //Senão for um espaço em branco, adiciona na StringBiulder
+                            completeWord.Append(currentCharacter);
+                            countLine++;
+                        }
+                        else
+                        {
+                            MessageBox.Show(completeWord.ToString());
+                            completeWord.Clear();
+                        }
+                    }
                 } while (!readText.EndOfStream);
 
 
@@ -47,6 +73,26 @@ namespace myExtension
                 entrada.Close();
 
             }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="Current Character">Caracter atual que foi lido pelo arquivo</param>
+        /// <returns>True se a caracter atual for quebra de linha</returns>
+        public bool isLineBreak(char c)
+        {
+            if (c.Equals("\n"))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool isComment()
+        {
+            return false;
         }
 
     }
