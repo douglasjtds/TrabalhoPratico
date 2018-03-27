@@ -22,17 +22,28 @@ namespace myExtension
             Stream entrada = File.Open(codePath, FileMode.Open);
             StreamReader readText = new StreamReader(entrada);
 
-            int countLine = 0;  int currentState = 0;
+            int countLine = 0, currentState = 0, countColumn = 0;
 
             if (File.Exists(codePath))
             {
                 do
                 {
-                    char currentCharacter = (char)readText.Read();  //Só o estado final deve fazer o .Read(), aqui deve ser feito o .Peek();
+                    char currentCharacter = (char)readText.Peek(); 
 
                     switch (currentState)
                     {
                         case 0:     //Seria o estado inicial
+
+                            if (!char.IsWhiteSpace(currentCharacter))
+                            {  //Senão for um espaço em branco, adiciona na StringBiulder
+                                completeWord.Append(currentCharacter);
+                                countLine++;
+                            }
+                            else
+                            {
+                                MessageBox.Show(completeWord.ToString());
+                                completeWord.Clear();
+                            }
 
                             break;
 
@@ -56,15 +67,7 @@ namespace myExtension
 
                             break;
 
-                        if(!char.IsWhiteSpace(currentCharacter)){  //Senão for um espaço em branco, adiciona na StringBiulder
-                            completeWord.Append(currentCharacter);
-                            countLine++;
-                        }
-                        else
-                        {
-                            MessageBox.Show(completeWord.ToString());
-                            completeWord.Clear();
-                        }
+
                     }
                 } while (!readText.EndOfStream);
 

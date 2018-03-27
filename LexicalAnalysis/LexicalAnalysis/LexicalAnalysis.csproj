@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OurMethods.cs" />
+    <Compile Include="Tags.cs" />
     <Compile Include="TelaInicial.cs">
       <SubType>Form</SubType>
     </Compile>
