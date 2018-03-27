@@ -14,6 +14,10 @@ namespace LexicalAnalysis
 {
     public partial class TelaInicial : Form
     {
+        public string CodePath;
+        public Stream Entrada;
+        public StreamReader ReadText;
+
         public TelaInicial()
         {
 
@@ -32,32 +36,38 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("ErrorCase1.txt");
+            string CodePath = OurMethods.lerArquivo("ErrorCase1.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("ErrorCase2.txt");
+            string CodePath = OurMethods.lerArquivo("ErrorCase2.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("ErrorCase3.txt");
+            string CodePath = OurMethods.lerArquivo("ErrorCase3.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("SuccessCase1.txt");
+            string CodePath = OurMethods.lerArquivo("SuccessCase1.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("SuccessCase2.txt");
+            string CodePath = OurMethods.lerArquivo("SuccessCase2.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            OurMethods.lerArquivo("SuccessCase3.txt");
+            string CodePath = OurMethods.lerArquivo("SuccessCase3.txt", Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
     }
 }
