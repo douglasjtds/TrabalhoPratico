@@ -53,13 +53,32 @@ namespace LexicalAnalysis
             ST.Add(Tag.SMB_SEM, ";");
             #endregion
 
-            ST.Add(Tag.ID, "");
+            //ST.Add(Tag.ID, "");
 
-            ST.Add(Tag.LIT, "");
+            //ST.Add(Tag.LIT, "");
 
-            ST.Add(Tag.CON_CHAR, "");
-            ST.Add(Tag.CON_NUM, "");
+            //ST.Add(Tag.CON_CHAR, "");
+            //ST.Add(Tag.CON_NUM, "");
         }
+
+
+        /// <summary>
+        /// Verifica se possui aquele lexema na tabela de símbolo. Utilizado para símbolo e operador, não para ID
+        /// </summary>
+        /// <param name="token">A StringBiulder construída</param>
+        /// <returns></returns>
+        public string isLexemaOnTableSymbol(string completeWord)
+        {
+            foreach (KeyValuePair<Tag, string> token in ST)
+            {
+                if (token.Value.ToUpper().Equals(completeWord.ToUpper()))
+                {
+                    return token.Value;
+                }
+            }
+            return "aaaaaaaaaaaaaaaaaaaaaaa";
+        }
+
 
         /// <summary>
         /// Método para inserir um novo token na tabela de símbolos. 
@@ -68,16 +87,15 @@ namespace LexicalAnalysis
         /// <param name="token"></param>
         public void insertOnSymbolTable(Token token)
         {
-            ST.Add(token.tag, token.getLexema);
+            foreach (string lexema in ST.Values)
+            {
+                if (token.getLexema.ToUpper().Equals(lexema.ToUpper()))         //Se o lexema (em maiusculo) encontrado for igual a qualquer item da tabela símbolo, não insere
+                {
+                    return;
+                }
+                ST.Add(token.tag, token.getLexema);
+            }
+
         }
-
-        //public void isOnTableSymbol(Token token)
-        //{
-        //    foreach (var token in ST)
-        //    {
-
-        //    }
-        //}
-
     }
 }
