@@ -14,9 +14,9 @@ namespace LexicalAnalysis
 {
     public partial class TelaInicial : Form
     {
-        public string CodePath;
-        public Stream Entrada;
-        public StreamReader ReadText;
+        public string CodePath;                 //String que contem o caminho do arquivo
+        public Stream Entrada;                  //Stream de abertura do arquivo
+        public StreamReader ReadText;           //StreamReader de leitura do arquivo
 
         public TelaInicial()
         {
@@ -24,10 +24,6 @@ namespace LexicalAnalysis
             InitializeComponent();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void TelaInicial_Load(object sender, EventArgs e)
         {

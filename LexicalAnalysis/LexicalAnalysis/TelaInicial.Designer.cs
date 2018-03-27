@@ -47,7 +47,6 @@
             this.label1.Size = new System.Drawing.Size(149, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Códigos com erro";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 

@@ -24,24 +24,6 @@ namespace myExtension
         }
 
 
-        public bool isFinalState(int currentState)
-        {
-            if(currentState == 3 || currentState == 4 || 
-               currentState == 5 || currentState == 7 || 
-               currentState == 8 || currentState == 10 || 
-               currentState == 12 || currentState == 13 || 
-               currentState == 15 || currentState == 16 || 
-               currentState == 17 || currentState == 18 || 
-               currentState == 19 || currentState == 20 ||
-               currentState == 21 || currentState == 22 ||
-               currentState == 23 || currentState == 25)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
         /// <summary>
         /// Método utilizado para executar o autômato analisará o lexico da linguagem PasC
         /// </summary>
@@ -53,8 +35,9 @@ namespace myExtension
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
-            int currentState = 1;   //Nosso estado inicial é o 1
-            StringBuilder completeWord = new StringBuilder();
+            int currentState = 1;                               //Nosso estado inicial é o 1
+            int countLine = 0, countColumn = 0;                 //Contadores de linha e coluna
+            StringBuilder completeWord = new StringBuilder();   //String que será incrementada com os caracteres lidos
 
             if (File.Exists(codePath))
             {
@@ -65,12 +48,29 @@ namespace myExtension
                     switch (currentState)
                     {
 
-                        case 1:     //Seria o estado inicial
+                        case 1:     //É o estado inicial
 
-                            if (char.IsLetter(currentCharacter))
+                            if (isLineBreak(currentCharacter))              //Se for uma quebra de linha...
+                            {
+                                countColumn++;
+                                completeWord.Clear();
+                            }
+
+                            else if (char.IsWhiteSpace(currentCharacter))  //Se for espaço em branco 
+                            {
+                                countColumn++;
+                                completeWord.Clear();
+                            }
+
+                            else if (currentCharacter.Equals("\t"))
+                            {
+                                countColumn = countLine + 3;
+                                completeWord.Clear();
+                            }
+                            else if (char.IsLetter(currentCharacter))
                             {
                                 currentState = 2;
-                                readText.Read();    //Consome o caracter que somente foi lido pelo .Peek();
+                                completeWord.Append((char)readText.Read());    //Consome o caracter que somente foi lido pelo .Peek() e já adiciona no StringBiulder
                             }
                             else if(currentCharacter.Equals('{'))
                             {
@@ -154,31 +154,153 @@ namespace myExtension
                             } else
                             {
                                 currentState = 3;
-                                //Printa o token encontrado
+                                //Printar o token encontrado
                                 //Não dá o .Read(), pois é necessário para ver qual caracter é o próximo
                             }
 
                             break;
 
                         case 3:
-
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 4:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 5:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 6:
+
+                            break;
+
+                        case 7:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 8:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 9:
+
+                            break;
+
+                        case 10:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 11:
+
+                            break;
+
+                        case 12:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 13:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 14:
+
+                            break;
+
+                        case 15:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 16:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 17:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 18:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 19:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 20:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 21:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 22:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 23:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 24:
+
+                            break;
+
+                        case 25:
+                            //Printar o token encontrado com isFinalState
+                            currentState = 1;       //Reseta a esecução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+                            break;
+
+                        case 26:
+
+                            break;
+
+                        case 27:
 
                             break;
 
                         default:
 
-                            if (!char.IsWhiteSpace(currentCharacter))
-                            {  //Senão for um espaço em branco, adiciona na StringBiulder
-                                completeWord.Append(currentCharacter);
-                            }
-                            else
-                            {
-                                MessageBox.Show(completeWord.ToString());
-                                completeWord.Clear();
-                            }
+                            //if (char.IsWhiteSpace(currentCharacter))
+                            //    completeWord.Clear();
+        
                             break;
 
 
@@ -191,15 +313,16 @@ namespace myExtension
 
             }
         }
- 
+
+
         /// <summary>
-        /// 
+        /// Método que verifica se o proximo caracter é uma quebra de linha 
         /// </summary>
-        /// <param name="Current Character">Caracter atual que foi lido pelo arquivo</param>
-        /// <returns>True se a caracter atual for quebra de linha</returns>
-        public bool isLineBreak(char c)
+        /// <param name="c">Caracter atual que foi lido pelo arquivo</param>
+        /// <returns>True se o caracter atual for quebra de linha</returns>
+        public static bool isLineBreak(char c)
         {
-            if (c.Equals("\n"))
+            if (c.Equals("\n") || c.Equals("\b"))
             {
                 return true;
             }
@@ -207,11 +330,49 @@ namespace myExtension
             return false;
         }
 
-        public bool isComment()
+
+        /// <summary>
+        /// Método para verificar se o estado atual é um estado final. Caso for, printa qual foi o token encontrado
+        /// </summary>
+        /// <param name="currentState">Inteiro que representa o estado atual</param>
+        public static void isFinalState(int currentState, int currentLine, int currentColumn)
         {
-            return false;
+            if (currentState == 3 || currentState == 4 ||
+               currentState == 5 || currentState == 7 ||
+               currentState == 8 || currentState == 10 ||
+               currentState == 12 || currentState == 13 ||
+               currentState == 15 || currentState == 16 ||
+               currentState == 17 || currentState == 18 ||
+               currentState == 19 || currentState == 20 ||
+               currentState == 21 || currentState == 22 ||
+               currentState == 23 || currentState == 25)
+            {
+                //returnToken();                                    //Método que está dentro da classe Token e vai printar o token encontrado
+                currentLineAndColumn(currentLine, currentColumn);   //Printa aonde esse token foi encontrado
+                currentState = 1;                                   //Retorna para o estado inicial
+            }
         }
 
+
+        /// <summary>
+        /// Método para sinalizar um erro e o lugar onde ele foi encontrado
+        /// </summary>
+        /// <param name="column">Representa a coluna atual que o leitor está</param>
+        /// <param name="line">Representa a linha atual que o leitor está</param>
+        /// <returns>Retorna a posição atual da linha e da coluna</returns>
+        public static string currentLineAndColumn(int line, int column)
+        {
+            return " Linha " + line + ", Coluna " + column;
+        }
+
+
+        /// <summary>
+        /// Método para sinalizar um erro e o lugar onde ele foi encontrado
+        /// </summary>
+        public static string flagError(int line, int column)
+        {
+            return "Erro encontrado na " + currentLineAndColumn(line, column);
+        }
     }
 }
 
