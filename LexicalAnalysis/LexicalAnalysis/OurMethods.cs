@@ -22,7 +22,7 @@ namespace myExtension
             Stream entrada = File.Open(codePath, FileMode.Open);
             StreamReader readText = new StreamReader(entrada);
 
-            int countLine = 0, currentState = 0, countColumn = 0;
+            int currentState = 0;
 
             if (File.Exists(codePath))
             {
@@ -37,7 +37,6 @@ namespace myExtension
                             if (!char.IsWhiteSpace(currentCharacter))
                             {  //Senão for um espaço em branco, adiciona na StringBiulder
                                 completeWord.Append(currentCharacter);
-                                countLine++;
                             }
                             else
                             {
