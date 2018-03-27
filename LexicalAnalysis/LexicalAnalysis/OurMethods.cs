@@ -36,7 +36,7 @@ namespace myExtension
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
             int currentState = 1;                               //Nosso estado inicial é o 1
-            int countLine = 0, countColumn = 0;                 //Contadores de linha e coluna
+            int countLine = 1, countColumn = 1;                 //Contadores de linha e coluna
             StringBuilder completeWord = new StringBuilder();   //String que será incrementada com os caracteres lidos
 
             if (File.Exists(codePath))
@@ -58,7 +58,7 @@ namespace myExtension
 
                             else if (char.IsWhiteSpace(currentCharacter))  //Se for espaço em branco 
                             {
-                                countColumn++;
+                                countLine++;
                                 completeWord.Clear();
                             }
 
