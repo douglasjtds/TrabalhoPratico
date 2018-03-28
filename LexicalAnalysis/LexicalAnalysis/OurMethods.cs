@@ -44,7 +44,6 @@ namespace myExtension
                 do
                 {
                     char currentCharacter = (char)readText.Peek();
-
                     switch (currentState)
                     {
 
@@ -56,13 +55,13 @@ namespace myExtension
                                 completeWord.Clear();
                             }
 
-                            else if (char.IsWhiteSpace(currentCharacter))  //Se for espaço em branco 
+                            else if (char.IsWhiteSpace(currentCharacter))  //Se for espaço em branco...
                             {
                                 countLine++;
                                 completeWord.Clear();
                             }
 
-                            else if (currentCharacter.Equals("\t"))
+                            else if (currentCharacter.Equals("\t"))         //Se for tabulação...
                             {
                                 countColumn = countLine + 3;
                                 completeWord.Clear();
@@ -75,72 +74,72 @@ namespace myExtension
                             else if(currentCharacter.Equals('{'))
                             {
                                 currentState = 4;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('}'))
                             {
                                 currentState = 5;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('='))
                             {
                                 currentState = 6;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('!'))
                             {
                                 currentState = 9;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('>'))
                             {
                                 currentState = 11;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('<'))
                             {
                                 currentState = 14;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('+'))
                             {
                                 currentState = 17;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('-'))
                             {
                                 currentState = 18;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('*'))
                             {
                                 currentState = 19;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('('))
                             {
                                 currentState = 20;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals(')'))
                             {
                                 currentState = 21;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals(','))
                             {
                                 currentState = 22;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals(';'))
                             {
                                 currentState = 23;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
                             else if (currentCharacter.Equals('/'))
                             {
                                 currentState = 24;
-                                readText.Read();
+                                completeWord.Append(readText.Read());
                             }
 
                                 break;
@@ -150,7 +149,7 @@ namespace myExtension
                             if (char.IsLetterOrDigit(currentCharacter))
                             {
                                 currentState = 2;
-                                readText.Read();
+                                completeWord.Append(readText.Read());;
                             } else
                             {
                                 currentState = 3;
