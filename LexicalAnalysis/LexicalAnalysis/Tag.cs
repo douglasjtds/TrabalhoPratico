@@ -8,8 +8,10 @@ namespace LexicalAnalysis
 {
     public enum Tag
     {
+        //Fim do arquivo
+        EOF,
 
-        #region (OPERADORES)
+        #region [OPERADORES]
         OP_EQ,
         OP_GE,
         OP_MUL,
@@ -23,7 +25,7 @@ namespace LexicalAnalysis
         OP_MIN,
         #endregion
 
-        #region (SIMBOLOS)
+        #region [SIMBOLOS]
         SMB_OBC,
         SMB_COM,
         SMB_CBC,
@@ -32,11 +34,16 @@ namespace LexicalAnalysis
         SMB_CPA,
         #endregion
 
+        // palavra reservada
         KW, 
+
+        //Identificador
         ID, 
+
+        //Literal
         LIT,
 
-        #region (CONSTANTES)
+        #region [CONSTANTES]
         CON_NUM,
         CON_CHAR,
         #endregion
