@@ -148,7 +148,7 @@ namespace myExtension
 
                             if (char.IsLetterOrDigit(currentCharacter))
                             {
-                                currentState = 2;
+                                //currentState = 2; //não precisa pq ele já está no estado 2
                                 completeWord.Append(readText.Read());;
                             } else
                             {
