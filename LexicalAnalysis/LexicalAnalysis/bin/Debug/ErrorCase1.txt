@@ -1,2 +1,3 @@
 program ErrorCase1 {
+	if (if)
 }

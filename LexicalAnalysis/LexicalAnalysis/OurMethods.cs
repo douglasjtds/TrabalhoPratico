@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 using System.Text;
+using LexicalAnalysis;
 
 namespace myExtension
 {
@@ -17,9 +18,6 @@ namespace myExtension
         public static string lerArquivo(String nomeArquivo, Stream entrada, StreamReader readText)
         {
             string codePath = Path.Combine(@Environment.CurrentDirectory, nomeArquivo);
-            entrada = File.Open(codePath, FileMode.Open);
-            readText = new StreamReader(entrada);
-
             return codePath;
         }
 
@@ -35,6 +33,12 @@ namespace myExtension
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
+
+            entrada = File.Open(codePath, FileMode.Open);
+            readText = new StreamReader(entrada);
+            SymbolTable ST = new SymbolTable();
+            Token aux;
+
             int currentState = 1;                               //Nosso estado inicial é o 1
             int countLine = 1, countColumn = 1;                 //Contadores de linha e coluna
             StringBuilder completeWord = new StringBuilder();   //String que será incrementada com os caracteres lidos
@@ -43,103 +47,104 @@ namespace myExtension
             {
                 do
                 {
-                    char currentCharacter = (char)readText.Peek();
+                    char currentCharacter = (char)readText.Peek();              //Pega o proximo caracter sem comsumir ele
+
                     switch (currentState)
                     {
 
                         case 1:     //É o estado inicial
 
-                            if (isLineBreak(currentCharacter))              //Se for uma quebra de linha...
+                            if (isLineBreak(currentCharacter, countColumn, countLine))                  //Se for uma quebra de linha...
+                            {
+                                completeWord.Clear();
+                            }
+
+                            else if (char.IsWhiteSpace(currentCharacter))       //Se for espaço em branco...
                             {
                                 countColumn++;
                                 completeWord.Clear();
                             }
 
-                            else if (char.IsWhiteSpace(currentCharacter))  //Se for espaço em branco...
+                            else if (currentCharacter.Equals("\t"))             //Se for tabulação...
                             {
-                                countLine++;
-                                completeWord.Clear();
-                            }
-
-                            else if (currentCharacter.Equals("\t"))         //Se for tabulação...
-                            {
-                                countColumn = countLine + 3;
+                                countColumn = countColumn + 3;
                                 completeWord.Clear();
                             }
                             else if (char.IsLetter(currentCharacter))
                             {
+                                countColumn++;
                                 currentState = 2;
                                 completeWord.Append((char)readText.Read());    //Consome o caracter que somente foi lido pelo .Peek() e já adiciona no StringBiulder
                             }
                             else if(currentCharacter.Equals('{'))
                             {
                                 currentState = 4;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('}'))
                             {
                                 currentState = 5;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('='))
                             {
                                 currentState = 6;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('!'))
                             {
                                 currentState = 9;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('>'))
                             {
                                 currentState = 11;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('<'))
                             {
                                 currentState = 14;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('+'))
                             {
                                 currentState = 17;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('-'))
                             {
                                 currentState = 18;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('*'))
                             {
                                 currentState = 19;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('('))
                             {
                                 currentState = 20;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(')'))
                             {
                                 currentState = 21;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(','))
                             {
                                 currentState = 22;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(';'))
                             {
                                 currentState = 23;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('/'))
                             {
                                 currentState = 24;
-                                completeWord.Append(readText.Read());
+                                completeWord.Append((char)readText.Read());
                             }
 
                                 break;
@@ -149,31 +154,33 @@ namespace myExtension
                             if (char.IsLetterOrDigit(currentCharacter))
                             {
                                 //currentState = 2; //não precisa pq ele já está no estado 2
-                                completeWord.Append(readText.Read());;
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
                             } else
                             {
                                 currentState = 3;
-                                //Printar o token encontrado
-                                //Não dá o .Read(), pois é necessário para ver qual caracter é o próximo
                             }
 
                             break;
 
-                        case 3:
-                            //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                        case 3:         //ACHOU ID
+
+                            aux = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString() , countLine, countColumn);     //Verifica se já tem esse lexema na ST. Se tiver, retorna ele. Se não tiver, adiciona ele.
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));               //PRINTA!
+                                
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 4:
+                        case 4:         //ACHOU {         
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 5:
+                        case 5:         //ACHOU }
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -181,15 +188,15 @@ namespace myExtension
 
                             break;
 
-                        case 7:
+                        case 7:         //ACHOU ==
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 8:
+                        case 8:         //ACHOU =
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -197,9 +204,9 @@ namespace myExtension
 
                             break;
 
-                        case 10:
+                        case 10:        //ACHOU !=
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -207,15 +214,15 @@ namespace myExtension
 
                             break;
 
-                        case 12:
+                        case 12:        //ACHOU >=
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 13:
+                        case 13:        //ACHOU >
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -223,57 +230,57 @@ namespace myExtension
 
                             break;
 
-                        case 15:
+                        case 15:        //ACHOU <=
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 16:
+                        case 16:        //ACHOU <
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 17:
+                        case 17:        //ACHOU +
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 18:
+                        case 18:        //ACHOU -        
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 19:
+                        case 19:        //ACHOU *
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 20:
+                        case 20:        //ACHOU (
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 21:
+                        case 21:        //ACHOU )
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 22:
+                        case 22:        //ACHOU ,
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 23:
+                        case 23:        //ACHOU ;
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -281,9 +288,9 @@ namespace myExtension
 
                             break;
 
-                        case 25:
+                        case 25:        //ACHOU /  (SIMBOLO DIVISÃO)
                             //Printar o token encontrado com isFinalState
-                            currentState = 1;       //Reseta a esecução do automato
+                            currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
@@ -292,6 +299,18 @@ namespace myExtension
                             break;
 
                         case 27:
+
+                            break;
+
+                        case 28:        //ACHOU //  (COMENTARIO)
+
+                            break;
+
+                        case 29:        
+
+                            break;
+
+                        case 30:        //ACHOU "" (STRING)
 
                             break;
 
@@ -319,10 +338,12 @@ namespace myExtension
         /// </summary>
         /// <param name="c">Caracter atual que foi lido pelo arquivo</param>
         /// <returns>True se o caracter atual for quebra de linha</returns>
-        public static bool isLineBreak(char c)
+        public static bool isLineBreak(char c, int countColoumn, int countLine)
         {
             if (c.Equals("\n") || c.Equals("\b"))
             {
+                countColoumn = 0;
+                countLine++; 
                 return true;
             }
 

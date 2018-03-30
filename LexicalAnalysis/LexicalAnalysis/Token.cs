@@ -105,7 +105,6 @@ public class Token
 
     public Token(Tag classe, String lexema, int linha, int coluna)
     {
-
         this.Classe = classe;
         this.Lexema = lexema;
         this.Linha = linha;
