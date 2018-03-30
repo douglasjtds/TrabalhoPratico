@@ -40,7 +40,7 @@ namespace myExtension
             Token aux;
 
             int currentState = 1;                               //Nosso estado inicial é o 1
-            int countLine = 1, countColumn = 1;                 //Contadores de linha e coluna
+            int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
             StringBuilder completeWord = new StringBuilder();   //String que será incrementada com os caracteres lidos
 
             if (File.Exists(codePath))
@@ -56,12 +56,14 @@ namespace myExtension
 
                             if (isLineBreak(currentCharacter, countColumn, countLine))                  //Se for uma quebra de linha...
                             {
+                                readText.Read();
                                 completeWord.Clear();
                             }
 
                             else if (char.IsWhiteSpace(currentCharacter))       //Se for espaço em branco...
                             {
                                 countColumn++;
+                                readText.Read();
                                 completeWord.Clear();
                             }
 
@@ -78,71 +80,85 @@ namespace myExtension
                             }
                             else if(currentCharacter.Equals('{'))
                             {
+                                countColumn++;
                                 currentState = 4;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('}'))
                             {
+                                countColumn++;
                                 currentState = 5;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('='))
                             {
+                                countColumn++;
                                 currentState = 6;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('!'))
                             {
+                                countColumn++;
                                 currentState = 9;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('>'))
                             {
+                                countColumn++;
                                 currentState = 11;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('<'))
                             {
+                                countColumn++;
                                 currentState = 14;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('+'))
                             {
+                                countColumn++;
                                 currentState = 17;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('-'))
                             {
+                                countColumn++;
                                 currentState = 18;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('*'))
                             {
+                                countColumn++;
                                 currentState = 19;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('('))
                             {
+                                countColumn++;
                                 currentState = 20;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(')'))
                             {
+                                countColumn++;
                                 currentState = 21;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(','))
                             {
+                                countColumn++;
                                 currentState = 22;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals(';'))
                             {
+                                countColumn++;
                                 currentState = 23;
                                 completeWord.Append((char)readText.Read());
                             }
                             else if (currentCharacter.Equals('/'))
                             {
+                                countColumn++;
                                 currentState = 24;
                                 completeWord.Append((char)readText.Read());
                             }
@@ -165,7 +181,7 @@ namespace myExtension
 
                         case 3:         //ACHOU ID
 
-                            aux = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString() , countLine, countColumn);     //Verifica se já tem esse lexema na ST. Se tiver, retorna ele. Se não tiver, adiciona ele.
+                            aux = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString() , countLine, countColumn);     //Verifica se já tem esse lexema na ST. Se tiver, retorna ele. Se não tiver, adiciona e retorna ele.
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));               //PRINTA!
                                 
                             currentState = 1;       //Reseta a execução do automato
@@ -174,12 +190,17 @@ namespace myExtension
 
                         case 4:         //ACHOU {         
                             //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_OBC, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 5:         //ACHOU }
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_CBC, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -189,13 +210,17 @@ namespace myExtension
                             break;
 
                         case 7:         //ACHOU ==
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_EQ, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 8:         //ACHOU =
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_ASS, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -205,7 +230,9 @@ namespace myExtension
                             break;
 
                         case 10:        //ACHOU !=
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_NE, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -215,13 +242,17 @@ namespace myExtension
                             break;
 
                         case 12:        //ACHOU >=
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_GE, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 13:        //ACHOU >
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_GT, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -231,55 +262,73 @@ namespace myExtension
                             break;
 
                         case 15:        //ACHOU <=
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_LE, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 16:        //ACHOU <
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_LT, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 17:        //ACHOU +
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_AD, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 18:        //ACHOU -        
-                            //Printar o token encontrado com isFinalState
+                        case 18:        //ACHOU -
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_MIN, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 19:        //ACHOU *
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_MUL, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 20:        //ACHOU (
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_OPA, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 21:        //ACHOU )
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_CPA, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 22:        //ACHOU ,
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_COM, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         case 23:        //ACHOU ;
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.SMB_SEM, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -289,7 +338,9 @@ namespace myExtension
                             break;
 
                         case 25:        //ACHOU /  (SIMBOLO DIVISÃO)
-                            //Printar o token encontrado com isFinalState
+                            aux = ST.isLexemaOnSymbolTable(Tag.OP_DIV, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -325,7 +376,6 @@ namespace myExtension
                     }
                 } while (!readText.EndOfStream);
 
-
                 readText.Close();
                 entrada.Close();
 
@@ -338,11 +388,11 @@ namespace myExtension
         /// </summary>
         /// <param name="c">Caracter atual que foi lido pelo arquivo</param>
         /// <returns>True se o caracter atual for quebra de linha</returns>
-        public static bool isLineBreak(char c, int countColoumn, int countLine)
+        public static bool isLineBreak(char c, int countColumn, int countLine)
         {
             if (c.Equals("\n") || c.Equals("\b"))
             {
-                countColoumn = 0;
+                countColumn = 0;
                 countLine++; 
                 return true;
             }
