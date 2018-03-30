@@ -38,6 +38,7 @@ namespace myExtension
             readText = new StreamReader(entrada);
             SymbolTable ST = new SymbolTable();
             Token aux;
+            char AuxChar;
 
             int currentState = 1;                               //Nosso estado inicial é o 1
             int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
@@ -163,7 +164,7 @@ namespace myExtension
                                 completeWord.Append((char)readText.Read());
                             }
 
-                                break;
+                            break;
 
                         case 2:
 
@@ -181,9 +182,9 @@ namespace myExtension
 
                         case 3:         //ACHOU ID
 
-                            aux = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString() , countLine, countColumn);     //Verifica se já tem esse lexema na ST. Se tiver, retorna ele. Se não tiver, adiciona e retorna ele.
+                            aux = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString() , countLine, countColumn);     
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));               //PRINTA!
-                                
+
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
@@ -193,19 +194,35 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_OBC, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual         
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 5:         //ACHOU }
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_CBC, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 6:
+                            readText.Read();
+                            countColumn++;
+                            AuxChar = (char)readText.Peek();
+
+                                if (AuxChar.Equals("="))
+                                {
+                                    currentState = 7;
+                                }
+                                else
+                                {
+                                    currentState = 8;
+                                }
 
                             break;
 
@@ -213,8 +230,10 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_EQ, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 8:         //ACHOU =
@@ -223,6 +242,7 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 9:
@@ -233,11 +253,25 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_NE, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 11:
+                            readText.Read();
+                            countColumn++;
+                            AuxChar = (char)readText.Peek();
+
+                                if (AuxChar.Equals("="))
+                                {
+                                    currentState = 12;
+                                }
+                                else
+                                {
+                                    currentState = 13;
+                                }
 
                             break;
 
@@ -245,8 +279,10 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_GE, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 13:        //ACHOU >
@@ -258,6 +294,18 @@ namespace myExtension
                             break;
 
                         case 14:
+                            readText.Read();
+                            countColumn++;
+                            AuxChar = (char)readText.Peek();
+
+                                if (AuxChar.Equals("="))
+                                {
+                                    currentState = 15;
+                                }
+                                else
+                                {
+                                    currentState = 16;
+                                }
 
                             break;
 
@@ -265,8 +313,10 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_LE, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 16:        //ACHOU <
@@ -281,56 +331,70 @@ namespace myExtension
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_AD, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 18:        //ACHOU -
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_MIN, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 19:        //ACHOU *
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_MUL, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 20:        //ACHOU (
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_OPA, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 21:        //ACHOU )
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_CPA, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 22:        //ACHOU ,
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_COM, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 23:        //ACHOU ;
                             aux = ST.isLexemaOnSymbolTable(Tag.SMB_SEM, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
 
+                            readText.Read();        //Consome o caracter atual
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            countColumn++;
                             break;
 
                         case 24:
@@ -340,7 +404,7 @@ namespace myExtension
                         case 25:        //ACHOU /  (SIMBOLO DIVISÃO)
                             aux = ST.isLexemaOnSymbolTable(Tag.OP_DIV, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(aux.ToString() + currentLineAndColumn(countLine, countColumn));
-
+                            
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;

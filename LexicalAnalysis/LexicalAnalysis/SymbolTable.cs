@@ -54,10 +54,10 @@ namespace LexicalAnalysis
 
             #endregion
         }
-        
+
 
         /// <summary>
-        /// Verifica se possui aquele lexema na tabela de símbolo. Se não tiver, adiciona na Tabela de Simbolos
+        /// Verifica se já tem esse lexema na Tabela de símbolos. Se tiver, retorna ele. Se não tiver, adiciona e retorna ele.
         /// </summary>
         /// <param name="tag">O tipo do lexema encontrado</param>
         /// <param name="completeWord">A StringBiulder construida </param>
