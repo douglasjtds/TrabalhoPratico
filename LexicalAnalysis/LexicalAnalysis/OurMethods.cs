@@ -33,7 +33,7 @@ namespace myExtension
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
-
+            int END_OF_FILE = -1;
             entrada = File.Open(codePath, FileMode.Open);
             readText = new StreamReader(entrada);
             SymbolTable ST = new SymbolTable();
@@ -293,7 +293,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 14:
+                        case 14:            // ACHOU < 
                             readText.Read();
                             countColumn++;
                             AuxChar = (char)readText.Peek();
