@@ -1,7 +1,7 @@
 program ErrorCase1 {
-	if (< > >= <= = == != + - * / { } when ){
-	
-	} else (while write read num char not or and )
 
-	num_const	char_const
+//
+//kkk
+!*		//Erro aqui
+
 } kkkk newVariavlel0  

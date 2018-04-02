@@ -1,3 +1,7 @@
 program ErrorCase3{
+	if (< > >= <= = == != + - * / { } when ){
 	
-}
+	} else (while write read num char not or and )
+
+	num_const	char_const	
+} OurCompiler
