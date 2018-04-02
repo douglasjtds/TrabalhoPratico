@@ -65,5 +65,15 @@ namespace LexicalAnalysis
             string CodePath = OurMethods.lerArquivo("SuccessCase3.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
+
+        private void arquivoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void novoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

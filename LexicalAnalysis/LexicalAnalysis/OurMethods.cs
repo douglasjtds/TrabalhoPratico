@@ -163,6 +163,10 @@ namespace myExtension
                                 currentState = 24;
                                 completeWord.Append((char)readText.Read());
                             }
+                            else
+                            {
+                                flagError(completeWord.ToString(), countLine, countColumn);
+                            }
 
                             break;
 
@@ -392,6 +396,21 @@ namespace myExtension
                             break;
 
                         case 24:
+                            countColumn++;
+                            AuxChar = (char)readText.Peek();
+                            if (AuxChar.Equals('/'))
+                            {
+                                currentState = 28;
+                            }
+                            else if (AuxChar.Equals('*'))
+                            {
+                                currentState = 26;
+                                readText.Read();
+                            }
+                            else
+                            {
+                                currentState = 25;
+                            }
 
                             break;
 
@@ -404,7 +423,7 @@ namespace myExtension
                             break;
 
                         case 26:
-
+                            //regra de comentário de múltiplas linhas
                             break;
 
                         case 27:
@@ -412,7 +431,10 @@ namespace myExtension
                             break;
 
                         case 28:        //ACHOU //  (COMENTARIO)
-
+                            readText.ReadLine();
+                            countLine++;
+                            completeWord.Clear();
+                            currentState = 1;
                             break;
 
                         case 29:        
@@ -497,9 +519,9 @@ namespace myExtension
         /// <summary>
         /// Método para sinalizar um erro e o lugar onde ele foi encontrado
         /// </summary>
-        public static string flagError(int line, int column)
+        public static string flagError(string lexema, int line, int column)
         {
-            return "Erro encontrado na " + currentLineAndColumn(line, column);
+            return "Caracter " + lexema + "inesperado na " + currentLineAndColumn(line, column);
         }
     }
 }
