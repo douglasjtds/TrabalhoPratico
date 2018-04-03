@@ -75,5 +75,15 @@ namespace LexicalAnalysis
         {
 
         }
+
+        private void autoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Criadores: " + "\n" + "Douglas Tertuliano" + "\n" + "Matheus Pires");
+        }
+
+        private void gitHubToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://www.github.com/douglasjtds/TrabalhoPraticoCompiladores");
+        }
     }
 }
