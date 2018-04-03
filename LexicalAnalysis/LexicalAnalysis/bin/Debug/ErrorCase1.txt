@@ -2,6 +2,6 @@ program ErrorCase1 {
 
 //
 //kkk
-!*		//Erro aqui
+!*		//Erro aqui na interrogação
 
 } kkkk newVariavlel0  
