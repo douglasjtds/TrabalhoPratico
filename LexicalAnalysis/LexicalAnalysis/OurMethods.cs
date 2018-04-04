@@ -496,10 +496,19 @@ namespace myExtension
 
                         case 28:        //ACHOU //  (COMENTARIO)
                             readText.ReadLine();
-                            countLine++;
-                            countColumn = 1;
-                            completeWord.Clear();
-                            currentState = 1;
+
+                            if (currentCharacter.Equals('\r') || currentCharacter.Equals('\n'))
+                            {
+                                countLine++;
+                                countColumn = 0;
+                                currentState = 1;
+                                completeWord.Clear();
+                            }
+
+                            //readText.ReadLine();
+                            //countLine++;
+                            //countColumn = 1;
+                            //currentState = 1;
                             break;
 
                         case 29:
@@ -592,21 +601,6 @@ namespace myExtension
             }
         }
 
-
-        /// <summary>
-        /// Método que verifica se o proximo caracter é uma quebra de linha 
-        /// </summary>
-        /// <param name="c">Caracter atual que foi lido pelo arquivo</param>
-        /// <returns>True se o caracter atual for quebra de linha</returns>
-        public static bool isLineBreak(char currentCharacter, int countColumn, int countLine)
-        {
-            if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t'))
-            {
-                return true;
-            }
-
-            return false;
-        }
 
 
         /// <summary>
