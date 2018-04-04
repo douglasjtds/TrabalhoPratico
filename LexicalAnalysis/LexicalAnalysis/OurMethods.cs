@@ -102,6 +102,12 @@ namespace myExtension
                                 currentState = 2;
                                 completeWord.Append((char)readText.Read());    //Consome o caracter que somente foi lido pelo .Peek() e já adiciona no StringBiulder
                             }
+                            else if (char.IsDigit(currentCharacter))
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                currentState = 31;
+                            }
                             else if (currentCharacter.Equals('{'))
                             {
                                 countColumn++;
@@ -503,6 +509,12 @@ namespace myExtension
                                 completeWord.Append((char)readText.Read());
                                 currentState = 30;
                             }
+                            else
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                //faltou a opção se vier outro
+                            }
 
                             break;
 
@@ -516,11 +528,56 @@ namespace myExtension
 
                             break;
 
+                        case 31:
+                            //pode vir outro dígito ou '.'
+                            if (char.IsDigit(currentCharacter))
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                //e o que mais?
+                            }
+                            else if (currentCharacter.Equals('.'))
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                currentState = 32;
+                            }
+                            else
+                            {
+                                //flagError();
+                            }
+
+                            break;
+
+                        case 32:   //digito ou outro
+                            if (char.IsDigit(currentCharacter))
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                //e o que mais?
+                            }
+                            else
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                currentState = 33;
+                            }
+
+                            break;
+
+                        case 33:
+
+                            break;
+
+                        case 34:
+
+                            break;
+
                         default:
 
                             //if (char.IsWhiteSpace(currentCharacter))
                             //    completeWord.Clear();
-                            flagError(completeWord.ToString(), countLine, countColumn);    // fiquei na dúvida se dá esse completoWord aqui   --------------------?????????
+                            flagError(completeWord.ToString(), countLine, countColumn);    // fiquei na dúvida se dá esse completeWord aqui   --------------------?????????
 
                             break;
 
