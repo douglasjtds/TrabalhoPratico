@@ -1,6 +1,5 @@
-program ErrorCase1 {
-
-//
+m
+//fghgggfhdf
 //kkk
 !*		//Erro aqui na interrogação
 

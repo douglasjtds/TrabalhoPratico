@@ -54,10 +54,10 @@ namespace myExtension
                     // avança caractere
                     try
                     {
-                        lookahead = readText.Peek();              //Pega o proximo caracter sem comsumir ele
+                        lookahead = readText.Peek();                //Pega o proximo caracter sem comsumir ele
                         if (lookahead != END_OF_FILE)
                         {
-                            currentCharacter = (char)lookahead;
+                            currentCharacter = (char)lookahead;     //Se não for o final do arquivo, a variável recebe o próximo caracter
                         }
                     }
                     catch (IOException e)
@@ -74,28 +74,31 @@ namespace myExtension
                             {
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.EOF, completeWord.ToString(), countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
-
                             }
-                            else if (isLineBreak(currentCharacter, countColumn, countLine))
-                            {
-                                if (char.IsWhiteSpace(currentCharacter))
+                                else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
                                 {
-                                    countColumn++;
+                                    if (currentCharacter.Equals('\n'))
+                                    {
+                                        countColumn = 1;
+                                        countLine++;
+                                        readText.Read();
+                                    }
+                                    else if (currentCharacter.Equals('\r'))
+                                    {
+                                        readText.Read();
+                                    }
+                                    else if (currentCharacter.Equals('\t'))
+                                    {
+                                        countColumn = +3;
+                                        completeWord.Clear();
+                                        readText.Read();
+                                    }
+                                    else if (char.IsWhiteSpace(currentCharacter))
+                                    {
+                                        countColumn++;
+                                        readText.Read();
+                                    }
                                 }
-                                else if (currentCharacter.Equals('\n'))
-                                {
-                                    countColumn = 1;
-                                    countLine++;
-
-                                }
-                                else if (currentCharacter.Equals('\t'))
-                                {
-                                    countColumn = +3;
-                                    completeWord.Clear();
-                                }
-
-                            }
-
                             else if (char.IsLetter(currentCharacter))
                             {
                                 countColumn++;
@@ -209,7 +212,6 @@ namespace myExtension
 
                             if (char.IsLetterOrDigit(currentCharacter))
                             {
-                                //currentState = 2; //não precisa pq ele já está no estado 2
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
                             }
@@ -444,7 +446,6 @@ namespace myExtension
                                 currentState = 26;
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
-                                //tem que fazer mais coisa aqui?
                             }
                             else
                             {
@@ -496,6 +497,7 @@ namespace myExtension
                         case 28:        //ACHOU //  (COMENTARIO)
                             readText.ReadLine();
                             countLine++;
+                            countColumn = 1;
                             completeWord.Clear();
                             currentState = 1;
                             break;
@@ -585,7 +587,7 @@ namespace myExtension
                     }
                 } while (true);
 
-                CloseFile(entrada, readText);
+                OurMethods.CloseFile(entrada, readText);
 
             }
         }
@@ -604,29 +606,6 @@ namespace myExtension
             }
 
             return false;
-        }
-
-
-        /// <summary>
-        /// Método para verificar se o estado atual é um estado final. Caso for, printa qual foi o token encontrado
-        /// </summary>
-        /// <param name="currentState">Inteiro que representa o estado atual</param>
-        public static void isFinalState(int currentState, int currentLine, int currentColumn)
-        {
-            if (currentState == 3 || currentState == 4 ||
-               currentState == 5 || currentState == 7 ||
-               currentState == 8 || currentState == 10 ||
-               currentState == 12 || currentState == 13 ||
-               currentState == 15 || currentState == 16 ||
-               currentState == 17 || currentState == 18 ||
-               currentState == 19 || currentState == 20 ||
-               currentState == 21 || currentState == 22 ||
-               currentState == 23 || currentState == 25)
-            {
-                //returnToken();                                    //Método que está dentro da classe Token e vai printar o token encontrado
-                currentLineAndColumn(currentLine, currentColumn);   //Printa aonde esse token foi encontrado
-                currentState = 1;                                   //Retorna para o estado inicial
-            }
         }
 
 
