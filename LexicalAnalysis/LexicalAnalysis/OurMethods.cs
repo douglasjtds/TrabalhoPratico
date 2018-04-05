@@ -50,8 +50,6 @@ namespace myExtension
             {
                 do
                 {
-
-                    // avança caractere
                     try
                     {
                         lookahead = readText.Peek();                //Pega o proximo caracter sem comsumir ele
@@ -74,6 +72,7 @@ namespace myExtension
                             {
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.EOF, completeWord.ToString(), countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                return;
                             }
                                 else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
                                 {
@@ -201,9 +200,22 @@ namespace myExtension
                                 currentState = 29;
                                 completeWord.Append((char)readText.Read());
                             }
-                            else
+                            else if (char.IsDigit((currentCharacter)))
                             {
-                                flagError(completeWord.ToString(), countLine, countColumn);
+                                countColumn++;
+                                currentState = 31;
+                                completeWord.Append((int)readText.Read());
+
+                            } else if (currentCharacter == '\'')
+                            {
+                                countColumn++;
+                                currentState = 35;  
+                                completeWord.Append((char)readText.Read());
+                            } else
+                            {
+                                completeWord.Append((char)readText.Read());         countColumn++;
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
                             }
 
                             break;
@@ -225,7 +237,7 @@ namespace myExtension
                         case 3:         //ACHOU ID
 
                             auxToken = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString(), countLine, countColumn);
-                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));               //PRINTA!
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));               
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
@@ -237,7 +249,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 5:         //ACHOU }
@@ -246,7 +257,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 6:
@@ -271,7 +281,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 8:         //ACHOU =
@@ -280,7 +289,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 9:
@@ -294,7 +302,9 @@ namespace myExtension
                             }
                             else
                             {
-                                flagError(completeWord.ToString(), countLine, countColumn);
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                currentState = 1;
                             }
                             break;
 
@@ -328,7 +338,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 13:        //ACHOU >
@@ -361,7 +370,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 16:        //ACHOU <
@@ -378,7 +386,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 18:        //ACHOU -
@@ -387,7 +394,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 19:        //ACHOU *
@@ -396,7 +402,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 20:        //ACHOU (
@@ -405,7 +410,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 21:        //ACHOU )
@@ -414,7 +418,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 22:        //ACHOU ,
@@ -423,7 +426,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 23:        //ACHOU ;
@@ -432,7 +434,6 @@ namespace myExtension
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-                            countColumn++;
                             break;
 
                         case 24:
@@ -445,7 +446,7 @@ namespace myExtension
                             {
                                 currentState = 26;
                                 countColumn++;
-                                completeWord.Append((char)readText.Read());
+                                completeWord.Append((char)readText.Read());     //Salvando comentário pra nada mesmo
                             }
                             else
                             {
@@ -462,8 +463,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 26:
-                            //regra de comentário de múltiplas linhas
+                        case 26:        //Regra de comentário de múltiplas linhas
                             AuxChar = (char)readText.Peek();
                             if (AuxChar.Equals('*'))
                             {
@@ -484,6 +484,7 @@ namespace myExtension
                             {
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
+                                completeWord.Clear();
                                 currentState = 1;
                             }
                             else
@@ -495,20 +496,17 @@ namespace myExtension
                             break;
 
                         case 28:        //ACHOU //  (COMENTARIO)
-                            readText.ReadLine();
 
-                            if (currentCharacter.Equals('\r') || currentCharacter.Equals('\n'))
+                            do
                             {
-                                countLine++;
-                                countColumn = 0;
-                                currentState = 1;
-                                completeWord.Clear();
-                            }
+                                AuxChar = (char)readText.Read();
+                            } while (AuxChar != '\n');
 
-                            //readText.ReadLine();
-                            //countLine++;
-                            //countColumn = 1;
-                            //currentState = 1;
+                            countLine++;
+                            countColumn = 1;
+                            currentState = 1;
+                            completeWord.Clear();
+
                             break;
 
                         case 29:
@@ -519,20 +517,33 @@ namespace myExtension
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
                                 currentState = 30;
-                            }
-                            else
+                            } else if (AuxChar.Equals('\n'))
                             {
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                readText.Read();
+                                countLine++;
+                                currentState = 1;
+                            }
+                            else { 
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
-                                //faltou a opção se vier outro
                             }
 
                             break;
 
                         case 30:        //ACHOU "" (STRING)
-
-                            auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
-                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                            if(completeWord.ToString().Length == 2)     //Diz o Gustavo que se criar uma string "" tem que dar erro. Mas se eu só tiver viajando, é só tirar esse if e deixar só o que tá dentro do else
+                            {
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                currentState = 1;
+                            }
+                            else
+                            {
+                                auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
+                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                            }
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
@@ -540,14 +551,14 @@ namespace myExtension
                             break;
 
                         case 31:
-                            //pode vir outro dígito ou '.'
-                            if (char.IsDigit(currentCharacter))
+                            AuxChar = (char)readText.Peek();
+
+                            if (char.IsDigit(AuxChar))
                             {
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
-                                //e o que mais?
                             }
-                            else if (currentCharacter.Equals('.'))
+                            else if (AuxChar.Equals('.'))
                             {
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
@@ -555,17 +566,18 @@ namespace myExtension
                             }
                             else
                             {
-                                //flagError();
+                                currentState = 34;
                             }
 
                             break;
 
-                        case 32:   //digito ou outro
-                            if (char.IsDigit(currentCharacter))
+                        case 32:
+                            AuxChar = (char)readText.Peek();
+
+                            if (char.IsDigit(AuxChar))
                             {
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
-                                //e o que mais?
                             }
                             else
                             {
@@ -576,19 +588,77 @@ namespace myExtension
 
                             break;
 
-                        case 33:
+                        case 33:        //ACHOU FLOAT
+
+                            auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                            currentState = 1;       //Reseta a execução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
 
                             break;
 
-                        case 34:
+                        case 34:        //ACHOU INT
 
+                            auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                            currentState = 1;       //Reseta a execução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+
+                            break;
+
+                        case 35:
+                            AuxChar = (char)readText.Peek();
+
+                            if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
+                            {
+                                completeWord.Append((char)readText.Read());     countColumn++;
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                currentState = 1;
+                            }
+                            else
+                            {
+                                completeWord.Append((char)(readText.Read()));       //Simplesmente pega o proximo caracter
+                                countColumn++;
+
+                                currentState = 36;
+                            }
+
+                            break;
+
+                        case 36:
+                            AuxChar = (char)readText.Peek();
+
+                            if (AuxChar.Equals('\''))
+                            {
+                                completeWord.Append((char)readText.Read()); countColumn++;
+                                currentState = 37;
+                            }
+                            else
+                            {
+                                completeWord.Append((char)readText.Read()); countColumn++;
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                currentState = 1;
+                            }
+
+                            break;
+
+                        case 37:
+                            auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                            currentState = 1;       //Reseta a execução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
                         default:
 
                             //if (char.IsWhiteSpace(currentCharacter))
                             //    completeWord.Clear();
-                            flagError(completeWord.ToString(), countLine, countColumn);    // fiquei na dúvida se dá esse completeWord aqui   --------------------?????????
+                            MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
 
                             break;
 
@@ -596,9 +666,10 @@ namespace myExtension
                     }
                 } while (true);
 
-                OurMethods.CloseFile(entrada, readText);
-
             }
+
+            CloseFile(entrada, readText);
+
         }
 
 
@@ -620,7 +691,7 @@ namespace myExtension
         /// </summary>
         public static string flagError(string lexema, int line, int column)
         {
-            return "Caracter " + lexema + "inesperado na " + currentLineAndColumn(line, column);
+            return "Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column);
         }
 
 
@@ -628,8 +699,8 @@ namespace myExtension
         {
             try
             {
-                readText.Close();
-                entrada.Close();
+                readText.Dispose();
+                entrada.Dispose();
             }
             catch (IOException errorFile)
             {
