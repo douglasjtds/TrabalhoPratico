@@ -6,6 +6,9 @@ using LexicalAnalysis;
 
 namespace myExtension
 {
+    /// <summary>
+    /// Classe que contém todos os métodos utilizados durante a execução do programa
+    /// </summary>
     public class OurMethods
     {
 
@@ -28,7 +31,6 @@ namespace myExtension
         /// <param name="codePath"></param>
         /// <param name="readText"></param>
         /// <param name="entrada"></param>
-        /// <param name="completeWord"></param>
         /// <returns>Void</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
@@ -550,7 +552,7 @@ namespace myExtension
 
                             break;
 
-                        case 31:
+                        case 31:        //ACHOU DIGITO
                             AuxChar = (char)readText.Peek();
 
                             if (char.IsDigit(AuxChar))
@@ -608,7 +610,7 @@ namespace myExtension
 
                             break;
 
-                        case 35:
+                        case 35:        //ACHOU ASPAS SIMPLES
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
@@ -695,6 +697,11 @@ namespace myExtension
         }
 
 
+        /// <summary>
+        /// Método usado para fechar o arquivo após a leitura
+        /// </summary>
+        /// <param name="entrada"></param>
+        /// <param name="readText"></param>
         public static void CloseFile(Stream entrada, StreamReader readText)
         {
             try

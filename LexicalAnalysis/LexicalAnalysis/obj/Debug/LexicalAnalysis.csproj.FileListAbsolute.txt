@@ -62,3 +62,4 @@ C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compil
 C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.TelaInicial.resources
 C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.Properties.Resources.resources
 C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.csproj.GenerateResource.Cache
+C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalDocumentation.XML

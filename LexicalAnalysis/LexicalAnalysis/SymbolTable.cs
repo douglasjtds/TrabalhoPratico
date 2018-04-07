@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace LexicalAnalysis
 {
+    /// <summary>
+    /// Classe que contem as funcionalidades para a Tabela de Símbolos
+    /// </summary>
     public class SymbolTable
     {
         public static Dictionary<Token, string> ST;
@@ -77,6 +80,14 @@ namespace LexicalAnalysis
             Token NovoToken = new Token(tag, completeWord, countLine, countColumn);
             ST.Add(NovoToken, completeWord);                                            //Se sair do foreach e não achar nenhum outro ID na TS, insere na tabela um novo símbolo
             return NovoToken;    
+        }
+
+        public String showSymbolTable()
+        {
+            foreach (Token token in ST.Keys)
+            {
+                //TO-DO: terminar implementacao utilizar o metodo pra printar no componente da interface 
+            }
         }
 
     }
