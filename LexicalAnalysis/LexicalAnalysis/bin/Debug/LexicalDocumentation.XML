@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LexicalAnalysis</name>
+    </assembly>
+    <members>
+        <member name="T:myExtension.OurMethods">
+            <summary>
+            Classe que contém todos os métodos utilizados durante a execução do programa
+            </summary>
+        </member>
+        <member name="M:myExtension.OurMethods.lerArquivo(System.String,System.IO.Stream,System.IO.StreamReader)">
+            <summary>
+            Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
+            </summary>
+            <param name="nomeArquivo">string com o nome do arquivo que será lido</param>
+            <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
+            <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
+        </member>
+        <member name="M:myExtension.OurMethods.performsAutomaton(System.String,System.IO.Stream,System.IO.StreamReader)">
+            <summary>
+            Método utilizado para executar o autômato analisará o lexico da linguagem PasC
+            </summary>
+            <param name="codePath"></param>
+            <param name="readText"></param>
+            <param name="entrada"></param>
+            <returns>Void</returns>
+            <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
+        </member>
+        <member name="M:myExtension.OurMethods.currentLineAndColumn(System.Int32,System.Int32)">
+            <summary>
+            Método para sinalizar um erro e o lugar onde ele foi encontrado
+            </summary>
+            <param name="column">Representa a coluna atual que o leitor está</param>
+            <param name="line">Representa a linha atual que o leitor está</param>
+            <returns>Retorna a posição atual da linha e da coluna</returns>
+        </member>
+        <member name="M:myExtension.OurMethods.flagError(System.String,System.Int32,System.Int32)">
+            <summary>
+            Método para sinalizar um erro e o lugar onde ele foi encontrado
+            </summary>
+        </member>
+        <member name="M:myExtension.OurMethods.CloseFile(System.IO.Stream,System.IO.StreamReader)">
+            <summary>
+            Método usado para fechar o arquivo após a leitura
+            </summary>
+            <param name="entrada"></param>
+            <param name="readText"></param>
+        </member>
+        <member name="T:LexicalAnalysis.SymbolTable">
+            <summary>
+            Classe que contem as funcionalidades para a Tabela de Símbolos
+            </summary>
+        </member>
+        <member name="M:LexicalAnalysis.SymbolTable.isLexemaOnSymbolTable(LexicalAnalysis.Tag,System.String,System.Int32,System.Int32)">
+            <summary>
+            Verifica se já tem esse lexema na Tabela de símbolos. Se tiver, retorna ele. Se não tiver, adiciona e retorna ele.
+            </summary>
+            <param name="tag">O tipo do lexema encontrado</param>
+            <param name="completeWord">A StringBiulder construida </param>
+            <param name="countColumn">Posição atual da coluna</param>
+            <param name="countLine">Posição atual da linha</param>
+            <returns></returns>
+        </member>
+        <member name="F:LexicalAnalysis.Tag.EOF">
+            <summary>
+            Fim do arquivo
+            </summary>
+        </member>
+        <member name="F:LexicalAnalysis.Tag.KW">
+            <summary>
+            Palavra chave
+            </summary>
+        </member>
+        <member name="F:LexicalAnalysis.Tag.ID">
+            <summary>
+            Identificador
+            </summary>
+        </member>
+        <member name="F:LexicalAnalysis.Tag.LIT">
+            <summary>
+            Literal
+            </summary>
+        </member>
+        <member name="F:LexicalAnalysis.TelaInicial.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:LexicalAnalysis.TelaInicial.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:LexicalAnalysis.TelaInicial.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:LexicalAnalysis.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:LexicalAnalysis.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:LexicalAnalysis.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:LexicalAnalysis.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

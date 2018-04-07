@@ -90,8 +90,7 @@ namespace myExtension
                                     }
                                     else if (currentCharacter.Equals('\t'))
                                     {
-                                        countColumn = +3;
-                                        completeWord.Clear();
+                                        countColumn = countColumn + 3;
                                         readText.Read();
                                     }
                                     else if (char.IsWhiteSpace(currentCharacter))
@@ -438,7 +437,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 24:
+                        case 24:        //ACHOU / (SIMBOLO DIVISAO)
                             AuxChar = (char)readText.Peek();
                             if (AuxChar.Equals('/'))
                             {
@@ -472,6 +471,11 @@ namespace myExtension
                                 currentState = 27;
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
+                            } else if (AuxChar.Equals('\n'))
+                            {
+                                readText.Read();
+                                countLine++;
+                                countColumn = 1;
                             }
                             else
                             {
@@ -511,7 +515,7 @@ namespace myExtension
 
                             break;
 
-                        case 29:
+                        case 29:        //ACHOU "
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('"'))
@@ -525,9 +529,9 @@ namespace myExtension
                                 completeWord.Clear();
                                 readText.Read();
                                 countLine++;
+                                countColumn = 1;
                                 currentState = 1;
-                            }
-                            else { 
+                            } else { 
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
                             }
@@ -573,7 +577,7 @@ namespace myExtension
 
                             break;
 
-                        case 32:
+                        case 32:        //ACHOU .
                             AuxChar = (char)readText.Peek();
 
                             if (char.IsDigit(AuxChar))

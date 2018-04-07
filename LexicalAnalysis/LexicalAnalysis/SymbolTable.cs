@@ -88,6 +88,7 @@ namespace LexicalAnalysis
             {
                 //TO-DO: terminar implementacao utilizar o metodo pra printar no componente da interface 
             }
+            return "aff";
         }
 
     }

@@ -1,13 +1,10 @@
-					@
-
- kkk 
-
-33			//deboas
-
-33.3		//deboas
-	
+						@  //Dei 6 tabs aqui
+					\n
+				33		//deboas DEPOIS DAQUI BUGOU A CONTAGEM DE COLUNA
+			33.3		//deboas
+		Compiler	
+	GGWP
 33..3		//erro
-
 33.			//erro
 
 ""
@@ -21,3 +18,5 @@ kkk
 !*		//Erro aqui na exclamação
 
 } kkkk */ newVariavlel0  
+//kk	ouxi	//Se deixar o final assim ele buga! WAAAAAAAAT
+//fim k f j		//Se deixar o final assim ele buga! WAAAAAAAAT
