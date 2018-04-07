@@ -465,8 +465,8 @@
 		</note>&#13;
 		<note>&#13;
 			<text>&lt; OP_ASS, = &gt;</text>&#13;
-			<x>648.0</x>&#13;
-			<y>841.0</y>&#13;
+			<x>640.0</x>&#13;
+			<y>838.0</y>&#13;
 		</note>&#13;
 		<note>&#13;
 			<text>&lt; OP_NE, != &gt;</text>&#13;
@@ -475,7 +475,7 @@
 		</note>&#13;
 		<note>&#13;
 			<text>&lt; OP_GT, &gt; &gt; </text>&#13;
-			<x>128.0</x>&#13;
+			<x>119.0</x>&#13;
 			<y>774.0</y>&#13;
 		</note>&#13;
 		<note>&#13;
@@ -530,8 +530,8 @@
 		</note>&#13;
 		<note>&#13;
 			<text>&lt; OP_DIV, / &gt;</text>&#13;
-			<x>1103.0</x>&#13;
-			<y>44.0</y>&#13;
+			<x>1101.0</x>&#13;
+			<y>43.0</y>&#13;
 		</note>&#13;
 		<note>&#13;
 			<text>// comentário</text>&#13;
@@ -545,8 +545,8 @@
 		</note>&#13;
 		<note>&#13;
 			<text>&lt;CON_NUM, num_const&gt;</text>&#13;
-			<x>1497.0</x>&#13;
-			<y>468.0</y>&#13;
+			<x>1492.0</x>&#13;
+			<y>475.0</y>&#13;
 		</note>&#13;
 		<note>&#13;
 			<text>&lt;LIT, literal&gt;</text>&#13;
@@ -555,8 +555,19 @@
 		</note>&#13;
 		<note>&#13;
 			<text> &lt;CON_CHAR, char_const&gt;</text>&#13;
-			<x>1260.0</x>&#13;
-			<y>710.0</y>&#13;
+			<x>1253.0</x>&#13;
+			<y>704.0</y>&#13;
+		</note>&#13;
+		<note>&#13;
+			<text>Douglas Tertuliano
+e Matheus Pires</text>&#13;
+			<x>1612.0</x>&#13;
+			<y>823.0</y>&#13;
+		</note>&#13;
+		<note>&#13;
+			<text/>&#13;
+			<x>134.0</x>&#13;
+			<y>335.0</y>&#13;
 		</note>&#13;
 	</automaton>&#13;
 </structure>

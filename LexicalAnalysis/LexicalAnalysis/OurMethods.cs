@@ -210,7 +210,7 @@ namespace myExtension
                             } else if (currentCharacter == '\'')
                             {
                                 countColumn++;
-                                currentState = 35;  
+                                currentState = 36;  
                                 completeWord.Append((char)readText.Read());
                             } else
                             {
@@ -505,8 +505,9 @@ namespace myExtension
 
                             do
                             {
+                                lookahead = readText.Peek();
                                 AuxChar = (char)readText.Read();
-                            } while (AuxChar != '\n');
+                            } while (AuxChar != '\n' || lookahead == END_OF_FILE); 
 
                             countLine++;
                             countColumn = 1;
@@ -556,7 +557,7 @@ namespace myExtension
 
                             break;
 
-                        case 31:        //ACHOU DIGITO
+                        case 31:       //ACHOU DIGITO
                             AuxChar = (char)readText.Peek();
 
                             if (char.IsDigit(AuxChar))
@@ -572,7 +573,7 @@ namespace myExtension
                             }
                             else
                             {
-                                currentState = 34;
+                                currentState = 35;
                             }
 
                             break;
@@ -584,18 +585,51 @@ namespace myExtension
                             {
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
+                                currentState = 33;
                             }
                             else
                             {
-                                countColumn++;
-                                completeWord.Append((char)readText.Read());
-                                currentState = 33;
+                                flagError(completeWord.ToString(), countLine, countColumn);
                             }
 
                             break;
 
                         case 33:        //ACHOU FLOAT
 
+                            AuxChar = (char)readText.Peek();
+
+                            if (char.IsDigit(AuxChar))
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                            }
+                            else
+                            {
+                                countColumn++;
+                                completeWord.Append((char)readText.Read());
+                                currentState = 34;
+                            }
+
+                            break;
+
+                        case 34:   // ACHOU UM FLOAT (estado final)    
+
+                            auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                            currentState = 1;       //Reseta a execução do automato
+                            completeWord.Clear();   //Reseta a StringBiulder
+
+
+                            //auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
+                            //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                            //currentState = 1;       //Reseta a execução do automato
+                            //completeWord.Clear();   //Reseta a StringBiulder
+
+                            break;
+
+                        case 35:         //ACHOU INT (estado final)
                             auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
@@ -604,22 +638,13 @@ namespace myExtension
 
                             break;
 
-                        case 34:        //ACHOU INT
+                        case 36:  //ACHOU ASPAS SIMPLES
 
-                            auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
-                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
-
-                            currentState = 1;       //Reseta a execução do automato
-                            completeWord.Clear();   //Reseta a StringBiulder
-
-                            break;
-
-                        case 35:        //ACHOU ASPAS SIMPLES
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
                             {
-                                completeWord.Append((char)readText.Read());     countColumn++;
+                                completeWord.Append((char)readText.Read()); countColumn++;
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
                                 completeWord.Clear();
                                 currentState = 1;
@@ -634,7 +659,7 @@ namespace myExtension
 
                             break;
 
-                        case 36:
+                        case 37:
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('\''))
@@ -652,7 +677,8 @@ namespace myExtension
 
                             break;
 
-                        case 37:
+                        case 38:
+
                             auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 

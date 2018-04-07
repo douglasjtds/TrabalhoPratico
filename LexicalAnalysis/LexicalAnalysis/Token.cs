@@ -1,6 +1,9 @@
 ﻿using System;
 using LexicalAnalysis;
 
+/// <summary>
+/// Classe para as regras do Token
+/// </summary>
 public class Token
 {
 
