@@ -35,6 +35,7 @@ namespace myExtension
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
+
             const int END_OF_FILE = -1;
             int lookahead = 0;
             entrada = File.Open(codePath, FileMode.Open);
@@ -55,14 +56,12 @@ namespace myExtension
                     try
                     {
                         lookahead = readText.Peek();                //Pega o proximo caracter sem comsumir ele
-                        if (lookahead != END_OF_FILE)
-                        {
-                            currentCharacter = (char)lookahead;     //Se não for o final do arquivo, a variável recebe o próximo caracter
-                        }
+                        currentCharacter = (char)lookahead;         //Se não for o final do arquivo, a variável recebe o próximo caracter
                     }
                     catch (IOException e)
                     {
                         Console.WriteLine("Erro na leitura do arquivo. Mensagem: " + e);
+                        return;
                     }
 
                     switch (currentState)
@@ -72,8 +71,11 @@ namespace myExtension
 
                             if (lookahead == END_OF_FILE)
                             {
-                                auxToken = ST.isLexemaOnSymbolTable(Tag.EOF, completeWord.ToString(), countLine, countColumn);
+                                completeWord.Append((char)readText.Read());
+                                auxToken = ST.isLexemaOnSymbolTable(Tag.EOF, "END_OF_FILE", countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+
+                                CloseFile(entrada, readText);
                                 return;
                             }
                                 else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
@@ -464,9 +466,16 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 26:        //Regra de comentário de múltiplas linhas
+                        case 26:        //Entrou na regra de comentário de múltiplas linhas
                             AuxChar = (char)readText.Peek();
-                            if (AuxChar.Equals('*'))
+                            lookahead = readText.Peek();
+
+                            if (lookahead == -1)
+                            {
+                                MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "- O comentário de múltipla linha não foi fechado.");
+                                currentState = 1;
+                            }
+                            else if (AuxChar.Equals('*'))
                             {
                                 currentState = 27;
                                 completeWord.Append((char)readText.Read());
@@ -484,9 +493,16 @@ namespace myExtension
                             }
                             break;
 
-                        case 27:
+                        case 27:    
                             AuxChar = (char)readText.Peek();
-                            if (AuxChar.Equals('/'))
+                            lookahead = readText.Peek();
+
+                            if (lookahead == -1)
+                            {
+                                MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+                                currentState = 1;
+                            }
+                            else if (AuxChar.Equals('/'))
                             {
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
@@ -506,8 +522,16 @@ namespace myExtension
                             do
                             {
                                 lookahead = readText.Peek();
+
+                                if (lookahead == -1)
+                                {
+                                    //currentState = 1;
+                                    break;
+                                }
+
                                 AuxChar = (char)readText.Read();
-                            } while (AuxChar != '\n' || lookahead == END_OF_FILE); 
+
+                            } while (AuxChar != '\n'); 
 
                             countLine++;
                             countColumn = 1;
@@ -589,7 +613,10 @@ namespace myExtension
                             }
                             else
                             {
-                                flagError(completeWord.ToString(), countLine, countColumn);
+                                //completeWord.Append((char)readText.Read());
+                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                completeWord.Clear();
+                                currentState = 1;
                             }
 
                             break;
@@ -613,19 +640,11 @@ namespace myExtension
                             break;
 
                         case 34:   // ACHOU UM FLOAT (estado final)    
-
                             auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
                             MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
-
-
-                            //auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
-                            //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
-
-                            //currentState = 1;       //Reseta a execução do automato
-                            //completeWord.Clear();   //Reseta a StringBiulder
 
                             break;
 
@@ -698,9 +717,9 @@ namespace myExtension
                     }
                 } while (true);
 
-            }
+                //CloseFile(entrada, readText);
 
-            CloseFile(entrada, readText);
+            }
 
         }
 
@@ -714,7 +733,7 @@ namespace myExtension
         /// <returns>Retorna a posição atual da linha e da coluna</returns>
         public static string currentLineAndColumn(int line, int column)
         {
-            return " Linha " + line + ", Coluna " + column;
+            return " Linha " + line + ", Coluna  " + column;
         }
 
 
@@ -736,8 +755,8 @@ namespace myExtension
         {
             try
             {
-                readText.Dispose();
-                entrada.Dispose();
+                readText.Close();
+                entrada.Close();
             }
             catch (IOException errorFile)
             {

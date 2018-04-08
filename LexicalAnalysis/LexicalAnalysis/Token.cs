@@ -52,7 +52,7 @@ public class Token
     }
 
     /// <summary>
-    /// Construtor do atributo Coluna
+    /// Get/Set do atributo Coluna
     /// </summary>
     public int Coluna
     {
@@ -67,6 +67,13 @@ public class Token
         }
     }
 
+    /// <summary>
+    /// Construtor da classe Token 
+    /// </summary>
+    /// <param name="classe">Tag que define o lexema</param>
+    /// <param name="lexema">Lexema formado ao ler o algoritmo PasC</param>
+    /// <param name="linha">Linha que o token foi encontrado</param>
+    /// <param name="coluna">Coluna que o token foi encontrado</param>
     public Token(Tag classe, String lexema, int linha, int coluna)
     {
         this.Classe = classe;
@@ -75,7 +82,10 @@ public class Token
         this.Coluna = coluna;
     }
 
-    
+    /// <summary>
+    /// Método de print da classe Token
+    /// </summary>
+    /// <returns></returns>
     public override String ToString()
     {
         return "<" + Classe + ", \"" + Lexema + "\">";

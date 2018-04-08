@@ -127,8 +127,23 @@
         </member>
         <member name="P:Token.Coluna">
             <summary>
-            Construtor do atributo Coluna
+            Get/Set do atributo Coluna
             </summary>
+        </member>
+        <member name="M:Token.#ctor(LexicalAnalysis.Tag,System.String,System.Int32,System.Int32)">
+            <summary>
+            Construtor da classe Token 
+            </summary>
+            <param name="classe">Tag que define o lexema</param>
+            <param name="lexema">Lexema formado ao ler o algoritmo PasC</param>
+            <param name="linha">Linha que o token foi encontrado</param>
+            <param name="coluna">Coluna que o token foi encontrado</param>
+        </member>
+        <member name="M:Token.ToString">
+            <summary>
+            Método de print da classe Token
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

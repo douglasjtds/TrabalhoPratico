@@ -1,15 +1,11 @@
-						@  //Dei 6 tabs aqui
-					\n
-				33		//deboas DEPOIS DAQUI BUGOU A CONTAGEM DE COLUNA
-			33.3		//deboas
-		Compiler	
-	GGWP
+33			//ok
+33.3		//ok
 33..3		//erro
 33.			//erro
 
 ""
 
-" coeeees 
+"coeeees
 
 ""
 
