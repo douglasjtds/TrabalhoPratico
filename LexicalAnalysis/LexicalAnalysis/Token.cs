@@ -51,6 +51,9 @@ public class Token
         }
     }
 
+    /// <summary>
+    /// Construtor do atributo Coluna
+    /// </summary>
     public int Coluna
     {
         get

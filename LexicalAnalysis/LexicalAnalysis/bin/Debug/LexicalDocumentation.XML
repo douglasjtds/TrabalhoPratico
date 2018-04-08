@@ -120,5 +120,15 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="T:Token">
+            <summary>
+            Classe para as regras do Token
+            </summary>
+        </member>
+        <member name="P:Token.Coluna">
+            <summary>
+            Construtor do atributo Coluna
+            </summary>
+        </member>
     </members>
 </doc>

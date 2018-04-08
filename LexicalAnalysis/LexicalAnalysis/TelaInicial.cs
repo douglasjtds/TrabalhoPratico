@@ -91,13 +91,28 @@ namespace LexicalAnalysis
             if (textBox1.Text.Equals("Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt"))
             {
                 textBox1.Text = "";
-            }       
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
             CodePath = textBox1.Text;
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+        }
+
+        private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            //openFileDialog1.InitialDirectory = @"C:\Users\Douglas Tertuliano\Desktop";
+            openFileDialog1.Title = "Arquivo do programa em PasC para ser executado:";
+            openFileDialog1.DefaultExt = "txt";
+            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                
+            }
+
+
         }
     }
 }

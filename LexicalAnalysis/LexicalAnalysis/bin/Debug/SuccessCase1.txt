@@ -1,3 +1,5 @@
 program SuccessCase1{
-	
+	if(true){
+		//do something
+	}
 }
