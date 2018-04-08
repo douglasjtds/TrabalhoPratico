@@ -1,5 +1,9 @@
-program SuccessCase1{
-	if(true){
-		//do something
-	}
-}
+/*
+
+kk ouxi
+fim k
+
+
+*/
+
+teste !/

@@ -139,7 +139,6 @@ namespace myExtension
                                 countColumn++;
                                 currentState = 9;
                                 CharPanicMode = currentCharacter;
-                                //completeWord.Append((char)readText.Read());
                                 readText.Read();
                             }
                             else if (currentCharacter.Equals('>'))
@@ -267,7 +266,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 6:
+                        case 6:        //ACHOU UM =
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('='))
@@ -301,8 +300,15 @@ namespace myExtension
 
                         case 9:         //ACHOU !
                             AuxChar = (char)readText.Peek();
+                            lookahead = readText.Peek();
 
-                            if (AuxChar.Equals('='))
+                            if (lookahead == -1)
+                            {
+                                MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + " Fim do arquivo antes de encontar um =");
+                                readText.Read();
+                                currentState = 1;
+                            }
+                            else if (AuxChar.Equals('='))
                             {
                                 completeWord.Append(CharPanicMode);
                                 completeWord.Append((char)readText.Read());
@@ -329,7 +335,7 @@ namespace myExtension
                         case 11:
                             AuxChar = (char)readText.Peek();
 
-                            if (AuxChar.Equals('='))
+                             if (AuxChar.Equals('='))
                             {
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
@@ -557,12 +563,13 @@ namespace myExtension
                                 currentState = 30;
                             } else if (AuxChar.Equals('\n'))
                             {
-                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                StringPanicMode = completeWord.ToString();
+                                MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
                                 completeWord.Clear();
                                 readText.Read();
                                 countLine++;
                                 countColumn = 1;
-                                currentState = 1;
+                                //currentState = 1;
                             } else { 
                                 countColumn++;
                                 completeWord.Append((char)readText.Read());
