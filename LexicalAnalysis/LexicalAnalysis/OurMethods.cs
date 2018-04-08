@@ -43,6 +43,8 @@ namespace myExtension
             SymbolTable ST = new SymbolTable();
             Token auxToken;
             char AuxChar;
+            string StringPanicMode = "";
+            char CharPanicMode = 'a';
 
             int currentState = 1;                               //Nosso estado inicial é o 1
             int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
@@ -53,6 +55,7 @@ namespace myExtension
             {
                 do
                 {
+
                     try
                     {
                         lookahead = readText.Peek();                //Pega o proximo caracter sem comsumir ele
@@ -135,7 +138,9 @@ namespace myExtension
                             {
                                 countColumn++;
                                 currentState = 9;
-                                completeWord.Append((char)readText.Read());
+                                CharPanicMode = currentCharacter;
+                                //completeWord.Append((char)readText.Read());
+                                readText.Read();
                             }
                             else if (currentCharacter.Equals('>'))
                             {
@@ -294,20 +299,22 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
                             break;
 
-                        case 9:
+                        case 9:         //ACHOU !
                             AuxChar = (char)readText.Peek();
 
                             if (AuxChar.Equals('='))
                             {
+                                completeWord.Append(CharPanicMode);
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
                                 currentState = 10;
                             }
                             else
                             {
-                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "- Era esperado um =");
+                                readText.Read();
                                 completeWord.Clear();
-                                currentState = 1;
+                                //currentState = 1;
                             }
                             break;
 
@@ -733,7 +740,7 @@ namespace myExtension
         /// <returns>Retorna a posição atual da linha e da coluna</returns>
         public static string currentLineAndColumn(int line, int column)
         {
-            return " Linha " + line + ", Coluna  " + column;
+            return " Linha: " + line + ", Coluna: " + column;
         }
 
 
@@ -742,7 +749,7 @@ namespace myExtension
         /// </summary>
         public static string flagError(string lexema, int line, int column)
         {
-            return "Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column);
+            return "Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column) + " ";
         }
 
 

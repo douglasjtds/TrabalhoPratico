@@ -1,3 +1,42 @@
-k
 /*
-kkk
+//Estados para implementar o modo pânico
+
+//Estado 9: Da ! deve executar até vir um =										(OK!)
+
+! KKKJ ==a !=
+
+*/
+
+//Estado 29: De uma " deve executar até achar uma " que fecha					(NOT YET)
+
+"KKJ"
+"KK
+
+()
+
+"
+
+//Estado 36: De um ' deve executar até vir uma ' que fecha						(NOT YET)
+
+'A'
+
+'MA HOEE
+;
+'
+
+//Estado 32: De um ponto final, deve executar até vir outro dígito				(NOT YET)
+
+33
+33.3
+
+33..
+
+naoéprapegarissoaqui
+
+3
+
+//Estado 27: Executar até achar o final do comentario de multiplas linhas		(OK!)
+
+Jafunciona
+
+/*
