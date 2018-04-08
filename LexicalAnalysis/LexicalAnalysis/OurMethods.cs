@@ -45,6 +45,7 @@ namespace myExtension
             char AuxChar;
             string StringPanicMode = "";
             char CharPanicMode = 'a';
+            bool StringError = false;
 
             int currentState = 1;                               //Nosso estado inicial é o 1
             int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
@@ -81,29 +82,29 @@ namespace myExtension
                                 CloseFile(entrada, readText);
                                 return;
                             }
-                                else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
+                            else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
+                            {
+                                if (currentCharacter.Equals('\n'))
                                 {
-                                    if (currentCharacter.Equals('\n'))
-                                    {
-                                        countColumn = 1;
-                                        countLine++;
-                                        readText.Read();
-                                    }
-                                    else if (currentCharacter.Equals('\r'))
-                                    {
-                                        readText.Read();
-                                    }
-                                    else if (currentCharacter.Equals('\t'))
-                                    {
-                                        countColumn = countColumn + 3;
-                                        readText.Read();
-                                    }
-                                    else if (char.IsWhiteSpace(currentCharacter))
-                                    {
-                                        countColumn++;
-                                        readText.Read();
-                                    }
+                                    countColumn = 1;
+                                    countLine++;
+                                    readText.Read();
                                 }
+                                else if (currentCharacter.Equals('\r'))
+                                {
+                                    readText.Read();
+                                }
+                                else if (currentCharacter.Equals('\t'))
+                                {
+                                    countColumn = countColumn + 3;
+                                    readText.Read();
+                                }
+                                else if (char.IsWhiteSpace(currentCharacter))
+                                {
+                                    countColumn++;
+                                    readText.Read();
+                                }
+                            }
                             else if (char.IsLetter(currentCharacter))
                             {
                                 countColumn++;
@@ -216,11 +217,11 @@ namespace myExtension
                             } else if (currentCharacter == '\'')
                             {
                                 countColumn++;
-                                currentState = 36;  
+                                currentState = 36;
                                 completeWord.Append((char)readText.Read());
                             } else
                             {
-                                completeWord.Append((char)readText.Read());         countColumn++;
+                                completeWord.Append((char)readText.Read()); countColumn++;
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
                                 completeWord.Clear();
                             }
@@ -244,7 +245,7 @@ namespace myExtension
                         case 3:         //ACHOU ID
 
                             auxToken = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString(), countLine, countColumn);
-                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));               
+                            MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
@@ -304,7 +305,7 @@ namespace myExtension
 
                             if (lookahead == -1)
                             {
-                                MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + " Fim do arquivo antes de encontar um =");
+                                MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um =");
                                 readText.Read();
                                 currentState = 1;
                             }
@@ -317,7 +318,7 @@ namespace myExtension
                             }
                             else
                             {
-                                MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "- Era esperado um =");
+                                MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
                                 readText.Read();
                                 completeWord.Clear();
                                 //currentState = 1;
@@ -335,7 +336,7 @@ namespace myExtension
                         case 11:
                             AuxChar = (char)readText.Peek();
 
-                             if (AuxChar.Equals('='))
+                            if (AuxChar.Equals('='))
                             {
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
@@ -485,7 +486,7 @@ namespace myExtension
 
                             if (lookahead == -1)
                             {
-                                MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "- O comentário de múltipla linha não foi fechado.");
+                                MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
                                 currentState = 1;
                             }
                             else if (AuxChar.Equals('*'))
@@ -506,7 +507,7 @@ namespace myExtension
                             }
                             break;
 
-                        case 27:    
+                        case 27:
                             AuxChar = (char)readText.Peek();
                             lookahead = readText.Peek();
 
@@ -544,7 +545,7 @@ namespace myExtension
 
                                 AuxChar = (char)readText.Read();
 
-                            } while (AuxChar != '\n'); 
+                            } while (AuxChar != '\n');
 
                             countLine++;
                             countColumn = 1;
@@ -555,24 +556,67 @@ namespace myExtension
 
                         case 29:        //ACHOU "
                             AuxChar = (char)readText.Peek();
+                            lookahead = readText.Peek();
 
-                            if (AuxChar.Equals('"'))
+                            if (StringError == false)
                             {
-                                countColumn++;
-                                completeWord.Append((char)readText.Read());
-                                currentState = 30;
-                            } else if (AuxChar.Equals('\n'))
+                                if (lookahead == -1)
+                                {
+                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                    currentState = 1;
+                                }
+                                else if (AuxChar.Equals('"'))
+                                {
+                                    countColumn++;
+                                    completeWord.Append((char)readText.Read());
+                                    currentState = 30;
+                                }
+                                else if (AuxChar.Equals('\n'))
+                                {
+                                    StringPanicMode = completeWord.ToString();
+                                    MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                    completeWord.Clear();
+                                    readText.Read();
+                                    countLine++;
+                                    countColumn = 1;
+                                    StringError = true;
+                                }
+                                else
+                                {
+                                    countColumn++;
+                                    completeWord.Append((char)readText.Read());
+                                    StringPanicMode = completeWord.ToString();
+                                }
+                            }
+                            else
                             {
-                                StringPanicMode = completeWord.ToString();
-                                MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
                                 completeWord.Clear();
-                                readText.Read();
-                                countLine++;
-                                countColumn = 1;
-                                //currentState = 1;
-                            } else { 
-                                countColumn++;
-                                completeWord.Append((char)readText.Read());
+
+                                if (lookahead == -1)
+                                {
+                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                    currentState = 1;
+                                }
+                                else if (AuxChar.Equals('"'))
+                                {
+                                    countColumn++;
+                                    completeWord.Append((char)readText.Read());
+                                    currentState = 30;
+                                }
+                                else if (AuxChar.Equals('\n'))
+                                {
+                                    MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                    completeWord.Clear();
+                                    readText.Read();
+                                    countLine++;
+                                    countColumn = 1;
+                                }
+                                else
+                                {
+                                    countColumn++;
+                                    completeWord.Append((char)readText.Read());
+                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn) + "Era esperado uma aspas");
+                                }
                             }
 
                             break;
@@ -586,12 +630,13 @@ namespace myExtension
                             }
                             else
                             {
-                                auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
+                                auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, StringPanicMode, countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
                             }
 
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
+                            StringError = false;
 
                             break;
 

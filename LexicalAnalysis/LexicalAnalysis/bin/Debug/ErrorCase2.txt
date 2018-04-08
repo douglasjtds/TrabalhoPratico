@@ -7,7 +7,7 @@
 
 */
 
-//Estado 29: De uma " deve executar até achar uma " que fecha					(NOT YET)
+//Estado 29: De uma " deve executar até achar uma " que fecha					(QUASE OK!)
 
 "KKJ"
 "KK
@@ -31,12 +31,12 @@
 
 33..
 
-naoéprapegarissoaqui
+ISSOAQUIÉUMERRO
 
 3
 
 //Estado 27: Executar até achar o final do comentario de multiplas linhas		(OK!)
 
-Jafunciona
+Jaestafunciona
 
 /*
