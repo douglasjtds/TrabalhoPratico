@@ -9,11 +9,13 @@
             Classe que contém todos os métodos utilizados durante a execução do programa
             </summary>
         </member>
-        <member name="M:myExtension.OurMethods.lerArquivo(System.String,System.IO.Stream,System.IO.StreamReader)">
+        <member name="M:myExtension.OurMethods.readFile(System.String,System.IO.Stream,System.IO.StreamReader)">
             <summary>
             Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
             </summary>
             <param name="nomeArquivo">string com o nome do arquivo que será lido</param>
+            <param name="entrada">recebe a entrada do arquivo</param>
+            <param name="readText">recebe o conteúdo do arquivo</param>
             <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
             <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
         </member>

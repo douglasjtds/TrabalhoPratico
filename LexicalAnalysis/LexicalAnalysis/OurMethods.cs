@@ -16,9 +16,11 @@ namespace myExtension
         /// Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
         /// </summary>
         /// <param name="nomeArquivo">string com o nome do arquivo que será lido</param>
+        /// <param name="entrada">recebe a entrada do arquivo</param>
+        /// <param name="readText">recebe o conteúdo do arquivo</param>
         /// <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
         /// <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
-        public static string lerArquivo(String nomeArquivo, Stream entrada, StreamReader readText)
+        public static string readFile(String nomeArquivo, Stream entrada, StreamReader readText)
         {
             string codePath = Path.Combine(@Environment.CurrentDirectory, nomeArquivo);
             return codePath;
@@ -207,6 +209,7 @@ namespace myExtension
                                 countColumn++;
                                 currentState = 29;
                                 completeWord.Append((char)readText.Read());
+                                StringError = false;
                             }
                             else if (char.IsDigit((currentCharacter)))
                             {
@@ -219,6 +222,7 @@ namespace myExtension
                                 countColumn++;
                                 currentState = 36;
                                 completeWord.Append((char)readText.Read());
+                                StringError = false;
                             } else
                             {
                                 completeWord.Append((char)readText.Read()); countColumn++;
@@ -554,7 +558,7 @@ namespace myExtension
 
                             break;
 
-                        case 29:        //ACHOU "
+                        case 29:        //ACHOU " 
                             AuxChar = (char)readText.Peek();
                             lookahead = readText.Peek();
 
@@ -621,7 +625,7 @@ namespace myExtension
 
                             break;
 
-                        case 30:        //ACHOU "" (STRING)
+                        case 30:        //ACHOU "" (STRING) 
                             if(completeWord.ToString().Length == 2)     //Diz o Gustavo que se criar uma string "" tem que dar erro. Mas se eu só tiver viajando, é só tirar esse if e deixar só o que tá dentro do else
                             {
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
@@ -717,22 +721,70 @@ namespace myExtension
                             break;
 
                         case 36:  //ACHOU ASPAS SIMPLES
-
                             AuxChar = (char)readText.Peek();
+                            lookahead = readText.Peek();
 
-                            if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
+                            if (StringError == false)
                             {
-                                completeWord.Append((char)readText.Read()); countColumn++;
-                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
-                                completeWord.Clear();
-                                currentState = 1;
+                                if (lookahead == -1)
+                                {
+                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas. ");
+                                    currentState = 1;
+                                }
+                                else if (AuxChar.Equals('\n'))
+                                {
+                                    MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                    StringPanicMode = completeWord.ToString();
+                                    completeWord.Clear();
+                                    readText.Read();
+                                    countLine++;
+                                    countColumn = 1;
+                                    StringError = true;
+                                }
+                                else if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
+                                {
+                                    completeWord.Append((char)readText.Read()); countColumn++;
+                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  -  Foi encontrado um Char vazio. ");
+                                    completeWord.Clear();
+                                    currentState = 1;
+                                }
+                                else
+                                {
+                                    completeWord.Append((char)(readText.Read()));       //Simplesmente pega o proximo caracter
+                                    countColumn++;
+
+                                    currentState = 37;
+                                }
+
                             }
                             else
                             {
-                                completeWord.Append((char)(readText.Read()));       //Simplesmente pega o proximo caracter
-                                countColumn++;
-
-                                currentState = 36;
+                                if (lookahead == -1)
+                                {
+                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                    currentState = 1;
+                                }
+                                else if (AuxChar.Equals('\n'))
+                                {
+                                    MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                    completeWord.Clear();
+                                    readText.Read();
+                                    countLine++;
+                                    countColumn = 1;
+                                }
+                                else if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
+                                {
+                                    completeWord.Append((char)readText.Read()); countColumn++;
+                                    MessageBox.Show("Erro na " +  currentLineAndColumn(countLine, countColumn) + " - Um Char deve ser construído todo na mesma linha. ");
+                                    completeWord.Clear();
+                                    currentState = 1;
+                                }
+                                else
+                                {
+                                    countColumn++;
+                                    completeWord.Append((char)readText.Read());
+                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn) + " -  Era esperado uma aspas");
+                                }
                             }
 
                             break;
@@ -742,12 +794,12 @@ namespace myExtension
 
                             if (AuxChar.Equals('\''))
                             {
-                                completeWord.Append((char)readText.Read()); countColumn++;
-                                currentState = 37;
+                                completeWord.Append((char)readText.Read());     countColumn++;
+                                currentState = 38;
                             }
                             else
                             {
-                                completeWord.Append((char)readText.Read()); countColumn++;
+                                completeWord.Append((char)readText.Read());     countColumn++;
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
                                 completeWord.Clear();
                                 currentState = 1;

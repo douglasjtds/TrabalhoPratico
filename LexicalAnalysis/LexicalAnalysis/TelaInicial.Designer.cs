@@ -40,8 +40,6 @@
             this.arquivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.novoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.abrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exibirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabelaDeSímbolosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sobreToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.autoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gitHubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,7 +148,6 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.arquivoToolStripMenuItem,
-            this.exibirToolStripMenuItem,
             this.sobreToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -172,30 +169,16 @@
             // novoToolStripMenuItem
             // 
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
-            // 
-            // exibirToolStripMenuItem
-            // 
-            this.exibirToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tabelaDeSímbolosToolStripMenuItem});
-            this.exibirToolStripMenuItem.Name = "exibirToolStripMenuItem";
-            this.exibirToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-            this.exibirToolStripMenuItem.Text = "Exibir";
-            // 
-            // tabelaDeSímbolosToolStripMenuItem
-            // 
-            this.tabelaDeSímbolosToolStripMenuItem.Name = "tabelaDeSímbolosToolStripMenuItem";
-            this.tabelaDeSímbolosToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
-            this.tabelaDeSímbolosToolStripMenuItem.Text = "Tabela de Símbolos";
             // 
             // sobreToolStripMenuItem
             // 
@@ -209,14 +192,14 @@
             // autoresToolStripMenuItem
             // 
             this.autoresToolStripMenuItem.Name = "autoresToolStripMenuItem";
-            this.autoresToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.autoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.autoresToolStripMenuItem.Text = "Autores";
             this.autoresToolStripMenuItem.Click += new System.EventHandler(this.autoresToolStripMenuItem_Click);
             // 
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
@@ -300,8 +283,6 @@
         private System.Windows.Forms.ToolStripMenuItem arquivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sobreToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem novoToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exibirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem tabelaDeSímbolosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autoresToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem abrirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gitHubToolStripMenuItem;

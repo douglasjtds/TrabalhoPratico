@@ -32,37 +32,37 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("ErrorCase1.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase1.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("ErrorCase2.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase2.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("ErrorCase3.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase3.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("SuccessCase1.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase1.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("SuccessCase2.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase2.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.lerArquivo("SuccessCase3.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase3.txt", Entrada, ReadText);
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 

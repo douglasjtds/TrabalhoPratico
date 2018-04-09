@@ -7,6 +7,7 @@
 
 */
 
+/*
 //Estado 29: De uma " deve executar até achar uma " que fecha					(QUASE OK!)
 
 "KKJ"
@@ -15,14 +16,17 @@
 ()
 
 "
+*/
 
 //Estado 36: De um ' deve executar até vir uma ' que fecha						(NOT YET)
 
-'A'
-
-'MA HOEE
-;
+'a'
 '
+''
+'MA HOEE
+aa
+'
+';'
 
 //Estado 32: De um ponto final, deve executar até vir outro dígito				(NOT YET)
 
