@@ -109,7 +109,9 @@ namespace LexicalAnalysis
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                
+                var fileName = openFileDialog1.FileName;
+                CodePath = fileName;  //textBox1.Text;
+                OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
             }
 
 
