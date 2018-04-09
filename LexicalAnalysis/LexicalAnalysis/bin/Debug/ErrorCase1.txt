@@ -1,18 +1,10 @@
-33			//ok
-33.3		//ok
-33..3		//erro
-33.			//erro
+""		//ERRO
 
-""
+"COMPILADORESSSSSS
 
-"coeeees
-
-""
-
-kkk
+""		//ERRO
 
 !*		//Erro aqui na exclamação
 
-} kkkk */ newVariavlel0  
-//kk	ouxi	//Se deixar o final assim ele buga! WAAAAAAAAT
-//fim k f j		//Se deixar o final assim ele buga! WAAAAAAAAT
+} */ newVariavlel0  
+//fim

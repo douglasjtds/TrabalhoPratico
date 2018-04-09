@@ -1,3 +1,11 @@
-program SuccessCase3{
+program ErrorCase3{
+	if (< > >= <= = == != + - * / { } when ){
 	
-}
+	} else (while write read num char not or and )
+	'A'
+	"Compiladores"
+
+	33
+	33.3
+	numconst	charconst	
+} OurCompiler

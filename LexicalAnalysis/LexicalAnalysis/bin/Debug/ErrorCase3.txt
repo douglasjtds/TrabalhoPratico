@@ -1,7 +1,8 @@
-program ErrorCase3{
-	if (< > >= <= = == != + - * / { } when ){
-	
-	} else (while write read num char not or and )
+/*		//abrir um comentario aqui
 
-	num_const	char_const	
-} OurCompiler
+ola
+oi
+ei
+alo
+
+//erro por nao fechar o comentario

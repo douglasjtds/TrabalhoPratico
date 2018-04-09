@@ -1,3 +1,11 @@
-program SuccessCase2{
+program ErrorCase3{
+	if (< > >= <= = == != + - * / { } when ){
 	
-}
+	} else (while write read num char not or and )
+	'B'
+	"Compiler"
+	numconst	charconst	
+
+	16546
+	615616.484
+} OurCompiler
