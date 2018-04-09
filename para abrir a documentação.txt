@@ -1,2 +1,3 @@
-- Vá na pasta htmlDocumentation e procure pelo arquivo: index.html
+- Vá no arquivo htmlDocumentation.rar e descompacte-o
+- Abra a pasta html e procure pelo arquivo: index.html
 - Abra-o com o navegador de sua preferência.
