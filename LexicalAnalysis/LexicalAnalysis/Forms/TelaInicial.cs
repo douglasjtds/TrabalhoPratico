@@ -14,9 +14,10 @@ namespace LexicalAnalysis
 {
     public partial class TelaInicial : Form
     {
-        public string CodePath;                 //String que contem o caminho do arquivo
-        public Stream Entrada;                  //Stream de abertura do arquivo
-        public StreamReader ReadText;           //StreamReader de leitura do arquivo
+        string CodePath;                 //String que contem o caminho do arquivo
+        Stream Entrada;                  //Stream de abertura do arquivo
+        StreamReader ReadText;           //StreamReader de leitura do arquivo
+        Token aux;
 
         public TelaInicial()
         {

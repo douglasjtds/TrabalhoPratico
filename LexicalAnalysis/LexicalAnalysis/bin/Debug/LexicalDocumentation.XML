@@ -9,7 +9,7 @@
             Classe que contém todos os métodos utilizados durante a execução do programa
             </summary>
         </member>
-        <member name="M:myExtension.OurMethods.readFile(System.String,System.IO.Stream,System.IO.StreamReader)">
+        <member name="M:myExtension.OurMethods.readFile(System.String)">
             <summary>
             Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
             </summary>
@@ -48,6 +48,23 @@
             </summary>
             <param name="entrada"></param>
             <param name="readText"></param>
+        </member>
+        <member name="F:LexicalAnalysis.SeeTokens.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:LexicalAnalysis.SeeTokens.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:LexicalAnalysis.SeeTokens.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
         </member>
         <member name="T:LexicalAnalysis.SymbolTable">
             <summary>

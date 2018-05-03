@@ -840,9 +840,6 @@ namespace myExtension
                                 break;
 
                             default:
-
-                                //if (char.IsWhiteSpace(currentCharacter))
-                                //    completeWord.Clear();
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
 
                                 break;
@@ -857,7 +854,6 @@ namespace myExtension
             {
                 MessageBox.Show("Caminho informado inválido");
             }
-
         }
 
 
