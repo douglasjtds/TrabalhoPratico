@@ -169,14 +169,14 @@
             // novoToolStripMenuItem
             // 
             this.novoToolStripMenuItem.Name = "novoToolStripMenuItem";
-            this.novoToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.novoToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.novoToolStripMenuItem.Text = "Novo";
             this.novoToolStripMenuItem.Click += new System.EventHandler(this.novoToolStripMenuItem_Click);
             // 
             // abrirToolStripMenuItem
             // 
             this.abrirToolStripMenuItem.Name = "abrirToolStripMenuItem";
-            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.abrirToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.abrirToolStripMenuItem.Text = "Abrir";
             this.abrirToolStripMenuItem.Click += new System.EventHandler(this.abrirToolStripMenuItem_Click);
             // 
@@ -192,14 +192,14 @@
             // autoresToolStripMenuItem
             // 
             this.autoresToolStripMenuItem.Name = "autoresToolStripMenuItem";
-            this.autoresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autoresToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.autoresToolStripMenuItem.Text = "Autores";
             this.autoresToolStripMenuItem.Click += new System.EventHandler(this.autoresToolStripMenuItem_Click);
             // 
             // gitHubToolStripMenuItem
             // 
             this.gitHubToolStripMenuItem.Name = "gitHubToolStripMenuItem";
-            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gitHubToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
             this.gitHubToolStripMenuItem.Text = "GitHub";
             this.gitHubToolStripMenuItem.Click += new System.EventHandler(this.gitHubToolStripMenuItem_Click);
             // 
@@ -213,6 +213,7 @@
             this.textBox1.TabIndex = 9;
             this.textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
             this.textBox1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.textBox1_MouseClick);
+            this.textBox1.ModifiedChanged += new System.EventHandler(this.textBox1_ModifiedChanged);
             // 
             // textInsiraCaminho
             // 
@@ -259,9 +260,10 @@
             this.MaximumSize = new System.Drawing.Size(616, 470);
             this.MinimumSize = new System.Drawing.Size(616, 470);
             this.Name = "TelaInicial";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Tela Inicial";
             this.Load += new System.EventHandler(this.TelaInicial_Load);
+            this.Click += new System.EventHandler(this.TelaInicial_Click);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);

@@ -20,7 +20,6 @@ namespace LexicalAnalysis
 
         public TelaInicial()
         {
-
             InitializeComponent();
         }
 
@@ -32,37 +31,37 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("ErrorCase1.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase1.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("ErrorCase2.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase2.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("ErrorCase3.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("ErrorCase3.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("SuccessCase1.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase1.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("SuccessCase2.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase2.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            CodePath = OurMethods.readFile("SuccessCase3.txt", Entrada, ReadText);
+            CodePath = OurMethods.readFile("SuccessCase3.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
         }
 
@@ -89,9 +88,13 @@ namespace LexicalAnalysis
         private void textBox1_MouseClick(object sender, MouseEventArgs e)
         {
             if (textBox1.Text.Equals("Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt"))
-            {
                 textBox1.Text = "";
-            }
+            
+        }
+
+        private void textBox1_LostFocus(object sender, EventArgs e)
+        {
+            textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -107,14 +110,23 @@ namespace LexicalAnalysis
             openFileDialog1.Title = "Arquivo do programa em PasC para ser executado:";
             openFileDialog1.DefaultExt = "txt";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var fileName = openFileDialog1.FileName;
                 CodePath = fileName;  //textBox1.Text;
                 OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
             }
+        }
 
+        private void textBox1_ModifiedChanged(object sender, EventArgs e)
+        {
+            textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
+        }
 
+        private void TelaInicial_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
         }
     }
 }
