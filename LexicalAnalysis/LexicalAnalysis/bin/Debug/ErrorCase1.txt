@@ -1,11 +1,12 @@
-"Compiler
-a
-"
+"as
+3
+tt +
+Compiler"
 
 3
 .
 
-33.  k
+33.  k	
 3
 3
 

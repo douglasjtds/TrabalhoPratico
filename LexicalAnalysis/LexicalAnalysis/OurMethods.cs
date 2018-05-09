@@ -48,7 +48,7 @@ namespace myExtension
                 SymbolTable ST = new SymbolTable();
                 Token auxToken;
                 char AuxChar;
-                string StringPanicMode = "";
+                StringBuilder StringPanicMode = new StringBuilder();
                 char CharPanicMode = 'a';
                 bool PanicError = false;
 
@@ -595,12 +595,13 @@ namespace myExtension
                                     {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
+                                        StringPanicMode.Append(completeWord.ToString());
                                         currentState = 30;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        StringPanicMode = completeWord.ToString();
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+                                        StringPanicMode.Append(completeWord.ToString());
+                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas"); 
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
@@ -611,12 +612,11 @@ namespace myExtension
                                     {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
-                                        StringPanicMode = completeWord.ToString();
                                     }
                                 }
                                 else
                                 {
-                                    completeWord.Clear();
+                                    //completeWord.Clear();
 
                                     if (lookahead == -1)
                                     {
@@ -626,23 +626,27 @@ namespace myExtension
                                     else if (AuxChar.Equals('"'))
                                     {
                                         countColumn++;
-                                        completeWord.Append(StringPanicMode);
                                         completeWord.Append((char)readText.Read());
+                                        StringPanicMode.Append(completeWord.ToString());
                                         currentState = 30;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
-                                        completeWord.Clear();
+                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+                                        //completeWord.Clear();
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
                                     }
-                                    else
+                                    else if (AuxChar.Equals('\r') || AuxChar.Equals(' ') || AuxChar.Equals('\t'))
                                     {
+                                        //completeWord.Clear();
+                                        readText.Read();
+                                    }
+                                    else {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
-                                        MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn) + "Era esperado uma aspas");
+                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "Era esperado uma aspas");
                                     }
                                 }
 
@@ -658,13 +662,13 @@ namespace myExtension
                                 }
                                 else
                                 {
-                                    auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, StringPanicMode, countLine, countColumn);
+                                    auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, StringPanicMode.ToString(), countLine, countColumn);
                                     MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
                                 }
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
-                                StringPanicMode = "";
+                                StringPanicMode.Clear();
                                 PanicError = false;
 
                                 break;
@@ -698,12 +702,12 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero ");
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        StringPanicMode = completeWord.ToString();
+                                        StringPanicMode.Append(completeWord.ToString());
                                         MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado encontrar um numero");
                                         completeWord.Clear();
                                         readText.Read();
@@ -712,12 +716,18 @@ namespace myExtension
                                         PanicError = true;
 
                                     }
+                                    else if (AuxChar.Equals('\r'))
+                                    {
+                                        completeWord.Clear();
+                                        readText.Read();
+                                    }
                                     else if (char.IsDigit(AuxChar))
                                     {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
                                         currentState = 33;
                                     }
+
                                     else
                                     {
                                         //completeWord.Append((char)readText.Read());
@@ -783,7 +793,7 @@ namespace myExtension
                                     else if (AuxChar.Equals('\n'))
                                     {
                                         MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
-                                        StringPanicMode = completeWord.ToString();
+                                        StringPanicMode.Append(completeWord.ToString());
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
@@ -925,4 +935,3 @@ namespace myExtension
 
     }
 }
-
