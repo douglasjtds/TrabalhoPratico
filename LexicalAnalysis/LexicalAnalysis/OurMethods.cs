@@ -50,7 +50,7 @@ namespace myExtension
                 char AuxChar;
                 string StringPanicMode = "";
                 char CharPanicMode = 'a';
-                bool StringError = false;
+                bool PanicError = false;
 
                 int currentState = 1;                               //Nosso estado inicial é o 1
                 int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
@@ -211,7 +211,7 @@ namespace myExtension
                                     countColumn++;
                                     currentState = 29;
                                     completeWord.Append((char)readText.Read());
-                                    StringError = false;
+                                    PanicError = false;
                                 }
                                 else if (char.IsDigit((currentCharacter)))
                                 {
@@ -224,7 +224,7 @@ namespace myExtension
                                     countColumn++;
                                     currentState = 36;
                                     completeWord.Append((char)readText.Read());
-                                    StringError = false;
+                                    PanicError = false;
                                 } else
                                 {
                                     completeWord.Append((char)readText.Read()); countColumn++;
@@ -584,7 +584,7 @@ namespace myExtension
                                 AuxChar = (char)readText.Peek();
                                 lookahead = readText.Peek();
 
-                                if (StringError == false)
+                                if (PanicError == false)
                                 {
                                     if (lookahead == -1)
                                     {
@@ -600,12 +600,12 @@ namespace myExtension
                                     else if (AuxChar.Equals('\n'))
                                     {
                                         StringPanicMode = completeWord.ToString();
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
-                                        StringError = true;
+                                        PanicError = true;
                                     }
                                     else
                                     {
@@ -626,6 +626,7 @@ namespace myExtension
                                     else if (AuxChar.Equals('"'))
                                     {
                                         countColumn++;
+                                        completeWord.Append(StringPanicMode);
                                         completeWord.Append((char)readText.Read());
                                         currentState = 30;
                                     }
@@ -648,7 +649,8 @@ namespace myExtension
                                 break;
 
                             case 30:        //ACHOU "" (STRING) 
-                                if(completeWord.ToString().Length == 2)     //Diz o Gustavo que se criar uma string "" tem que dar erro. Mas se eu só tiver viajando, é só tirar esse if e deixar só o que tá dentro do else
+
+                                if (completeWord.ToString().Length == 2)     //Diz o Gustavo que se criar uma string "" tem que dar erro. Mas se eu só tiver viajando, é só tirar esse if e deixar só o que tá dentro do else
                                 {
                                     MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
                                     completeWord.Clear();
@@ -662,7 +664,8 @@ namespace myExtension
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
-                                StringError = false;
+                                StringPanicMode = "";
+                                PanicError = false;
 
                                 break;
 
@@ -689,20 +692,44 @@ namespace myExtension
 
                             case 32:        //ACHOU .
                                 AuxChar = (char)readText.Peek();
+                                lookahead = readText.Peek();
 
-                                if (char.IsDigit(AuxChar))
+                                if (PanicError == false)
                                 {
-                                    countColumn++;
-                                    completeWord.Append((char)readText.Read());
-                                    currentState = 33;
-                                }
-                                else
+                                    if (lookahead == -1)
+                                    {
+                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        currentState = 1;
+                                    }
+                                    else if (AuxChar.Equals('\n'))
+                                    {
+                                        StringPanicMode = completeWord.ToString();
+                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado encontrar um numero");
+                                        completeWord.Clear();
+                                        readText.Read();
+                                        countLine++;
+                                        countColumn = 1;
+                                        PanicError = true;
+
+                                    }
+                                    else if (char.IsDigit(AuxChar))
+                                    {
+                                        countColumn++;
+                                        completeWord.Append((char)readText.Read());
+                                        currentState = 33;
+                                    }
+                                    else
+                                    {
+                                        //completeWord.Append((char)readText.Read());
+                                        MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                        completeWord.Clear();
+                                        currentState = 1;
+                                    }
+                                } else
                                 {
-                                    //completeWord.Append((char)readText.Read());
-                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
-                                    completeWord.Clear();
-                                    currentState = 1;
+
                                 }
+                                   
 
                                 break;
 
@@ -746,7 +773,7 @@ namespace myExtension
                                 AuxChar = (char)readText.Peek();
                                 lookahead = readText.Peek();
 
-                                if (StringError == false)
+                                if (PanicError == false)
                                 {
                                     if (lookahead == -1)
                                     {
@@ -761,7 +788,7 @@ namespace myExtension
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
-                                        StringError = true;
+                                        PanicError = true;
                                     }
                                     else if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
                                     {

@@ -1,10 +1,12 @@
-""		//ERRO
+"Compiler
+a
+"
 
-"COMPILADORESSSSSS
+3
+.
 
-""		//ERRO
+33.  k
+3
+3
 
-!*		//Erro aqui na exclamação
-
-} */ newVariavlel0  
-//fim
+acabou
