@@ -327,12 +327,24 @@ namespace myExtension
                                     countColumn++;
                                     currentState = 10;
                                 }
+
                                 else
-                                {
-                                    MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
-                                    readText.Read();
-                                    completeWord.Clear();
-                                    //currentState = 1;
+                                {    
+                                    if (AuxChar.Equals(' ') || AuxChar.Equals('\t'))
+                                    {
+                                        MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
+                                        readText.Read();
+                                        countColumn++; 
+                                        completeWord.Clear();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
+                                        readText.Read();
+                                        countColumn++;
+                                        completeWord.Clear();
+                                    }
+                                      
                                 }
 
                                 break;
@@ -343,6 +355,8 @@ namespace myExtension
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+                                PanicError = false;
+
                                 break;
 
                             case 11:
@@ -614,10 +628,9 @@ namespace myExtension
                                         completeWord.Append((char)readText.Read());
                                     }
                                 }
+
                                 else
                                 {
-                                    //completeWord.Clear();
-
                                     if (lookahead == -1)
                                     {
                                         MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
@@ -633,14 +646,12 @@ namespace myExtension
                                     else if (AuxChar.Equals('\n'))
                                     {
                                         MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
-                                        //completeWord.Clear();
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
                                     }
                                     else if (AuxChar.Equals('\r') || AuxChar.Equals(' ') || AuxChar.Equals('\t'))
                                     {
-                                        //completeWord.Clear();
                                         readText.Read();
                                     }
                                     else {
@@ -702,7 +713,7 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero ");
+                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('\n'))
@@ -714,30 +725,55 @@ namespace myExtension
                                         countLine++;
                                         countColumn = 1;
                                         PanicError = true;
+                                    }
 
-                                    }
-                                    else if (AuxChar.Equals('\r'))
-                                    {
-                                        completeWord.Clear();
-                                        readText.Read();
-                                    }
                                     else if (char.IsDigit(AuxChar))
                                     {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
+                                        StringPanicMode.Append(completeWord.ToString());
                                         currentState = 33;
                                     }
-
                                     else
                                     {
-                                        //completeWord.Append((char)readText.Read());
-                                        MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                        StringPanicMode.Append(completeWord.ToString());
+                                        AuxChar = (char)readText.Read();
+                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn));
                                         completeWord.Clear();
+                                        PanicError = true;
+                                    }
+                                }
+
+                                else
+                                {
+                                    if (lookahead == -1)
+                                    {
+                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
                                         currentState = 1;
                                     }
-                                } else
-                                {
-
+                                    else if (char.IsDigit(AuxChar))
+                                    {
+                                        countColumn++;
+                                        StringPanicMode.Append((char)readText.Read());
+                                        currentState = 33;
+                                    }
+                                    else if (AuxChar.Equals('\n'))
+                                    {
+                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado um numero");
+                                        readText.Read();
+                                        countLine++;
+                                        countColumn = 1;
+                                    }
+                                    else if (AuxChar.Equals('\r') || AuxChar.Equals(' ') || AuxChar.Equals('\t'))
+                                    {
+                                        readText.Read();
+                                    }
+                                    else
+                                    {
+                                        countColumn++;
+                                        AuxChar = ((char)readText.Read());
+                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + " Era esperado um numero");
+                                    }
                                 }
                                    
 
@@ -750,23 +786,24 @@ namespace myExtension
                                 if (char.IsDigit(AuxChar))
                                 {
                                     countColumn++;
-                                    completeWord.Append((char)readText.Read());
+                                    StringPanicMode.Append((char)readText.Read());
                                 }
                                 else
                                 {
                                     countColumn++;
-                                    completeWord.Append((char)readText.Read());
                                     currentState = 34;
                                 }
 
                                 break;
 
                             case 34:   // ACHOU UM FLOAT (estado final)    
-                                auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
+                                auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, StringPanicMode.ToString(), countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+                                StringPanicMode.Clear();
+                                PanicError = false;
 
                                 break;
 
