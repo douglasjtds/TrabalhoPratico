@@ -88,6 +88,6 @@ public class Token
     /// <returns></returns>
     public override String ToString()
     {
-        return "<" + Classe + ", \"" + Lexema + "\">";
+        return "<" + Classe + ", \"" + Lexema + "\">" + " - " + "Linha: " + Linha + " / " + "Coluna: " + Coluna;
     }
 }

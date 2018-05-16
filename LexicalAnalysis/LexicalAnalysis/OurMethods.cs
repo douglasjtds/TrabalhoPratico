@@ -35,7 +35,7 @@ namespace myExtension
         /// <param name="entrada"></param>
         /// <returns>Void</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
-        public static void performsAutomaton(String codePath, Stream entrada, StreamReader readText)
+        public static Token performsAutomaton(String codePath, Stream entrada, StreamReader readText)
         {
             const int END_OF_FILE = -1;
             int lookahead = 0;
@@ -69,7 +69,7 @@ namespace myExtension
                         catch (IOException e)
                         {
                             Console.WriteLine("Erro na leitura do arquivo. Mensagem: " + e);
-                            return;
+                            return null;
                         }
 
                         switch (currentState)
@@ -84,7 +84,7 @@ namespace myExtension
                                     MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                     CloseFile(entrada, readText);
-                                    return;
+                                    return null;
                                 }
                                 else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
                                 {
@@ -252,11 +252,12 @@ namespace myExtension
 
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString(), countLine, countColumn);
                                 MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
-
+      
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
 
-                                break;
+                                return auxToken;
+                                //break;
 
                             case 4:         //ACHOU {         
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_OBC, completeWord.ToString(), countLine, countColumn);
@@ -335,6 +336,14 @@ namespace myExtension
                                         MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
                                         readText.Read();
                                         countColumn++; 
+                                        completeWord.Clear();
+                                    }
+                                    else if(AuxChar.Equals('\n'))
+                                    {
+                                        MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver quebra de linha entre o token de diferença. Era esperado um =");
+                                        readText.Read();
+                                        countColumn = 1;
+                                        countLine++;
                                         completeWord.Clear();
                                     }
                                     else
@@ -917,7 +926,6 @@ namespace myExtension
                                 MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
 
                                 break;
-
                         }
 
                     } while (true);
@@ -927,6 +935,11 @@ namespace myExtension
             catch (ArgumentException)
             {
                 MessageBox.Show("Caminho informado inválido");
+            }
+            catch (NotSupportedException e)
+            {
+                MessageBox.Show("Caminho informado inválido");
+
             }
         }
 

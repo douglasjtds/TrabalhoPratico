@@ -17,7 +17,8 @@ namespace LexicalAnalysis
         string CodePath;                 //String que contem o caminho do arquivo
         Stream Entrada;                  //Stream de abertura do arquivo
         StreamReader ReadText;           //StreamReader de leitura do arquivo
-        Token aux;
+        Token tokenAux;
+        List<Token> TokenList = new List<Token>();
 
         public TelaInicial()
         {
@@ -32,38 +33,59 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             CodePath = OurMethods.readFile("ErrorCase1.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            do
+            {
+                
+                //tokenAux = OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+                OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            } while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+
+            TokenList.Clear();
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("ErrorCase2.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("ErrorCase3.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase1.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase2.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase3.txt");
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void arquivoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -90,7 +112,6 @@ namespace LexicalAnalysis
         {
             if (textBox1.Text.Equals("Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt"))
                 textBox1.Text = "";
-            
         }
 
         private void textBox1_LostFocus(object sender, EventArgs e)
@@ -101,13 +122,15 @@ namespace LexicalAnalysis
         private void button7_Click(object sender, EventArgs e)
         {
             CodePath = textBox1.Text;
+            textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
             OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+            TokenList.Clear();
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            //openFileDialog1.InitialDirectory = @"C:\Users\Douglas Tertuliano\Desktop";
             openFileDialog1.Title = "Arquivo do programa em PasC para ser executado:";
             openFileDialog1.DefaultExt = "txt";
             openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -115,8 +138,10 @@ namespace LexicalAnalysis
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 var fileName = openFileDialog1.FileName;
-                CodePath = fileName;  //textBox1.Text;
+                CodePath = fileName;
                 OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+
+                TokenList.Clear();
             }
         }
 
@@ -128,6 +153,12 @@ namespace LexicalAnalysis
         private void TelaInicial_Click(object sender, EventArgs e)
         {
             textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SeeTokens seeTokens = new SeeTokens(TokenList, this);
+            seeTokens.Show();
         }
     }
 }

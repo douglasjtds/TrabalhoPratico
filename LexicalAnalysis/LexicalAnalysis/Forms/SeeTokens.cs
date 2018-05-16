@@ -18,13 +18,14 @@ namespace LexicalAnalysis
 
         public SeeTokens(List<Token> ListaToken, Form Form1)
         {
-            InitializeComponent();
-
             this.ListaToken = ListaToken;
-        }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
+            foreach (Token auxToken in ListaToken)
+            {
+                logBox.AppendText(auxToken.ToString());
+            }
+
+            InitializeComponent();
 
         }
     }
