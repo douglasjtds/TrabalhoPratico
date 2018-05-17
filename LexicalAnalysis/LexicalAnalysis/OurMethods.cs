@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text;
 using LexicalAnalysis;
+using System.Collections.Generic;
 
 namespace myExtension
 {
@@ -35,7 +36,7 @@ namespace myExtension
         /// <param name="entrada"></param>
         /// <returns>Void</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
-        public static Token performsAutomaton(String codePath, Stream entrada, StreamReader readText)
+        public static Token performsAutomaton(String codePath, Stream entrada, StreamReader readText, List<String> ErrorStack)
         {
             const int END_OF_FILE = -1;
             int lookahead = 0;
@@ -81,10 +82,11 @@ namespace myExtension
                                 {
                                     completeWord.Append((char)readText.Read());
                                     auxToken = ST.isLexemaOnSymbolTable(Tag.EOF, "END_OF_FILE", countLine, countColumn);
+                                    return auxToken;
+                                    /*
                                     MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
-
                                     CloseFile(entrada, readText);
-                                    return null;
+                                    return null; */
                                 }
                                 else if (currentCharacter.Equals('\n') || char.IsWhiteSpace(currentCharacter) || currentCharacter.Equals('\t') || currentCharacter.Equals('\r'))
                                 {
@@ -228,7 +230,8 @@ namespace myExtension
                                 } else
                                 {
                                     completeWord.Append((char)readText.Read()); countColumn++;
-                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    //MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    ErrorStack.Add(flagError(completeWord.ToString(), countLine, countColumn));
                                     completeWord.Clear();
                                 }
 
@@ -251,31 +254,33 @@ namespace myExtension
                             case 3:         //ACHOU ID
 
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.ID, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
       
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
 
                                 return auxToken;
-                                //break;
+                                break;
 
                             case 4:         //ACHOU {         
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_OBC, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
-
+                                return auxToken;
+                                
                                 break;
 
                             case 5:         //ACHOU }
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_CBC, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+                                return auxToken;
 
-                                break;
+                                //break;
 
                             case 6:        //ACHOU UM =
                                 AuxChar = (char)readText.Peek();
@@ -295,19 +300,21 @@ namespace myExtension
 
                             case 7:         //ACHOU ==
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_EQ, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+                                return auxToken;
 
                                 break;
 
                             case 8:         //ACHOU =
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_ASS, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+                                return auxToken;
 
                                 break;
 
@@ -317,7 +324,9 @@ namespace myExtension
 
                                 if (lookahead == -1)
                                 {
-                                    MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um =");
+                                    //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um =");
+                                    ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um =");
+
                                     readText.Read();
                                     currentState = 1;
                                 }
@@ -333,14 +342,18 @@ namespace myExtension
                                 {    
                                     if (AuxChar.Equals(' ') || AuxChar.Equals('\t'))
                                     {
-                                        MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
+                                        //MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
+                                        ErrorStack.Add("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
+
                                         readText.Read();
                                         countColumn++; 
                                         completeWord.Clear();
                                     }
                                     else if(AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver quebra de linha entre o token de diferença. Era esperado um =");
+                                        //MessageBox.Show("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver quebra de linha entre o token de diferença. Era esperado um =");
+                                        ErrorStack.Add("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver quebra de linha entre o token de diferença. Era esperado um =");
+
                                         readText.Read();
                                         countColumn = 1;
                                         countLine++;
@@ -348,7 +361,9 @@ namespace myExtension
                                     }
                                     else
                                     {
-                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
+                                        //MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
+                                        ErrorStack.Add(flagError(AuxChar.ToString(), countLine, countColumn) + "  - Era esperado um =");
+
                                         readText.Read();
                                         countColumn++;
                                         completeWord.Clear();
@@ -360,11 +375,13 @@ namespace myExtension
 
                             case 10:        //ACHOU !=
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_NE, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
                                 PanicError = false;
+
+                                return auxToken;
 
                                 break;
 
@@ -386,19 +403,23 @@ namespace myExtension
 
                             case 12:        //ACHOU >=
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_GE, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 13:        //ACHOU >
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_GT, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
@@ -420,82 +441,100 @@ namespace myExtension
 
                             case 15:        //ACHOU <=
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_LE, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 16:        //ACHOU <
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_LT, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 17:        //ACHOU +
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_AD, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 18:        //ACHOU -
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_MIN, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 19:        //ACHOU *
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_MUL, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 20:        //ACHOU (
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_OPA, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 21:        //ACHOU )
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_CPA, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 22:        //ACHOU ,
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_COM, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
                             case 23:        //ACHOU ;
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_SEM, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
@@ -520,10 +559,12 @@ namespace myExtension
 
                             case 25:        //ACHOU /  (SIMBOLO DIVISÃO)
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.OP_DIV, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
@@ -533,7 +574,9 @@ namespace myExtension
 
                                 if (lookahead == -1)
                                 {
-                                    MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+                                    //essageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+                                    ErrorStack.Add("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+
                                     currentState = 1;
                                 }
                                 else if (AuxChar.Equals('*'))
@@ -561,7 +604,9 @@ namespace myExtension
 
                                 if (lookahead == -1)
                                 {
-                                    MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+                                    //MessageBox.Show("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+                                    ErrorStack.Add("Erro encontrada na " + currentLineAndColumn(countLine, countColumn) + "  - O comentário de múltipla linha não foi fechado.");
+
                                     currentState = 1;
                                 }
                                 else if (AuxChar.Equals('/'))
@@ -611,7 +656,9 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('"'))
@@ -624,7 +671,9 @@ namespace myExtension
                                     else if (AuxChar.Equals('\n'))
                                     {
                                         StringPanicMode.Append(completeWord.ToString());
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas"); 
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas"); 
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
@@ -642,7 +691,9 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('"'))
@@ -654,7 +705,9 @@ namespace myExtension
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado uma aspas");
+
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
@@ -666,7 +719,8 @@ namespace myExtension
                                     else {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
-                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "Era esperado uma aspas");
+                                        //MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "Era esperado uma aspas");
+                                        ErrorStack.Add("");
                                     }
                                 }
 
@@ -676,14 +730,17 @@ namespace myExtension
 
                                 if (completeWord.ToString().Length == 2)     //Diz o Gustavo que se criar uma string "" tem que dar erro. Mas se eu só tiver viajando, é só tirar esse if e deixar só o que tá dentro do else
                                 {
-                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    //MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    ErrorStack.Add(flagError(completeWord.ToString(), countLine, countColumn));
+
                                     completeWord.Clear();
                                     currentState = 1;
                                 }
                                 else
                                 {
                                     auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, StringPanicMode.ToString(), countLine, countColumn);
-                                    MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                    //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                    return auxToken;
                                 }
 
                                 currentState = 1;       //Reseta a execução do automato
@@ -722,13 +779,17 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
                                         StringPanicMode.Append(completeWord.ToString());
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado encontrar um numero");
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado encontrar um numero");
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado encontrar um numero");
+
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
@@ -747,7 +808,9 @@ namespace myExtension
                                     {
                                         StringPanicMode.Append(completeWord.ToString());
                                         AuxChar = (char)readText.Read();
-                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn));
+                                        //MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn));
+                                        ErrorStack.Add(flagError(AuxChar.ToString(), countLine, countColumn));
+
                                         completeWord.Clear();
                                         PanicError = true;
                                     }
@@ -757,7 +820,9 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar um numero");
+
                                         currentState = 1;
                                     }
                                     else if (char.IsDigit(AuxChar))
@@ -768,7 +833,9 @@ namespace myExtension
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado um numero");
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado um numero");
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn) + " Era esperado um numero");
+
                                         readText.Read();
                                         countLine++;
                                         countColumn = 1;
@@ -781,7 +848,8 @@ namespace myExtension
                                     {
                                         countColumn++;
                                         AuxChar = ((char)readText.Read());
-                                        MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + " Era esperado um numero");
+                                        //MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + " Era esperado um numero");
+                                        ErrorStack.Add(flagError(AuxChar.ToString(), countLine, countColumn) + " Era esperado um numero");
                                     }
                                 }
                                    
@@ -807,21 +875,25 @@ namespace myExtension
 
                             case 34:   // ACHOU UM FLOAT (estado final)    
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, StringPanicMode.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
                                 StringPanicMode.Clear();
                                 PanicError = false;
 
+                                return auxToken;
+                                    
                                 break;
 
                             case 35:         //ACHOU INT (estado final)
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
+
+                                return auxToken;
 
                                 break;
 
@@ -833,12 +905,16 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas. ");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas. ");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas. ");
+
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+
                                         StringPanicMode.Append(completeWord.ToString());
                                         completeWord.Clear();
                                         readText.Read();
@@ -850,6 +926,8 @@ namespace myExtension
                                     {
                                         completeWord.Append((char)readText.Read()); countColumn++;
                                         MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  -  Foi encontrado um Char vazio. ");
+                                        ErrorStack.Add("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  -  Foi encontrado um Char vazio. ");
+
                                         completeWord.Clear();
                                         currentState = 1;
                                     }
@@ -866,12 +944,16 @@ namespace myExtension
                                 {
                                     if (lookahead == -1)
                                     {
-                                        MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        //MessageBox.Show("Erro na linha " + currentLineAndColumn(countLine, countColumn) + "  - Fim do arquivo antes de encontar uma aspas");
+                                        ErrorStack.Add("");
+
                                         currentState = 1;
                                     }
                                     else if (AuxChar.Equals('\n'))
                                     {
-                                        MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                        //MessageBox.Show("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+                                        ErrorStack.Add("Quebra de linha inesperada na " + currentLineAndColumn(countLine, countColumn));
+
                                         completeWord.Clear();
                                         readText.Read();
                                         countLine++;
@@ -880,7 +962,9 @@ namespace myExtension
                                     else if (AuxChar.Equals('\''))                   //PEGOU UM EMPTY CHAR
                                     {
                                         completeWord.Append((char)readText.Read()); countColumn++;
-                                        MessageBox.Show("Erro na " +  currentLineAndColumn(countLine, countColumn) + " - Um Char deve ser construído todo na mesma linha. ");
+                                        //MessageBox.Show("Erro na " +  currentLineAndColumn(countLine, countColumn) + " - Um Char deve ser construído todo na mesma linha. ");
+                                        ErrorStack.Add("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Um Char deve ser construído todo na mesma linha. ");
+
                                         completeWord.Clear();
                                         currentState = 1;
                                     }
@@ -888,7 +972,8 @@ namespace myExtension
                                     {
                                         countColumn++;
                                         completeWord.Append((char)readText.Read());
-                                        MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn) + " -  Era esperado uma aspas");
+                                        //MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn) + " -  Era esperado uma aspas");
+                                        ErrorStack.Add(flagError(completeWord.ToString(), countLine, countColumn) + " -  Era esperado uma aspas");
                                     }
                                 }
 
@@ -905,7 +990,9 @@ namespace myExtension
                                 else
                                 {
                                     completeWord.Append((char)readText.Read());     countColumn++;
-                                    MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    //MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                    ErrorStack.Add(flagError(completeWord.ToString(), countLine, countColumn));
+
                                     completeWord.Clear();
                                     currentState = 1;
                                 }
@@ -915,15 +1002,18 @@ namespace myExtension
                             case 38:
 
                                 auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
-                                MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
+                                //MessageBox.Show(auxToken.ToString() + currentLineAndColumn(countLine, countColumn));
 
                                 currentState = 1;       //Reseta a execução do automato
                                 completeWord.Clear();   //Reseta a StringBiulder
 
+                                return auxToken;
+
                                 break;
 
                             default:
-                                MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                //MessageBox.Show(flagError(completeWord.ToString(), countLine, countColumn));
+                                ErrorStack.Add(flagError(completeWord.ToString(), countLine, countColumn));
 
                                 break;
                         }
@@ -934,12 +1024,13 @@ namespace myExtension
 
             catch (ArgumentException)
             {
-                MessageBox.Show("Caminho informado inválido");
+                //MessageBox.Show("Caminho informado inválido");
+                ErrorStack.Add("Caminho informado inválido!");
             }
             catch (NotSupportedException e)
             {
-                MessageBox.Show("Caminho informado inválido");
-
+                //MessageBox.Show("Caminho informado inválido");
+                ErrorStack.Add("Caminho informado inválido!");
             }
         }
 

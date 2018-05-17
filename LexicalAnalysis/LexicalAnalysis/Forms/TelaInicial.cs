@@ -19,6 +19,7 @@ namespace LexicalAnalysis
         StreamReader ReadText;           //StreamReader de leitura do arquivo
         Token tokenAux;
         List<Token> TokenList = new List<Token>();
+        List<String> ErrorStack = new List<String>();
 
         public TelaInicial()
         {
@@ -39,8 +40,8 @@ namespace LexicalAnalysis
             do
             {
                 
-                //tokenAux = OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
-                OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+                tokenAux = OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
+                //OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
 
             } while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
 
@@ -51,7 +52,7 @@ namespace LexicalAnalysis
         private void button2_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("ErrorCase2.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -59,7 +60,7 @@ namespace LexicalAnalysis
         private void button3_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("ErrorCase3.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -67,7 +68,7 @@ namespace LexicalAnalysis
         private void button4_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase1.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -75,7 +76,7 @@ namespace LexicalAnalysis
         private void button5_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase2.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -83,7 +84,7 @@ namespace LexicalAnalysis
         private void button6_Click(object sender, EventArgs e)
         {
             CodePath = OurMethods.readFile("SuccessCase3.txt");
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -123,7 +124,7 @@ namespace LexicalAnalysis
         {
             CodePath = textBox1.Text;
             textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
-            OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+            OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
             TokenList.Clear();
         }
@@ -139,7 +140,7 @@ namespace LexicalAnalysis
             {
                 var fileName = openFileDialog1.FileName;
                 CodePath = fileName;
-                OurMethods.performsAutomaton(CodePath, Entrada, ReadText);
+                OurMethods.performsAutomaton(CodePath, Entrada, ReadText, ErrorStack);
 
                 TokenList.Clear();
             }
