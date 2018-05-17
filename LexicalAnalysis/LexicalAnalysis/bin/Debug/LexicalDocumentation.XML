@@ -19,7 +19,7 @@
             <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
             <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
         </member>
-        <member name="M:myExtension.OurMethods.performsAutomaton(System.String,System.IO.Stream,System.IO.StreamReader)">
+        <member name="M:myExtension.OurMethods.performsAutomaton(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
             <summary>
             Método utilizado para executar o autômato analisará o lexico da linguagem PasC
             </summary>

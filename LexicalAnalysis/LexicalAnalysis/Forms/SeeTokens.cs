@@ -14,19 +14,19 @@ namespace LexicalAnalysis
     partial class SeeTokens : Form
     {
 
-        List<Token> ListaToken = new List<Token>();
+        List<String> ListaToken = new List<String>();
 
-        public SeeTokens(List<Token> ListaToken, Form Form1)
+        public SeeTokens(List<String> ListaToken, Form Form1)
         {
             this.ListaToken = ListaToken;
 
-            foreach (Token auxToken in ListaToken)
-            {
-                logBox.AppendText(auxToken.ToString());
-            }
-
             InitializeComponent();
 
+            foreach (String auxToken in ListaToken)
+            {
+                logBox.AppendText("\r\n");
+                logBox.AppendText("\r\n" + auxToken);
+            }
         }
     }
 }
