@@ -67,3 +67,4 @@ D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\Lexic
 D:\MY THINGS\Documentos\GitHub\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.SeeTokens.resources
 C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\bin\Debug\LexicalDocumentation.XML
 C:\Users\mathe\Documents\Visual Studio 2015\Projects\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.SeeTokens.resources
+C:\Users\Douglas Tertuliano\Desktop\7º Semestre\Compiladores\Trabalho de Compiladores\TrabalhoPraticoCompiladores\LexicalAnalysis\LexicalAnalysis\obj\Debug\LexicalAnalysis.SeeTokens.resources

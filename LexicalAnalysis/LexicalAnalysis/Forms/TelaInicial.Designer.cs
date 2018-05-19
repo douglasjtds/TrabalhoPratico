@@ -273,7 +273,7 @@
             this.MaximumSize = new System.Drawing.Size(616, 470);
             this.MinimumSize = new System.Drawing.Size(616, 470);
             this.Name = "TelaInicial";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tela Inicial";
             this.Load += new System.EventHandler(this.TelaInicial_Load);
             this.Click += new System.EventHandler(this.TelaInicial_Click);
