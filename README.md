@@ -148,7 +148,7 @@ O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**:
 	Você deverá adequá-la e eliminar a recursividade à esquerda e fatorar a gramática, ou seja, a
 	gramática PasC ainda não é LL(1). Portanto, você deverá verificar as regras que infringem as
 	restrições das gramáticas LL(1) e adaptá-las para tornar a gramática LL(1).
-</p>>
+</p>
 
 
 ### O que fazer?
@@ -157,13 +157,15 @@ O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**:
 	3 - Implementar os algoritmos de Parser Preditivo Recursivo ou Não-Recursivo
 
 ### O que entregar?
-	1. A nova versão da gramática;
-	2. Apresentar o cálculo do FIRST, FOLLOW e Tabela Preditiva.
-	3. Programa com todos os arquivos-fonte;
-	4. Relatório contendo testes realizados com programas (de acordo com a gramática) corretos e errados (no mínimo, 3 certos e 3 errados), e também deverá conter a descrição de cada função/método do Parser.
+	1 - A nova versão da gramática;
+	2 - Apresentar o cálculo do FIRST, FOLLOW e Tabela Preditiva.
+	3 - Programa com todos os arquivos-fonte;
+	4 - Relatório contendo testes realizados com programas (de acordo com a gramática) corretos e errados (no mínimo, 3 certos e 3 errados), e também deverá conter a descrição de cada função/método do Parser.
 
 
 
+
+<img src="http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif" alt="Banana" title="Olha a banana dançando!" />
 
 
 
