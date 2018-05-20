@@ -5,7 +5,7 @@ O trabalho será dividido em três partes
 - Análise Semântica
 
 # Análise Léxica - Parte 1 #
-O trabalho deverá ser entregue por e-mail até o dia **06/04/2017**: 
+O trabalho deverá ser entregue por e-mail até o dia **06/04/2018**: 
 - Colocar no assunto para o e-mail: CC-CMA-COMP-TP1
 - Não esqueça dos nomes no relatório técnico
 - Descrição detalhada do trabalho, regras, o que deve ser entregue e outras informações estão acrescentadas no pdf **TP1_20180306114439.pdf**
@@ -120,6 +120,52 @@ são iguais, e “!=” é operador relacional que verifica se os operandos são
 - Os tipos numeral e caractere não são compatíveis;
 - A linguagem **não** é case-sensitive;
 - Cada tabulação, deverá contar como 3 espaços em branco;
+
+
+# Análise Sintática - Parte 2 #
+
+O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**: 
+- Colocar no assunto para o e-mail: CC-COMP-TP2
+- <gustavo.fernandes@prof.unibh.br>
+- Não esqueça dos nomes no relatório técnico
+- Descrição detalhada do trabalho, regras, o que deve ser entregue e outras informações estão acrescentadas no pdf **TP2_20180427104215.pdf**
+
+### Descrição do trabalho
+<p>
+	Nesta etapa, você deverá implementar um analisador sintático descendente (top-down) para a
+	linguagem PasC, cuja descrição encontra-se no enunciado do trabalho prático I.
+	Seu compilador deverá ser um analisador de uma única passada. Dessa forma, ele deverá interagir
+	com o analisador léxico para obter os tokens do arquivo-fonte. Você deve implementar seu
+	analisador sintático utilizando o algoritmo de Parser Preditivo Recursivo (Procedimentos para cada
+	Não-terminal) ou o algorimto de Parser Preditivo Não-Recursivo (Pilha).
+	O analisador sintático deverá reportar possíveis erros ocorridos no programa-fonte. O analisador
+	deverá informar qual o erro encontrado (informar que token era espearado e qual token apareceu) e
+	sua localização no arquivo-fonte. Não haverá recuperação de erro para a análise sintática, logo que
+	um erro sintático for encontrado, o processo de compilação deverá ser abortado. A identificação dos
+	erros Léxicos continuam de acordo com o TP1, isto é, deverão ser identificados, sinalizados e com
+	recuperação de erro funcional.
+	Para implementar o analisador sintático, você deverá modificar a estrutura gramatical da linguagem.
+	Você deverá adequá-la e eliminar a recursividade à esquerda e fatorar a gramática, ou seja, a
+	gramática PasC ainda não é LL(1). Portanto, você deverá verificar as regras que infringem as
+	restrições das gramáticas LL(1) e adaptá-las para tornar a gramática LL(1).
+</p>>
+
+
+### O que fazer?
+	1 - Fatorar a gramática para as regras “id-list”, “if-stmt”, “expression”
+	2 - Eliminar a recursão a esquerda para as regras “simple-expr”, “term”
+	3 - Implementar os algoritmos de Parser Preditivo Recursivo ou Não-Recursivo
+
+### O que entregar?
+	1. A nova versão da gramática;
+	2. Apresentar o cálculo do FIRST, FOLLOW e Tabela Preditiva.
+	3. Programa com todos os arquivos-fonte;
+	4. Relatório contendo testes realizados com programas (de acordo com a gramática) corretos e errados (no mínimo, 3 certos e 3 errados), e também deverá conter a descrição de cada função/método do Parser.
+
+
+
+
+
 
 
 ###### Contato dos Criadores
