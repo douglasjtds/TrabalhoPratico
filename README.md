@@ -164,9 +164,8 @@ O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**:
 
 
 
-
-<img src="http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif" alt="Banana" title="Olha a banana dançando!" />
-
+### Gramática Corrigida
+<img src="printGramaticaCorrigida.png">
 
 
 
@@ -175,3 +174,6 @@ O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**:
 <douglasjtds@gmail.com>
 - Matheus Pires:  
 <matheuswith51@hotmail.com>
+
+
+<img src="http://cdn.osxdaily.com/wp-content/uploads/2013/07/dancing-banana.gif" alt="Banana" title="Olha a banana dançando!" />
