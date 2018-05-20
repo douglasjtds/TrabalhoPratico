@@ -165,7 +165,7 @@ O trabalho deverá ser entregue por e-mail até o dia **03/06/2018**:
 
 
 ### Gramática Corrigida
-<img src="printGramaticaCorrigida.png">
+<img src="printGramaticaCorrigida.png" title="Gramática Corrigida">
 
 
 
