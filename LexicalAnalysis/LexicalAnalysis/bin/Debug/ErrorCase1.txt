@@ -1,4 +1,7 @@
-!j v	p
+//!j v	p
+program
+PROGRAM
+PrOgrAm
 = 
 
 33.  k	

@@ -22,37 +22,37 @@ namespace LexicalAnalysis
             ST = new Dictionary<Token, string>();
 
             Token word;
-            word = new Token(Tag.KW, "program", 0, 0);
+            word = new Token(Tag.KW_PROGRAM, "program", 0, 0);
             ST.Add(word, "program");
 
-            word = new Token(Tag.KW, "if", 0, 0);
+            word = new Token(Tag.KW_IF, "if", 0, 0);
             ST.Add(word, "if");
 
-            word = new Token(Tag.KW, "else", 0, 0);
+            word = new Token(Tag.KW_ELSE, "else", 0, 0);
             ST.Add(word, "else");
 
-            word = new Token(Tag.KW, "while", 0, 0);
+            word = new Token(Tag.KW_WHILE, "while", 0, 0);
             ST.Add(word, "while");
 
-            word = new Token(Tag.KW, "write", 0, 0);
+            word = new Token(Tag.KW_WRITE, "write", 0, 0);
             ST.Add(word, "write");
 
-            word = new Token(Tag.KW, "read", 0, 0);
+            word = new Token(Tag.KW_READ, "read", 0, 0);
             ST.Add(word, "read");
 
-            word = new Token(Tag.KW, "num", 0, 0);
+            word = new Token(Tag.KW_NUM, "num", 0, 0);
             ST.Add(word, "num");
 
-            word = new Token(Tag.KW, "char", 0, 0);
+            word = new Token(Tag.KW_CHAR, "char", 0, 0);
             ST.Add(word, "char");
 
-            word = new Token(Tag.KW, "not", 0, 0);
+            word = new Token(Tag.KW_NOT, "not", 0, 0);
             ST.Add(word, "not");
 
-            word = new Token(Tag.KW, "or", 0, 0);
+            word = new Token(Tag.KW_OR, "or", 0, 0);
             ST.Add(word, "or");
 
-            word = new Token(Tag.KW, "and", 0, 0);
+            word = new Token(Tag.KW_AND, "and", 0, 0);
             ST.Add(word, "and");
 
             #endregion

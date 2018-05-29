@@ -19,7 +19,7 @@ namespace LexicalAnalysis
         StreamReader ReadText;           //StreamReader de leitura do arquivo
         Token tokenAux;
         List<Token> TokenList = new List<Token>();
-        List<String> TokenSet = new List<String>();
+        List<String> OutputSet = new List<String>();
         SymbolTable ST = new SymbolTable();
 
         public TelaInicial()
@@ -36,8 +36,9 @@ namespace LexicalAnalysis
         private void button1_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
+            OutputSet.Clear();
 
-            CodePath = OurMethods.readFile("ErrorCase1.txt");
+            CodePath = Lexer.readFile("ErrorCase1.txt");
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
             SymbolTable ST = new SymbolTable();
@@ -46,7 +47,7 @@ namespace LexicalAnalysis
             {
                 do
                 {
-                    tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                     if (tokenAux != null)
                     {
                         TokenList.Add(tokenAux);
@@ -56,17 +57,18 @@ namespace LexicalAnalysis
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
-            CodePath = OurMethods.readFile("ErrorCase2.txt");
+            OutputSet.Clear();
+            CodePath = Lexer.readFile("ErrorCase2.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
@@ -78,23 +80,24 @@ namespace LexicalAnalysis
                 {
                     if (tokenAux != null)
                     {
-                        tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
-            CodePath = OurMethods.readFile("ErrorCase3.txt");
+            OutputSet.Clear();
+            CodePath = Lexer.readFile("ErrorCase3.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
@@ -106,24 +109,25 @@ namespace LexicalAnalysis
                 {
                     if (tokenAux != null)
                     {
-                        tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
-            CodePath = OurMethods.readFile("SuccessCase1.txt");
+            OutputSet.Clear();
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
@@ -135,24 +139,25 @@ namespace LexicalAnalysis
                 {
                     if (tokenAux != null)
                     {
-                        tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
-            CodePath = OurMethods.readFile("SuccessCase2.txt");
+            OutputSet.Clear();
+            CodePath = Lexer.readFile("SuccessCase2.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
@@ -164,24 +169,25 @@ namespace LexicalAnalysis
                 {
                     if (tokenAux != null)
                     {
-                        tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
-            CodePath = OurMethods.readFile("SuccessCase3.txt");
+            OutputSet.Clear();
+            CodePath = Lexer.readFile("SuccessCase3.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
             ReadText = new StreamReader(Entrada);
@@ -193,17 +199,17 @@ namespace LexicalAnalysis
                 {
                     if (tokenAux != null)
                     {
-                        tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
             }
 
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            OurMethods.CloseFile(Entrada, ReadText);
+            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
@@ -258,17 +264,17 @@ namespace LexicalAnalysis
                     {
                         if (tokenAux != null)
                         {
-                            tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                            tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                             TokenList.Add(tokenAux);
                         }
                     }
                     while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
                 }
 
-                SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
 
-                OurMethods.CloseFile(Entrada, ReadText);
+                Lexer.CloseFile(Entrada, ReadText);
 
             }
             catch (ArgumentException)
@@ -285,10 +291,12 @@ namespace LexicalAnalysis
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog1 = new OpenFileDialog();
-            openFileDialog1.Title = "Arquivo do programa em PasC para ser executado:";
-            openFileDialog1.DefaultExt = "txt";
-            openFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Arquivo do programa em PasC para ser executado:",
+                DefaultExt = "txt",
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+            };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
@@ -306,17 +314,17 @@ namespace LexicalAnalysis
                     {
                         if (tokenAux != null)
                         {
-                            tokenAux = OurMethods.performsAutomaton(Entrada, ReadText, TokenSet, ST);
+                            tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                             TokenList.Add(tokenAux);
                         }
                     }
                     while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
                 }
 
-                SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
 
-                OurMethods.CloseFile(Entrada, ReadText);
+                Lexer.CloseFile(Entrada, ReadText);
 
             }
         }
@@ -333,7 +341,7 @@ namespace LexicalAnalysis
 
         private void button8_Click(object sender, EventArgs e)
         {
-            SeeTokens seeTokens = new SeeTokens(TokenSet, this);
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
         }
     }

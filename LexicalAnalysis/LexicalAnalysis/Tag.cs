@@ -37,10 +37,19 @@ namespace LexicalAnalysis
         SMB_CPA,
         #endregion
 
-        /// <summary>
-        /// Palavra chave
-        /// </summary>
-        KW,
+        #region [PALAVRAS CHAVES]
+        KW_PROGRAM,
+        KW_IF,
+        KW_ELSE,
+        KW_WHILE,
+        KW_WRITE,
+        KW_READ,
+        KW_NUM,
+        KW_CHAR,
+        KW_NOT,
+        KW_OR,
+        KW_AND,
+        #endregion
 
         /// <summary>
         /// Identificador

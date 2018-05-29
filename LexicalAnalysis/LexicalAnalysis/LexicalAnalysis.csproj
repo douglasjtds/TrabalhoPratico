@@ -47,13 +47,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="OurMethods.cs" />
+    <Compile Include="Lexer.cs" />
     <Compile Include="Forms\SeeTokens.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SeeTokens.Designer.cs">
       <DependentUpon>SeeTokens.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parser.cs" />
     <Compile Include="SymbolTable.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="Forms\TelaInicial.cs">

@@ -4,32 +4,31 @@
         <name>LexicalAnalysis</name>
     </assembly>
     <members>
-        <member name="T:myExtension.OurMethods">
+        <member name="T:myExtension.Lexer">
             <summary>
             Classe que contém todos os métodos utilizados durante a execução do programa
             </summary>
         </member>
-        <member name="M:myExtension.OurMethods.readFile(System.String)">
+        <member name="M:myExtension.Lexer.readFile(System.String)">
             <summary>
             Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
             </summary>
             <param name="nomeArquivo">string com o nome do arquivo que será lido</param>
-            <param name="entrada">recebe a entrada do arquivo</param>
-            <param name="readText">recebe o conteúdo do arquivo</param>
             <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
             <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
         </member>
-        <member name="M:myExtension.OurMethods.performsAutomaton(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
+        <member name="M:myExtension.Lexer.performsAutomaton(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
             <summary>
             Método utilizado para executar o autômato analisará o lexico da linguagem PasC
             </summary>
-            <param name="codePath"></param>
             <param name="readText"></param>
             <param name="entrada"></param>
+            <param name="ST"></param>
+            <param name="outputSet"></param>
             <returns>Void</returns>
             <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         </member>
-        <member name="M:myExtension.OurMethods.currentLineAndColumn(System.Int32,System.Int32)">
+        <member name="M:myExtension.Lexer.currentLineAndColumn(System.Int32,System.Int32)">
             <summary>
             Método para sinalizar um erro e o lugar onde ele foi encontrado
             </summary>
@@ -37,12 +36,12 @@
             <param name="line">Representa a linha atual que o leitor está</param>
             <returns>Retorna a posição atual da linha e da coluna</returns>
         </member>
-        <member name="M:myExtension.OurMethods.flagError(System.String,System.Int32,System.Int32)">
+        <member name="M:myExtension.Lexer.flagError(System.String,System.Int32,System.Int32)">
             <summary>
             Método para sinalizar um erro e o lugar onde ele foi encontrado
             </summary>
         </member>
-        <member name="M:myExtension.OurMethods.CloseFile(System.IO.Stream,System.IO.StreamReader)">
+        <member name="M:myExtension.Lexer.CloseFile(System.IO.Stream,System.IO.StreamReader)">
             <summary>
             Método usado para fechar o arquivo após a leitura
             </summary>
@@ -84,11 +83,6 @@
         <member name="F:LexicalAnalysis.Tag.EOF">
             <summary>
             Fim do arquivo
-            </summary>
-        </member>
-        <member name="F:LexicalAnalysis.Tag.KW">
-            <summary>
-            Palavra chave
             </summary>
         </member>
         <member name="F:LexicalAnalysis.Tag.ID">
