@@ -63,7 +63,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.ID))
                 {
                     flagSyntaxError("Era esperado um ID , mas o encontrado foi: " + token.Lexema);
-                    return; //Makesense?
+                    Environment.Exit(666);
                 }
 
                 body();
@@ -71,7 +71,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.EOF))
                 {
                     flagSyntaxError("Era esperado o fim de arquivo, mas o encontrado foi: " + token.Lexema);
-                    return; //Makesense?
+                    Environment.Exit(666);
                 }
             }
             else
@@ -82,319 +82,512 @@ namespace SyntaxAnalysis
 
         public void body()
         {
-            decl_list();
 
-            if (!eat(Tag.SMB_OBC))
+            if (token.Classe.Equals(Tag.KW_NUM) || token.Classe.Equals(Tag.KW_CHAR))
             {
-                //erro
+                decl_list();
+
+                if (!eat(Tag.SMB_OBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                stmt_list();
+
+                if (!eat(Tag.SMB_CBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
             }
-
-            stmt_list();
-
-            if (!eat(Tag.SMB_CBC))
+            else
             {
-
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
         }
 
         public void decl_list()
         {
-            decl();
-
-            if (!eat(Tag.SMB_SEM))
+            if (token.Classe.Equals(Tag.KW_NUM) || token.Classe.Equals(Tag.KW_CHAR))
             {
-                //erro
+                decl();
+
+                if (!eat(Tag.SMB_SEM))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                decl_list();
+                
+
+            } else if (token.Classe.Equals(Tag.SMB_OBC)) return;
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            decl_list();
-
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
         }
 
         public void decl()
         {
-            type();
+            if (token.Classe.Equals(Tag.KW_NUM) || token.Classe.Equals(Tag.KW_CHAR))
+            {
+                type();
 
-            id_list1();
+                id_list1();
+            }
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void type()
         {
             if(!eat(Tag.KW_NUM) || !eat(Tag.KW_CHAR))
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
         }
 
         public void id_list1()
         {
-            if (!eat(Tag.ID))
+            if (eat(Tag.ID))
+                id_list2();
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            id_list2();
         }
 
         public void id_list2()
         {
-            if (!eat(Tag.SMB_COM))
+            if (eat(Tag.SMB_COM))
+                id_list1();
+
+            else if (token.Classe.Equals(Tag.SMB_SEM)) return;
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            id_list1();
-
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
         }
 
         public void stmt_list()
         {
-            stmt();
 
-            if (!eat(Tag.SMB_SEM))
+            if (token.Classe.Equals(Tag.ID) ||
+                token.Classe.Equals(Tag.KW_IF) ||
+                token.Classe.Equals(Tag.KW_WHILE) ||
+                token.Classe.Equals(Tag.KW_READ) ||
+                token.Classe.Equals(Tag.KW_WRITE))
             {
-                //erro
+
+                stmt();
+
+                if (!eat(Tag.SMB_SEM))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                stmt_list();
+
+            } else if (token.Classe.Equals(Tag.SMB_CBC)) return;
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            stmt_list();
-
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
+                
         }
 
         public void stmt()
         {
-            assign_stmt();
-            If_stmt1();
-            While_stmt();
-            read_stmt();
-            write_stmt();
+            if(token.Classe.Equals(Tag.ID))
+                assign_stmt();
+            else if (token.Classe.Equals(Tag.KW_IF))
+                If_stmt1();
+            else if (token.Classe.Equals(Tag.KW_WHILE))
+                While_stmt();
+            else if (token.Classe.Equals(Tag.KW_READ))
+                read_stmt();
+            else if (token.Classe.Equals(Tag.KW_WRITE))
+                write_stmt();
         }
 
         public void assign_stmt()
         {
-            if (!eat(Tag.ID))
+            if (eat(Tag.ID))
             {
-                //erro
-            }
+                if (!eat(Tag.OP_ASS))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
 
-            if (!eat(Tag.OP_ASS))
+                simple_expr1();
+            }
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            simple_expr1();
         }
 
         public void If_stmt1()
         {
-            if (!eat(Tag.KW_IF))
+            if (eat(Tag.KW_IF))
             {
-                //erro
-            }
+                if (!eat(Tag.SMB_OPA))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
 
-            if (!eat(Tag.SMB_OPA))
+                condition();
+
+                if (!eat(Tag.SMB_CPA))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                if (!eat(Tag.SMB_OBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                stmt_list();
+
+                if (!eat(Tag.SMB_CBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                If_stmt2();
+            }
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            condition();
-
-            if (!eat(Tag.SMB_CPA))
-            {
-                //erro
-            }
-
-            if (!eat(Tag.SMB_OBC))
-            {
-                //erro
-            }
-
-            stmt_list();
-
-            if (!eat(Tag.SMB_CBC))
-            {
-                //erro
-            }
-
-            If_stmt2();
-
         }
 
         public void If_stmt2()
         {
-            if (!eat(Tag.KW_ELSE))
+            if (eat(Tag.KW_ELSE))
             {
-                //erro
-            }
+                if (!eat(Tag.SMB_OBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
 
-            if (!eat(Tag.SMB_OBC))
+                stmt_list();
+
+                if (!eat(Tag.SMB_CBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+            } else if (token.Classe.Equals(Tag.SMB_SEM)) return;
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            stmt_list();
-
-            if (!eat(Tag.SMB_CBC))
-            {
-                //erro
-            }
-
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
         }
 
 
         public void condition()
         {
-            expression1();
+            if(token.Classe.Equals(Tag.ID) ||
+                token.Classe.Equals(Tag.CON_NUM) ||
+                token.Classe.Equals(Tag.CON_CHAR) ||
+                token.Classe.Equals(Tag.KW_NOT) ||
+                token.Classe.Equals(Tag.SMB_OPA))
+
+                    expression1();
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
+
         }
 
         public void While_stmt()
         {
-            stmt_prefix();
 
-            if (!eat(Tag.SMB_OBC))
+            if (token.Classe.Equals(Tag.KW_WHILE))
             {
-                //erro
+                stmt_prefix();
+
+                if (!eat(Tag.SMB_OBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+
+                stmt_list();
+
+                if (!eat(Tag.SMB_CBC))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
             }
-
-            stmt_list();
-
-            if (!eat(Tag.SMB_CBC))
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
 
         }
 
         public void stmt_prefix()
         {
-            if (!eat(Tag.KW_WHILE))
+            if (eat(Tag.KW_WHILE))
             {
-                //erro
-            }
+                if (!eat(Tag.SMB_OPA))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
 
-            if (!eat(Tag.SMB_OPA))
+                condition();
+
+                if (!eat(Tag.SMB_CPA))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+            }
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
-            condition();
-
-            if (!eat(Tag.SMB_CPA))
-            {
-                //erro
-            }
-
         }
 
         public void read_stmt()
         {
 
-            if (!eat(Tag.KW_READ))
+            if (eat(Tag.KW_READ))
             {
-                //erro
+                if (!eat(Tag.ID))
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
             }
-
-            if (!eat(Tag.ID))
+            else
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
-
         }
 
         public void write_stmt()
         {
-            if (!eat(Tag.KW_WRITE))
+            if (eat(Tag.KW_WRITE))
             {
-                //erro
+                writable();
             }
-
-            writable();
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void writable()
         {
-            simple_expr1();
-
-            //         ||       OU
-
             if (!eat(Tag.LIT))
             {
-                //erro
-            }
+                if (token.Classe.Equals(Tag.ID) ||
+                    token.Classe.Equals(Tag.CON_NUM) ||
+                    token.Classe.Equals(Tag.CON_CHAR) ||
+                    token.Classe.Equals(Tag.KW_NOT) ||
+                    token.Classe.Equals(Tag.SMB_OPA))
 
+                        simple_expr1();
+                else
+                {
+                    flagSyntaxError("");
+                    Environment.Exit(666);
+                }
+            }
         }
 
         public void expression1()
         {
-            simple_expr1();
-
-            expression2();
+            if (token.Classe.Equals(Tag.ID)      ||
+                token.Classe.Equals(Tag.CON_NUM)  ||
+                token.Classe.Equals(Tag.CON_CHAR) ||
+                token.Classe.Equals(Tag.KW_NOT)  ||
+                token.Classe.Equals(Tag.SMB_OPA))
+            {
+                simple_expr1();
+                expression2();
+            }
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void expression2()
         {
-            relop();
+            if (token.Classe.Equals(Tag.OP_EQ) ||
+                token.Classe.Equals(Tag.OP_GT) ||
+                token.Classe.Equals(Tag.OP_GE) ||
+                token.Classe.Equals(Tag.OP_LT) ||
+                token.Classe.Equals(Tag.OP_LE) ||
+                token.Classe.Equals(Tag.OP_NE))
+            {
+                relop();
+                simple_expr1();
+            }
 
-            simple_expr1();
-
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
+            else if (token.Classe.Equals(Tag.SMB_CPA)) return;
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void simple_expr1()
         {
-            term1();
-
-            simple_expr2();
+            if (token.Classe.Equals(Tag.ID) ||
+                token.Classe.Equals(Tag.CON_NUM) ||
+                token.Classe.Equals(Tag.CON_CHAR) ||
+                token.Classe.Equals(Tag.KW_NOT) ||
+                token.Classe.Equals(Tag.SMB_OPA))
+            {
+                term1();
+                simple_expr2();
+            }
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void simple_expr2()
         {
-            addop();
+            if (token.Classe.Equals(Tag.OP_AD) || 
+                token.Classe.Equals(Tag.OP_MIN) || 
+                token.Classe.Equals(Tag.KW_OR))
+            {
+                addop();
 
-            term1();
+                term1();
 
-            simple_expr2();
-            
-            //TUDO QUE ESTÁ ACIMA OU VAZIO! 
+                simple_expr2();
+            }
+
+            else if(token.Classe.Equals(Tag.SMB_SEM)    ||      //“;”, “==”, “>”, “>=”, “<”, “<=”, “!=”, “)”
+                    token.Classe.Equals(Tag.OP_EQ)      ||
+                    token.Classe.Equals(Tag.OP_GT)      ||
+                    token.Classe.Equals(Tag.OP_GE)      ||
+                    token.Classe.Equals(Tag.OP_LT)      ||
+                    token.Classe.Equals(Tag.OP_LE)      ||
+                    token.Classe.Equals(Tag.SMB_OPA)    ||
+                    token.Classe.Equals(Tag.OP_NE)) return; 
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void term1()
         {
-            factor_a();
-
-            term2();
+            if (token.Classe.Equals(Tag.ID) ||       //First FactorA “id”, “num_const”, “char_const”, “(“, “not”
+                token.Classe.Equals(Tag.CON_NUM) ||
+                token.Classe.Equals(Tag.SMB_OPA) ||
+                token.Classe.Equals(Tag.KW_NOT) ||
+                token.Classe.Equals(Tag.CON_CHAR))       
+            {
+                factor_a();
+                term2();
+            }
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
         public void term2()
         {
-            mulop();
+            if (token.Classe.Equals(Tag.OP_MUL) ||
+                token.Classe.Equals(Tag.OP_DIV) ||
+                token.Classe.Equals(Tag.KW_AND))
+            {
+                mulop();
 
-            factor_a();
+                factor_a();
 
-            term2();
+                term2();
+            }
+
+            else if(token.Classe.Equals(Tag.OP_AD)      ||
+                    token.Classe.Equals(Tag.OP_MIN)     ||
+                    token.Classe.Equals(Tag.KW_OR)      ||
+                    token.Classe.Equals(Tag.SMB_SEM)    ||
+                    token.Classe.Equals(Tag.SMB_CPA)    ||
+                    token.Classe.Equals(Tag.OP_EQ)      ||
+                    token.Classe.Equals(Tag.OP_GT)      ||
+                    token.Classe.Equals(Tag.OP_GE)      ||
+                    token.Classe.Equals(Tag.OP_LT)      ||
+                    token.Classe.Equals(Tag.OP_LE)      ||
+                    token.Classe.Equals(Tag.OP_NE)) return; //“+”, “-”, “or”, “;”, “==”, “>”, “>=”, “<”, “<=”, “!=”, “)”
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
+
 
             //TUDO QUE ESTÁ ACIMA OU VAZIO! 
         }
 
         public void factor_a()
         {
-            factor();
+            if (token.Classe.Equals(Tag.ID) ||
+                token.Classe.Equals(Tag.CON_NUM) ||
+                token.Classe.Equals(Tag.CON_CHAR) ||
+                token.Classe.Equals(Tag.SMB_OPA))
 
-            //         ||       OU
+                    factor();
 
-            if (!eat(Tag.KW_NOT))
+            else if (eat(Tag.KW_NOT))
             {
-                //erro
+                factor();
             }
-
-            factor();
-
+            else
+            {
+                flagSyntaxError("");
+                Environment.Exit(666);
+            }
         }
 
-        public void factor(){
+        public void factor(){   //BUGUEI!
 
             if (!eat(Tag.ID))
             {
@@ -421,12 +614,18 @@ namespace SyntaxAnalysis
 
         }
 
-        public void relop()
+        public void relop()  //“==”43 | “>” 44 | “>=” 45 | “<” 46 | “<=” 47 | “!=” 48
         {
 
-            if (token.Classe.Equals(Tag.OP_EQ) || token.Classe.Equals(Tag.OP_GT) || token.Classe.Equals(Tag.OP_GE) || token.Classe.Equals(Tag.OP_LT) || token.Classe.Equals(Tag.OP_LE) || token.Classe.Equals(Tag.OP_NE))
+            if (!eat(Tag.OP_EQ) &&
+                !eat(Tag.OP_GT) &&
+                !eat(Tag.OP_GE) &&
+                !eat(Tag.OP_LT) &&
+                !eat(Tag.OP_LE) &&
+                !eat(Tag.OP_NE))
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
 
         }
@@ -435,7 +634,8 @@ namespace SyntaxAnalysis
         {
             if (!eat(Tag.OP_AD) && !eat(Tag.OP_MIN) && !eat(Tag.KW_OR))
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
         }
 
@@ -443,15 +643,17 @@ namespace SyntaxAnalysis
         {
             if (!eat(Tag.OP_MUL) && !eat(Tag.OP_DIV) && !eat(Tag.KW_AND))
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
         }
 
         public void constant()
         {
-            if (!eat(Tag.KW_NUM) && !eat(Tag.KW_CHAR))
+            if (!eat(Tag.CON_NUM) && !eat(Tag.CON_CHAR))
             {
-                //erro
+                flagSyntaxError("");
+                Environment.Exit(666);
             }
         }
 

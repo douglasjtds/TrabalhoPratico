@@ -945,7 +945,7 @@ namespace myExtension
 
                         case 38:
 
-                            auxToken = ST.isLexemaOnSymbolTable(Tag.LIT, completeWord.ToString(), countLine, countColumn);
+                            auxToken = ST.isLexemaOnSymbolTable(Tag.CON_CHAR, completeWord.ToString(), countLine, countColumn);
                             outputSet.Add(auxToken.ToString());
 
                             currentState = 1;       //Reseta a execução do automato

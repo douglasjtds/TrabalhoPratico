@@ -46,6 +46,12 @@ namespace LexicalAnalysis
             word = new Token(Tag.KW_CHAR, "char", 0, 0);
             ST.Add(word, "char");
 
+            word = new Token(Tag.CON_NUM, "num_const", 0, 0);
+            ST.Add(word, "num_const");
+
+            word = new Token(Tag.CON_CHAR, "char_const", 0, 0);
+            ST.Add(word, "char_const");
+
             word = new Token(Tag.KW_NOT, "not", 0, 0);
             ST.Add(word, "not");
 
