@@ -1,16 +1,6 @@
-program ErrorCase3{
-	if (< > >= <= = == != + - * / { } when ){
+program ErrorCase3 {
+	if (a < b){
 	
-	} else (while write read num char not or and )
-	VARIAVEL1
-	VARIAVEL2
-	/*
-	COMENTARIO
-	*/ 
-	'P'
-	'A'
-	'S'
-	'C'
-	"PASCAL C"
-
-} OurCompiler
+	} else (a != b){
+	
+	};

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using myExtension;
+using SyntaxAnalysis;
 
 namespace LexicalAnalysis
 {
@@ -78,9 +79,9 @@ namespace LexicalAnalysis
             {
                 do
                 {
+                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                     if (tokenAux != null)
                     {
-                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
@@ -133,6 +134,11 @@ namespace LexicalAnalysis
             ReadText = new StreamReader(Entrada);
             SymbolTable ST = new SymbolTable();
 
+            Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+            parser.prog();
+            parser.CloseFiles();
+
+            /*
             if (File.Exists(CodePath))
             {
                 do
@@ -150,7 +156,7 @@ namespace LexicalAnalysis
             seeTokens.Show();
 
             Lexer.CloseFile(Entrada, ReadText);
-
+            */
         }
 
         private void button5_Click(object sender, EventArgs e)
