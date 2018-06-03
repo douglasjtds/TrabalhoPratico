@@ -59,6 +59,7 @@
             this.Controls.Add(this.logBox);
             this.Name = "SeeTokens";
             this.Text = "SeeTokens";
+            this.Load += new System.EventHandler(this.SeeTokens_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

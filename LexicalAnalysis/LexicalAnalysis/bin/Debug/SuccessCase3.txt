@@ -1,4 +1,4 @@
-program ErrorCase3{
+program SucessCase3{
 	if (< > >= <= = == != + - * / { } when ){
 	
 	} else (while write read num char not or and )

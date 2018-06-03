@@ -44,15 +44,19 @@ namespace SyntaxAnalysis
         /// <returns></returns>
         public string flagSyntaxError(string message)
         {
-            //MessageBox.Show("[ERRO SINTÁTICO]: Na linha: " + token.Linha + ", coluna: " + token.Coluna + ". " + message);
             outputSet.Add("[ERRO SINTÁTICO]: Na linha: " + token.Linha + ", coluna: " + token.Coluna + ". " + message);
             return "[ERRO SINTÁTICO]: Na linha: " + token.Linha + ", coluna: " + token.Coluna + ". " + message;
         }
 
         public void advance()
         {
-            token = Lexer.performsAutomaton(entrada, readText, outputSet, ST);
-            outputSet.Add(token.ToString());
+
+            do
+            {
+                token = Lexer.performsAutomaton(entrada, readText, outputSet, ST);
+            }
+            while (token == null);
+
         }
 
         public bool eat(Tag tag)
@@ -78,7 +82,7 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.ID))
                 {
-                    flagSyntaxError(" - Era esperado um ID , mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(prog) Era esperado um ID , mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -86,13 +90,13 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.EOF))
                 {
-                    flagSyntaxError(" - Era esperado o fim de arquivo, mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(prog) Era esperado o fim de arquivo, mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \"program\", mas foi encontrado: " + token.Lexema); //" - Era esperado: \" O QUE ERA ESPERADO \", mas foi encontrado: " + token.Lexema
+                flagSyntaxError("(prog) Era esperado: \"program\", mas foi encontrado: " + token.Lexema); //"Era esperado: \" O QUE ERA ESPERADO \", mas foi encontrado: " + token.Lexema
             }
         }
 
@@ -105,7 +109,7 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_OBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(body) Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -113,13 +117,13 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(body) Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(body) Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -132,7 +136,7 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_SEM))
                 {
-                    flagSyntaxError(" - Era esperado: \" ; \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(decl list) Era esperado: \" ; \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -142,7 +146,7 @@ namespace SyntaxAnalysis
             } else if (token.Classe.Equals(Tag.SMB_OBC)) return;
             else
             {
-                flagSyntaxError(" - Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(decl list) Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -157,16 +161,16 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(decl) Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
 
         public void type()
         {
-            if(!eat(Tag.KW_NUM) || !eat(Tag.KW_CHAR))
+            if(!eat(Tag.KW_NUM) && !eat(Tag.KW_CHAR))
             {
-                flagSyntaxError(" - Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(type) Era esperado: \" num ou char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -177,7 +181,7 @@ namespace SyntaxAnalysis
                 id_list2();
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(id_list1) Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -190,7 +194,7 @@ namespace SyntaxAnalysis
             else if (token.Classe.Equals(Tag.SMB_SEM)) return;
             else
             {
-                flagSyntaxError(" - Era esperado: \" , \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(id_list2) Era esperado: \" , ou um ;  \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -209,7 +213,7 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_SEM))
                 {
-                    flagSyntaxError(" - Era esperado: \" ; \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(stmt list) Era esperado: \" ; \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -218,7 +222,7 @@ namespace SyntaxAnalysis
             } else if (token.Classe.Equals(Tag.SMB_CBC)) return;
             else
             {
-                flagSyntaxError(" - Era esperado: \"if, ID, while, read, while ou }\", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(stmt list) Era esperado: \"if, ID, while, read, while ou }\", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
                 
@@ -244,7 +248,7 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.OP_ASS))
                 {
-                    flagSyntaxError(" - Era esperado: \" = \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(assing stmt) Era esperado: \" = \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -252,7 +256,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(assign stmt) Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -263,7 +267,7 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.SMB_OPA))
                 {
-                    flagSyntaxError(" - Era esperado: \" ( \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt1) Era esperado: \" ( \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -271,13 +275,13 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CPA))
                 {
-                    flagSyntaxError(" - Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt1) Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
                 if (!eat(Tag.SMB_OBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt1) Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -285,7 +289,7 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt1) Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -293,7 +297,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" if \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(If_stmt1) Era esperado: \" if \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -304,7 +308,7 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.SMB_OBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt2) Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -312,14 +316,14 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(If_stmt2) Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
             } else if (token.Classe.Equals(Tag.SMB_SEM)) return;
             else
             {
-                flagSyntaxError(" - Era esperado: \" else \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(If_stmt2) Era esperado: \" else \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -336,7 +340,7 @@ namespace SyntaxAnalysis
                     expression1();
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, const_char, const_num, not ou ) \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(condition) Era esperado: \" ID, const_char, const_num, not ou ( \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
 
@@ -351,7 +355,7 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_OBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(while stmt) Era esperado: \" { \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -359,13 +363,13 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CBC))
                 {
-                    flagSyntaxError(" - Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(while stmt) Era esperado: \" } \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" while \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(while stmt) Era esperado: \" while \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
 
@@ -377,7 +381,7 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.SMB_OPA))
                 {
-                    flagSyntaxError(" - Era esperado: \" ( \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(stmt prefix) Era esperado: \" ( \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
 
@@ -385,13 +389,13 @@ namespace SyntaxAnalysis
 
                 if (!eat(Tag.SMB_CPA))
                 {
-                    flagSyntaxError(" - Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(stmt prefix) Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" while \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(stmt prefix) Era esperado: \" while \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -403,13 +407,13 @@ namespace SyntaxAnalysis
             {
                 if (!eat(Tag.ID))
                 {
-                    flagSyntaxError(" - Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(read stmt) Era esperado: \" ID \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" read \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(read stmt) Era esperado: \" read \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -422,7 +426,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" write \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(write stmt) Era esperado: \" write \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -440,7 +444,7 @@ namespace SyntaxAnalysis
                         simple_expr1();
                 else
                 {
-                    flagSyntaxError(" - Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(writable) Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
                     //Environment.Exit(666);
                 }
             }
@@ -459,7 +463,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(expression1) Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -480,7 +484,7 @@ namespace SyntaxAnalysis
             else if (token.Classe.Equals(Tag.SMB_CPA)) return;
             else
             {
-                flagSyntaxError(" - Era esperado: \" ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(expression 2) Era esperado: \" ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -498,7 +502,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(simple expr 1) Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -522,11 +526,11 @@ namespace SyntaxAnalysis
                     token.Classe.Equals(Tag.OP_GE)      ||
                     token.Classe.Equals(Tag.OP_LT)      ||
                     token.Classe.Equals(Tag.OP_LE)      ||
-                    token.Classe.Equals(Tag.SMB_OPA)    ||
+                    token.Classe.Equals(Tag.SMB_CPA)    ||
                     token.Classe.Equals(Tag.OP_NE)) return; 
             else
             {
-                flagSyntaxError(" - Era esperado: \" +, -, or, ;, ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(simple expr 2) Era esperado: \" +, -, or, ;, ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -544,7 +548,7 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(term1) Era esperado: \" ID, const_num, const_char, not ou ( \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -575,7 +579,7 @@ namespace SyntaxAnalysis
                     token.Classe.Equals(Tag.OP_NE)) return; //“+”, “-”, “or”, “;”, “==”, “>”, “>=”, “<”, “<=”, “!=”, “)”
             else
             {
-                flagSyntaxError(" - Era esperado: \" *, /, and, +, -, or, ;, ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(term2) Era esperado: \" *, /, and, +, -, or, ;, ==, >, >=, <, <=, != ou ) \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
 
@@ -597,12 +601,13 @@ namespace SyntaxAnalysis
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, (, const_num ou const_char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(factor a) Era esperado: \" ID, (, const_num ou const_char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
 
-        public void factor(){   //BUGUEI!
+        public void factor()
+        { 
 
             if (eat(Tag.ID))
                 return;
@@ -614,11 +619,11 @@ namespace SyntaxAnalysis
             {
                 expression1();
                 if (!eat(Tag.SMB_CPA))
-                    flagSyntaxError(" - Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
+                    flagSyntaxError("(factor) Era esperado: \" ) \", mas foi encontrado: " + token.Lexema);
             }
             else
             {
-                flagSyntaxError(" - Era esperado: \" ID, const_char ou const_num \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(factor) Era esperado: \" ID, const_char ou const_num \", mas foi encontrado: " + token.Lexema);
             }
         }
 
@@ -632,7 +637,7 @@ namespace SyntaxAnalysis
                 !eat(Tag.OP_LE) &&
                 !eat(Tag.OP_NE))
             {
-                flagSyntaxError(" - Era esperado: \" ==, >, >=, <, <= ou != \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(relop) Era esperado: \" ==, >, >=, <, <= ou != \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
 
@@ -642,7 +647,7 @@ namespace SyntaxAnalysis
         {
             if (!eat(Tag.OP_AD) && !eat(Tag.OP_MIN) && !eat(Tag.KW_OR))
             {
-                flagSyntaxError(" - Era esperado: \" or, + ou - \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(addop) Era esperado: \" or, + ou - \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -651,7 +656,7 @@ namespace SyntaxAnalysis
         {
             if (!eat(Tag.OP_MUL) && !eat(Tag.OP_DIV) && !eat(Tag.KW_AND))
             {
-                flagSyntaxError(" - Era esperado: \" and, * ou / \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(mulop) Era esperado: \" and, * ou / \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }
@@ -660,7 +665,7 @@ namespace SyntaxAnalysis
         {
             if (!eat(Tag.CON_NUM) && !eat(Tag.CON_CHAR))
             {
-                flagSyntaxError(" - Era esperado: \" const_num ou const_char \", mas foi encontrado: " + token.Lexema);
+                flagSyntaxError("(constant) Era esperado: \" const_num ou const_char \", mas foi encontrado: " + token.Lexema);
                 //Environment.Exit(666);
             }
         }

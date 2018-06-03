@@ -28,5 +28,10 @@ namespace LexicalAnalysis
                 logBox.AppendText("\r\n" + auxToken);
             }
         }
+
+        private void SeeTokens_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
