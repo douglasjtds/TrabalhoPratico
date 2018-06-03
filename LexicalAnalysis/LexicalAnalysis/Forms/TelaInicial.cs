@@ -136,6 +136,9 @@ namespace LexicalAnalysis
 
             Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
             parser.prog();
+
+            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+            seeTokens.Show();
             parser.CloseFiles();
 
             /*

@@ -997,7 +997,7 @@ namespace myExtension
         /// </summary>
         public static string flagError(string lexema, int line, int column)
         {
-            return "Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column) + " ";
+            return "[ERRO LÉXICO]: Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column) + " ";
         }
 
 
