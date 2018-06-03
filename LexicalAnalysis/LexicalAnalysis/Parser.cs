@@ -8,6 +8,9 @@ using myExtension;
 
 namespace SyntaxAnalysis
 {
+    /// <summary>
+    /// Classe que contém todos os métodos utilizados durante a execução do analisador sintático
+    /// </summary>
     public class Parser
     {
 

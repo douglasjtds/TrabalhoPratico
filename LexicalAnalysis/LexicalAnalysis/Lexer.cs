@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace myExtension
 {
     /// <summary>
-    /// Classe que contém todos os métodos utilizados durante a execução do programa
+    /// Classe que contém todos os métodos utilizados durante a execução do analisador léxico
     /// </summary>
     public class Lexer
     {
