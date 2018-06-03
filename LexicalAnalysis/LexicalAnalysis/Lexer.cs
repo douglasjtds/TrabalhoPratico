@@ -33,7 +33,7 @@ namespace myExtension
         /// <param name="entrada"></param>
         /// <param name="ST"></param>
         /// <param name="outputSet"></param>
-        /// <returns>Void</returns>
+        /// <returns>Token</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         public static Token performsAutomaton(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST)
         {

@@ -19,11 +19,17 @@ namespace SyntaxAnalysis
         Stream entrada;
         StreamReader readText; 
         List<String> outputSet; 
-        SymbolTable ST; 
+        SymbolTable ST;
 
-        public Parser(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST, Lexer lexer)
+        /// <summary>
+        /// Método construtor do Parser 
+        /// </summary>
+        /// <param name="entrada"></param>
+        /// <param name="readText"></param>
+        /// <param name="outputSet"></param>
+        /// <param name="ST"></param>
+        public Parser(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST)
         {
-            this.lexer = lexer;
             this.ST = ST;
             this.entrada = entrada;
             this.readText = readText;
@@ -31,8 +37,14 @@ namespace SyntaxAnalysis
             token = Lexer.performsAutomaton(entrada, readText, outputSet, ST);
         }
 
+        /// <summary>
+        /// Método que retorna a mensagem dos erros sintáticos encontrados
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public string flagSyntaxError(string message)
         {
+            MessageBox.Show("[ERRO SINTÁTICO]: Na linha: " + token.Linha + ", coluna: " + token.Coluna + ". " + message);
             return "[ERRO SINTÁTICO]: Na linha: " + token.Linha + ", coluna: " + token.Coluna + ". " + message;
         }
 
@@ -63,10 +75,11 @@ namespace SyntaxAnalysis
         {
             if (eat(Tag.KW_PROGRAM))
             {
+                MessageBox.Show("Leu o primeiro!");
                 if (!eat(Tag.ID))
                 {
                     flagSyntaxError("Era esperado um ID , mas o encontrado foi: " + token.Lexema);
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 body();
@@ -74,7 +87,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.EOF))
                 {
                     flagSyntaxError("Era esperado o fim de arquivo, mas o encontrado foi: " + token.Lexema);
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
             else
@@ -93,7 +106,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_OBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 stmt_list();
@@ -101,13 +114,13 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -120,7 +133,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_SEM))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 decl_list();
@@ -130,7 +143,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -145,7 +158,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -154,7 +167,7 @@ namespace SyntaxAnalysis
             if(!eat(Tag.KW_NUM) || !eat(Tag.KW_CHAR))
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -165,7 +178,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -178,7 +191,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -197,7 +210,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_SEM))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 stmt_list();
@@ -206,7 +219,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
                 
         }
@@ -232,7 +245,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.OP_ASS))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 simple_expr1();
@@ -240,7 +253,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -251,7 +264,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_OPA))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 condition();
@@ -259,13 +272,13 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CPA))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 if (!eat(Tag.SMB_OBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 stmt_list();
@@ -273,7 +286,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 If_stmt2();
@@ -281,7 +294,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -292,7 +305,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_OBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 stmt_list();
@@ -300,14 +313,14 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
             } else if (token.Classe.Equals(Tag.SMB_SEM)) return;
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -324,7 +337,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
 
         }
@@ -339,7 +352,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_OBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 stmt_list();
@@ -347,13 +360,13 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CBC))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
 
         }
@@ -365,7 +378,7 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_OPA))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
 
                 condition();
@@ -373,13 +386,13 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.SMB_CPA))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -391,13 +404,13 @@ namespace SyntaxAnalysis
                 if (!eat(Tag.ID))
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -410,7 +423,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -428,7 +441,7 @@ namespace SyntaxAnalysis
                 else
                 {
                     flagSyntaxError("");
-                    Environment.Exit(666);
+                    //Environment.Exit(666);
                 }
             }
         }
@@ -447,7 +460,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -468,7 +481,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -486,7 +499,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -514,7 +527,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -532,7 +545,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -563,7 +576,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
 
 
@@ -586,7 +599,7 @@ namespace SyntaxAnalysis
             else
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -628,7 +641,7 @@ namespace SyntaxAnalysis
                 !eat(Tag.OP_NE))
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
 
         }
@@ -638,7 +651,7 @@ namespace SyntaxAnalysis
             if (!eat(Tag.OP_AD) && !eat(Tag.OP_MIN) && !eat(Tag.KW_OR))
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -647,7 +660,7 @@ namespace SyntaxAnalysis
             if (!eat(Tag.OP_MUL) && !eat(Tag.OP_DIV) && !eat(Tag.KW_AND))
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 
@@ -656,7 +669,7 @@ namespace SyntaxAnalysis
             if (!eat(Tag.CON_NUM) && !eat(Tag.CON_CHAR))
             {
                 flagSyntaxError("");
-                Environment.Exit(666);
+                //Environment.Exit(666);
             }
         }
 

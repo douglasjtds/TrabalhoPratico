@@ -6,7 +6,7 @@
     <members>
         <member name="T:myExtension.Lexer">
             <summary>
-            Classe que contém todos os métodos utilizados durante a execução do programa
+            Classe que contém todos os métodos utilizados durante a execução do analisador léxico
             </summary>
         </member>
         <member name="M:myExtension.Lexer.readFile(System.String)">
@@ -25,7 +25,7 @@
             <param name="entrada"></param>
             <param name="ST"></param>
             <param name="outputSet"></param>
-            <returns>Void</returns>
+            <returns>Token</returns>
             <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
         </member>
         <member name="M:myExtension.Lexer.currentLineAndColumn(System.Int32,System.Int32)">
@@ -132,6 +132,27 @@
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
             </summary>
+        </member>
+        <member name="T:SyntaxAnalysis.Parser">
+            <summary>
+            Classe que contém todos os métodos utilizados durante a execução do analisador sintático
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.#ctor(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
+            <summary>
+            Método construtor do Parser 
+            </summary>
+            <param name="entrada"></param>
+            <param name="readText"></param>
+            <param name="outputSet"></param>
+            <param name="ST"></param>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.flagSyntaxError(System.String)">
+            <summary>
+            Método que retorna a mensagem dos erros sintáticos encontrados
+            </summary>
+            <param name="message"></param>
+            <returns></returns>
         </member>
         <member name="T:Token">
             <summary>

@@ -1,6 +1,12 @@
-program ErrorCase3 {
-	if (a < b){
-	
-	} else (a != b){
-	
-	};
+//Primeiro programa teste do Cassio
+//Esse tem que dar certo
+
+program Teste
+num var1;
+num var2;
+{
+    if(var1 == var2)
+    {
+
+    };
+}
