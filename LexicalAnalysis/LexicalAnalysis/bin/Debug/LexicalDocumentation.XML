@@ -17,7 +17,7 @@
             <returns>Mensagem de teste com o conteúdo do arquivo.</returns>
             <remarks>Deve ser implementado quando for necessário ler um novo arquivo de programa PasC.</remarks>
         </member>
-        <member name="M:myExtension.Lexer.performsAutomaton(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
+        <member name="M:myExtension.Lexer.performsAutomaton(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable,System.Int32,System.Int32)">
             <summary>
             Método utilizado para executar o autômato analisará o lexico da linguagem PasC
             </summary>
@@ -165,6 +165,156 @@
             </summary>
             <param name="tag"></param>
             <returns></returns>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.prog">
+            <summary>
+            Método para o não terminal "prog"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.body">
+            <summary>
+            Método para o não terminal "body"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.decl_list">
+            <summary>
+            Método para o não terminal "decl-list"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.decl">
+            <summary>
+            Método para o não terminal "decl"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.type">
+            <summary>
+            Método para o não terminal "type"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.id_list1">
+            <summary>
+            Método para o não terminal "id-list"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.id_list2">
+            <summary>
+            Método para o não terminal " id-list' "
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.stmt_list">
+            <summary>
+            Método para o não terminal "stmt-list"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.stmt">
+            <summary>
+            Método para o não terminal "stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.assign_stmt">
+            <summary>
+            Método para o não terminal "assign-stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.If_stmt1">
+            <summary>
+            Método para o não terminal "if-stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.If_stmt2">
+            <summary>
+            Método para o não terminal " if-stmt' "
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.condition">
+            <summary>
+            Método para o não terminal "condition"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.While_stmt">
+            <summary>
+            Método para o não terminal "while-stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.stmt_prefix">
+            <summary>
+            Método para o não terminal "stmt-prefix"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.read_stmt">
+            <summary>
+            Método para o não terminal "read-stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.write_stmt">
+            <summary>
+            Método para o não terminal "write-stmt"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.writable">
+            <summary>
+            Método para o não terminal "writable"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.expression1">
+            <summary>
+            Método para o não terminal "expression"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.expression2">
+            <summary>
+            Método para o não terminal " expression' "
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.simple_expr1">
+            <summary>
+            Método para o não terminal "simple-expr"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.simple_expr2">
+            <summary>
+            Método para o não terminal " simple-expr' "
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.term1">
+            <summary>
+            Método para o não terminal "term"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.term2">
+            <summary>
+            Método para o não terminal " term' "
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.factor_a">
+            <summary>
+            Método para o não terminal "factor-a"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.factor">
+            <summary>
+            Método para o não terminal "factor"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.relop">
+            <summary>
+            Método para o não terminal "relop"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.addop">
+            <summary>
+            Método para o não terminal "addop"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.mulop">
+            <summary>
+            Método para o não terminal "mulop"
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.constant">
+            <summary>
+            Método para o não terminal "constant"
+            </summary>
         </member>
         <member name="T:Token">
             <summary>

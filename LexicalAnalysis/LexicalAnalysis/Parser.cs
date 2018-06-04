@@ -61,7 +61,7 @@ namespace SyntaxAnalysis
 
             do
             {
-                token = Lexer.performsAutomaton(entrada, readText, outputSet, ST);
+                token = Lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
             }
             while (token == null);
 

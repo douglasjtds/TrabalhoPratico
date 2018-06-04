@@ -234,32 +234,25 @@ namespace LexicalAnalysis
             {
 
                 TokenList.Clear();
+                OutputSet.Clear();
 
                 CodePath = textBox1.Text;
                 textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
 
-                Entrada = File.Open(CodePath, FileMode.Open);
-                ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
-
                 if (File.Exists(CodePath))
                 {
-                    do
-                    {
-                        if (tokenAux != null)
-                        {
-                            tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                            TokenList.Add(tokenAux);
-                        }
-                    }
-                    while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                    Entrada = File.Open(CodePath, FileMode.Open);
+                    ReadText = new StreamReader(Entrada);
+                    SymbolTable ST = new SymbolTable();
+
+                    Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                    parser.prog();
+
+                    SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                    seeTokens.Show();
+                    parser.CloseFiles();
                 }
-
-                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-                seeTokens.Show();
-
-                Lexer.CloseFile(Entrada, ReadText);
-
             }
             catch (ArgumentException)
             {
@@ -287,28 +280,22 @@ namespace LexicalAnalysis
                 var fileName = openFileDialog1.FileName;
                 CodePath = fileName;
                 TokenList.Clear();
-
-                Entrada = File.Open(CodePath, FileMode.Open);
-                ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                OutputSet.Clear();
 
                 if (File.Exists(CodePath))
                 {
-                    do
-                    {
-                        if (tokenAux != null)
-                        {
-                            tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                            TokenList.Add(tokenAux);
-                        }
-                    }
-                    while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                    Entrada = File.Open(CodePath, FileMode.Open);
+                    ReadText = new StreamReader(Entrada);
+                    SymbolTable ST = new SymbolTable();
+
+                    Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                    parser.prog();
+
+                    SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                    seeTokens.Show();
+                    parser.CloseFiles();
                 }
-
-                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-                seeTokens.Show();
-
-                Lexer.CloseFile(Entrada, ReadText);
 
             }
         }

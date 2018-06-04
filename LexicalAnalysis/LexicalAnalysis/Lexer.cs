@@ -35,7 +35,7 @@ namespace myExtension
         /// <param name="outputSet"></param>
         /// <returns>Token</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
-        public static Token performsAutomaton(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST)
+        public static Token performsAutomaton(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST, int CountLine, int CountColumn)
         {
             const int END_OF_FILE = -1;
             int lookahead = 0;
@@ -49,7 +49,7 @@ namespace myExtension
                 bool PanicError = false;
 
                 int currentState = 1;                               //Nosso estado inicial é o 1
-                int countLine = 1, countColumn = 0;                 //Contadores de linha e coluna
+                int countLine = CountLine, countColumn = CountColumn;                 //Contadores de linha e coluna
                 StringBuilder completeWord = new StringBuilder();   //String que será incrementada com os caracteres lidos
                 char currentCharacter = '\u0000';
 
