@@ -1,43 +1,10 @@
-//Estados para implementar o modo pânico: 9, 29, 36, 32 e 27
-//Estado 9: Da ! deve executar até vir um =										(OK!)
+program Teste
+num var1;
+num var2
+char compiler1;
+{
+    if(var1 == var2)
+    {
 
-! KKKJ ==a !=
-
-
-
-//Estado 29: De uma " deve executar até achar uma " que fecha					(QUASE OK!)
-
-"KKJ"
-"KK
-()
-"
-
-
-
-
-//Estado 36: De um ' deve executar até vir uma ' que fecha						(QUASE OK!)
-
-'a'
-'
-''
-'MA HOEE
-aa
-'
-';'
-
-
-
-//Estado 32: De um ponto final, deve executar até vir outro dígito				(NOT IMPLEMENTED)
-
-33
-33.3
-33..
-ISSOAQUIÉUMERRO
-3
-
-
-
-//Estado 27: Executar até achar o final do comentario de multiplas linhas		(OK!)
-
-JAESTAFUNCIONANDO
-/*
+    }
+}

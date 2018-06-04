@@ -1,14 +1,9 @@
-program Teste
+Test
 num var1
-num var2;
-@
+char compiler1;
+char compiler2
 {
-    if(var1 >= var2)
-    {
-
-    }
-    else
-    {
-        var1 = var1 / var2;
-    };
+if()
+{
+   while(
 }

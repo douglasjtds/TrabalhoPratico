@@ -1,11 +1,10 @@
-program SucessCase3{
-	if (< > >= <= = == != + - * / { } when ){
-	
-	} else (while write read num char not or and )
-	'A'
-	"Compiladores"
-
-	33
-	33.3
-	numconst	charconst	
-} OurCompiler
+program Teste
+num var1;
+char var2;
+char compiler1;
+{
+    if(var1 == var2)
+    {
+        compiler1 = 'a';
+    };
+}
