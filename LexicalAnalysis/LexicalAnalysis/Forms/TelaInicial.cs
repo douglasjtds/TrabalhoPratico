@@ -38,30 +38,23 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            CodePath = Lexer.readFile("ErrorCase1.txt");
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
             if (File.Exists(CodePath))
             {
-                do
-                {
-                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                    if (tokenAux != null)
-                    {
-                        TokenList.Add(tokenAux);
-                        //MessageBox.Show(tokenAux.ToString());
-                    }
-                }
-                while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
+
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
             }
-
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-
-            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
@@ -69,62 +62,46 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("ErrorCase2.txt");
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
             if (File.Exists(CodePath))
             {
-                do
-                {
-                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                    if (tokenAux != null)
-                    {
-                        TokenList.Add(tokenAux);
-                    }
-                }
-                while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
+
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
             }
-
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-
-            Lexer.CloseFile(Entrada, ReadText);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("ErrorCase3.txt");
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
-            Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
             if (File.Exists(CodePath))
             {
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
 
-                do
-                {
-                    if (tokenAux != null)
-                    {
-                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                        TokenList.Add(tokenAux);
-                    }
-                }
-                while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
                 parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
             }
-
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-            parser.CloseFiles();
-
-            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
@@ -134,16 +111,22 @@ namespace LexicalAnalysis
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
-            Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
-            parser.prog();
+            if (File.Exists(CodePath))
+            {
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
 
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-            parser.CloseFiles();
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
+            }
+
 
             /*
             if (File.Exists(CodePath))
@@ -170,29 +153,23 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase2.txt");
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
             if (File.Exists(CodePath))
             {
-                do
-                {
-                    if (tokenAux != null)
-                    {
-                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                        TokenList.Add(tokenAux);
-                    }
-                }
-                while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
+
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
             }
-
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-
-            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
@@ -200,29 +177,23 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase3.txt");
+            CodePath = Lexer.readFile("SuccessCase1.txt");
 
-            Entrada = File.Open(CodePath, FileMode.Open);
-            ReadText = new StreamReader(Entrada);
-            SymbolTable ST = new SymbolTable();
 
             if (File.Exists(CodePath))
             {
-                do
-                {
-                    if (tokenAux != null)
-                    {
-                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
-                        TokenList.Add(tokenAux);
-                    }
-                }
-                while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
+
+                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+
+                parser.prog();
+
+                SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+                seeTokens.Show();
+                parser.CloseFiles();
             }
-
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
-            seeTokens.Show();
-
-            Lexer.CloseFile(Entrada, ReadText);
 
         }
 
