@@ -211,13 +211,15 @@ namespace myExtension
                                 currentState = 31;
                                 completeWord.Append((int)readText.Read());
 
-                            } else if (currentCharacter == '\'')
+                            }
+                            else if (currentCharacter == '\'')
                             {
                                 countColumn++;
                                 currentState = 36;
                                 completeWord.Append((char)readText.Read());
                                 PanicError = false;
-                            } else
+                            }
+                            else
                             {
                                 completeWord.Append((char)readText.Read()); countColumn++;
                                 outputSet.Add(flagError(completeWord.ToString(), countLine, countColumn));
@@ -257,7 +259,7 @@ namespace myExtension
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             return auxToken;
-                                
+
 
                         case 5:         //ACHOU }
                             auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_CBC, completeWord.ToString(), countLine, countColumn);
@@ -266,7 +268,7 @@ namespace myExtension
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             return auxToken;
-                            
+
 
                         case 6:        //ACHOU UM =
                             AuxChar = (char)readText.Peek();
@@ -300,7 +302,7 @@ namespace myExtension
                             currentState = 1;       //Reseta a execução do automato
                             completeWord.Clear();   //Reseta a StringBiulder
                             return auxToken;
-                            
+
 
                         case 9:         //ACHOU !
                             AuxChar = (char)readText.Peek();
@@ -322,16 +324,16 @@ namespace myExtension
                             }
 
                             else
-                            {    
+                            {
                                 if (AuxChar.Equals(' ') || AuxChar.Equals('\t'))
                                 {
                                     outputSet.Add("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver espaços entre o simbolo de diferenca. Era esperado um =");
 
                                     readText.Read();
-                                    countColumn++; 
+                                    countColumn++;
                                     completeWord.Clear();
                                 }
-                                else if(AuxChar.Equals('\n'))
+                                else if (AuxChar.Equals('\n'))
                                 {
                                     outputSet.Add("Erro na " + currentLineAndColumn(countLine, countColumn) + " - Nao pode haver quebra de linha entre o token de diferença. Era esperado um =");
 
@@ -348,7 +350,7 @@ namespace myExtension
                                     countColumn++;
                                     completeWord.Clear();
                                 }
-                                      
+
                             }
 
                             break;
@@ -362,7 +364,7 @@ namespace myExtension
                             PanicError = false;
 
                             return auxToken;
-                            
+
 
                         case 11:
                             AuxChar = (char)readText.Peek();
@@ -388,7 +390,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 13:        //ACHOU >
                             auxToken = ST.isLexemaOnSymbolTable(Tag.OP_GT, completeWord.ToString(), countLine, countColumn);
@@ -398,7 +400,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 14:            // ACHOU < 
                             AuxChar = (char)readText.Peek();
@@ -424,7 +426,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 16:        //ACHOU <
                             auxToken = ST.isLexemaOnSymbolTable(Tag.OP_LT, completeWord.ToString(), countLine, countColumn);
@@ -434,7 +436,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 17:        //ACHOU +
                             auxToken = ST.isLexemaOnSymbolTable(Tag.OP_AD, completeWord.ToString(), countLine, countColumn);
@@ -444,7 +446,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 18:        //ACHOU -
                             auxToken = ST.isLexemaOnSymbolTable(Tag.OP_MIN, completeWord.ToString(), countLine, countColumn);
@@ -454,7 +456,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 19:        //ACHOU *
                             auxToken = ST.isLexemaOnSymbolTable(Tag.OP_MUL, completeWord.ToString(), countLine, countColumn);
@@ -464,7 +466,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 20:        //ACHOU (
                             auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_OPA, completeWord.ToString(), countLine, countColumn);
@@ -474,7 +476,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 21:        //ACHOU )
                             auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_CPA, completeWord.ToString(), countLine, countColumn);
@@ -484,7 +486,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 22:        //ACHOU ,
                             auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_COM, completeWord.ToString(), countLine, countColumn);
@@ -494,7 +496,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 23:        //ACHOU ;
                             auxToken = ST.isLexemaOnSymbolTable(Tag.SMB_SEM, completeWord.ToString(), countLine, countColumn);
@@ -504,7 +506,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 24:        //ACHOU / (SIMBOLO DIVISAO)
                             AuxChar = (char)readText.Peek();
@@ -533,7 +535,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 26:        //Entrou na regra de comentário de múltiplas linhas
                             AuxChar = (char)readText.Peek();
@@ -551,7 +553,8 @@ namespace myExtension
                                 completeWord.Append((char)readText.Read());
                                 countColumn++;
 
-                            } else if (AuxChar.Equals('\n'))
+                            }
+                            else if (AuxChar.Equals('\n'))
                             {
                                 readText.Read();
                                 countLine++;
@@ -677,7 +680,8 @@ namespace myExtension
                                 {
                                     readText.Read();
                                 }
-                                else {
+                                else
+                                {
                                     countColumn++;
                                     completeWord.Append((char)readText.Read());
                                     //MessageBox.Show(flagError(AuxChar.ToString(), countLine, countColumn) + "Era esperado uma aspas");
@@ -806,7 +810,7 @@ namespace myExtension
                                     outputSet.Add(flagError(AuxChar.ToString(), countLine, countColumn) + " Era esperado um numero");
                                 }
                             }
-                                   
+
 
                             break;
 
@@ -837,7 +841,7 @@ namespace myExtension
                             PanicError = false;
 
                             return auxToken;
-                                    
+
 
                         case 35:         //ACHOU INT (estado final)
                             auxToken = ST.isLexemaOnSymbolTable(Tag.CON_NUM, completeWord.ToString(), countLine, countColumn);
@@ -847,7 +851,7 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         case 36:  //ACHOU ASPAS SIMPLES
                             AuxChar = (char)readText.Peek();
@@ -929,12 +933,12 @@ namespace myExtension
 
                             if (AuxChar.Equals('\''))
                             {
-                                completeWord.Append((char)readText.Read());     countColumn++;
+                                completeWord.Append((char)readText.Read()); countColumn++;
                                 currentState = 38;
                             }
                             else
                             {
-                                completeWord.Append((char)readText.Read());     countColumn++;
+                                completeWord.Append((char)readText.Read()); countColumn++;
                                 outputSet.Add(flagError(completeWord.ToString(), countLine, countColumn));
 
                                 completeWord.Clear();
@@ -952,13 +956,13 @@ namespace myExtension
                             completeWord.Clear();   //Reseta a StringBiulder
 
                             return auxToken;
-                            
+
 
                         default:
                             outputSet.Add(flagError(completeWord.ToString(), countLine, countColumn));
 
                             return null;
-                            
+
                     }
 
                 } while (true);

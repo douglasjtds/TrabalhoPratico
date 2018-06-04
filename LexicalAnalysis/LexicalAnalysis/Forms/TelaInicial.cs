@@ -104,8 +104,10 @@ namespace LexicalAnalysis
             ReadText = new StreamReader(Entrada);
             SymbolTable ST = new SymbolTable();
 
+            Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
             if (File.Exists(CodePath))
             {
+
                 do
                 {
                     if (tokenAux != null)
@@ -115,10 +117,12 @@ namespace LexicalAnalysis
                     }
                 }
                 while (tokenAux != null && tokenAux.Classe != LexicalAnalysis.Tag.EOF);
+                parser.prog();
             }
 
             SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
+            parser.CloseFiles();
 
             Lexer.CloseFile(Entrada, ReadText);
 

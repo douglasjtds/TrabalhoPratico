@@ -154,6 +154,18 @@
             <param name="message"></param>
             <returns></returns>
         </member>
+        <member name="M:SyntaxAnalysis.Parser.advance">
+            <summary>
+            Método que avança a entrada do caracter
+            </summary>
+        </member>
+        <member name="M:SyntaxAnalysis.Parser.eat(LexicalAnalysis.Tag)">
+            <summary>
+            Método que consome o caracter
+            </summary>
+            <param name="tag"></param>
+            <returns></returns>
+        </member>
         <member name="T:Token">
             <summary>
             Classe para as regras do Token
