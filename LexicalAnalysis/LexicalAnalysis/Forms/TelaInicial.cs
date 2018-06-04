@@ -38,7 +38,7 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase1.txt");
+            CodePath = Lexer.readFile("ErrorCase1.txt");
 
 
             if (File.Exists(CodePath))
@@ -62,7 +62,7 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase1.txt");
+            CodePath = Lexer.readFile("ErrorCase2.txt");
 
 
             if (File.Exists(CodePath))
@@ -85,7 +85,7 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase1.txt");
+            CodePath = Lexer.readFile("ErrorCase3.txt");
 
 
             if (File.Exists(CodePath))
@@ -153,7 +153,7 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase1.txt");
+            CodePath = Lexer.readFile("SuccessCase2.txt");
 
 
             if (File.Exists(CodePath))
@@ -177,7 +177,7 @@ namespace LexicalAnalysis
         {
             TokenList.Clear();
             OutputSet.Clear();
-            CodePath = Lexer.readFile("SuccessCase1.txt");
+            CodePath = Lexer.readFile("SuccessCase3.txt");
 
 
             if (File.Exists(CodePath))
