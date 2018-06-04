@@ -20,6 +20,8 @@ namespace SyntaxAnalysis
         StreamReader readText;
         List<String> outputSet;
         SymbolTable ST;
+        int countLine;
+        int countColumn;
 
         /// <summary>
         /// Método construtor do Parser 
@@ -34,7 +36,9 @@ namespace SyntaxAnalysis
             this.entrada = entrada;
             this.readText = readText;
             this.outputSet = outputSet;
-            token = Lexer.performsAutomaton(entrada, readText, outputSet, ST);
+            countLine = 1;
+            countColumn = 1;
+            token = Lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
         }
 
         /// <summary>
@@ -84,7 +88,9 @@ namespace SyntaxAnalysis
             Lexer.CloseFile(entrada, readText);
         }
 
-
+        /// <summary>
+        /// Método para o não terminal "prog"
+        /// </summary>
         public void prog()
         {
             if (eat(Tag.KW_PROGRAM))
@@ -107,6 +113,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "body"
+        /// </summary>
         public void body()
         {
 
@@ -132,6 +141,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "decl-list"
+        /// </summary>
         public void decl_list()
         {
             if (token.Classe.Equals(Tag.KW_NUM) || token.Classe.Equals(Tag.KW_CHAR))
@@ -154,6 +166,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "decl"
+        /// </summary>
         public void decl()
         {
             if (token.Classe.Equals(Tag.KW_NUM) || token.Classe.Equals(Tag.KW_CHAR))
@@ -168,6 +183,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "type"
+        /// </summary>
         public void type()
         {
             if (!eat(Tag.KW_NUM) && !eat(Tag.KW_CHAR))
@@ -176,6 +194,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "id-list"
+        /// </summary>
         public void id_list1()
         {
             if (eat(Tag.ID))
@@ -186,6 +207,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal " id-list' "
+        /// </summary>
         public void id_list2()
         {
             if (eat(Tag.SMB_COM))
@@ -198,6 +222,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "stmt-list"
+        /// </summary>
         public void stmt_list()
         {
 
@@ -226,6 +253,9 @@ namespace SyntaxAnalysis
 
         }
 
+        /// <summary>
+        /// Método para o não terminal "stmt"
+        /// </summary>
         public void stmt()
         {
             if (token.Classe.Equals(Tag.ID))
@@ -240,6 +270,9 @@ namespace SyntaxAnalysis
                 write_stmt();
         }
 
+        /// <summary>
+        /// Método para o não terminal "assign-stmt"
+        /// </summary>
         public void assign_stmt()
         {
             if (eat(Tag.ID))
@@ -257,6 +290,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "if-stmt"
+        /// </summary>
         public void If_stmt1()
         {
             if (eat(Tag.KW_IF))
@@ -293,6 +329,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal " if-stmt' "
+        /// </summary>
         public void If_stmt2()
         {
             if (eat(Tag.KW_ELSE))
@@ -317,7 +356,9 @@ namespace SyntaxAnalysis
             }
         }
 
-
+        /// <summary>
+        /// Método para o não terminal "condition"
+        /// </summary>
         public void condition()
         {
             if (token.Classe.Equals(Tag.ID) ||
@@ -334,6 +375,9 @@ namespace SyntaxAnalysis
 
         }
 
+        /// <summary>
+        /// Método para o não terminal "while-stmt"
+        /// </summary>
         public void While_stmt()
         {
 
@@ -360,6 +404,9 @@ namespace SyntaxAnalysis
 
         }
 
+        /// <summary>
+        /// Método para o não terminal "stmt-prefix"
+        /// </summary>
         public void stmt_prefix()
         {
             if (eat(Tag.KW_WHILE))
@@ -382,6 +429,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "read-stmt"
+        /// </summary>
         public void read_stmt()
         {
 
@@ -398,6 +448,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "write-stmt"
+        /// </summary>
         public void write_stmt()
         {
             if (eat(Tag.KW_WRITE))
@@ -410,6 +463,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "writable"
+        /// </summary>
         public void writable()
         {
             if (!eat(Tag.LIT))
@@ -428,6 +484,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "expression"
+        /// </summary>
         public void expression1()
         {
             if (token.Classe.Equals(Tag.ID) ||
@@ -445,6 +504,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal " expression' "
+        /// </summary>
         public void expression2()
         {
             if (token.Classe.Equals(Tag.OP_EQ) ||
@@ -465,6 +527,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "simple-expr"
+        /// </summary>
         public void simple_expr1()
         {
             if (token.Classe.Equals(Tag.ID) ||
@@ -482,6 +547,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal " simple-expr' "
+        /// </summary>
         public void simple_expr2()
         {
             if (token.Classe.Equals(Tag.OP_AD) ||
@@ -509,6 +577,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "term"
+        /// </summary>
         public void term1()
         {
             if (token.Classe.Equals(Tag.ID) ||       //First FactorA “id”, “num_const”, “char_const”, “(“, “not”
@@ -526,6 +597,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal " term' "
+        /// </summary>
         public void term2()
         {
             if (token.Classe.Equals(Tag.OP_MUL) ||
@@ -558,6 +632,9 @@ namespace SyntaxAnalysis
 
         }
 
+        /// <summary>
+        /// Método para o não terminal "factor-a"
+        /// </summary>
         public void factor_a()
         {
             if (token.Classe.Equals(Tag.ID) ||
@@ -577,6 +654,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "factor"
+        /// </summary>
         public void factor()
         {
 
@@ -598,6 +678,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "relop"
+        /// </summary>
         public void relop()  //“==”43 | “>” 44 | “>=” 45 | “<” 46 | “<=” 47 | “!=” 48
         {
 
@@ -613,6 +696,9 @@ namespace SyntaxAnalysis
 
         }
 
+        /// <summary>
+        /// Método para o não terminal "addop"
+        /// </summary>
         public void addop()
         {
             if (!eat(Tag.OP_AD) && !eat(Tag.OP_MIN) && !eat(Tag.KW_OR))
@@ -621,6 +707,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "mulop"
+        /// </summary>
         public void mulop()
         {
             if (!eat(Tag.OP_MUL) && !eat(Tag.OP_DIV) && !eat(Tag.KW_AND))
@@ -629,6 +718,9 @@ namespace SyntaxAnalysis
             }
         }
 
+        /// <summary>
+        /// Método para o não terminal "constant"
+        /// </summary>
         public void constant()
         {
             if (!eat(Tag.CON_NUM) && !eat(Tag.CON_CHAR))
