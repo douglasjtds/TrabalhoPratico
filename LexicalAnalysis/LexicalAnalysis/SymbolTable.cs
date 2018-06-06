@@ -79,7 +79,10 @@ namespace LexicalAnalysis
             {
                 if (token.Lexema.ToUpper().Equals(completeWord.ToUpper()))
                 {
-                    return token;
+                    Token tok = token;
+                    tok.Linha = countLine;
+                    tok.Coluna = countColumn;
+                    return tok;
                 }
             }
 

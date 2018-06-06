@@ -23,6 +23,9 @@ namespace LexicalAnalysis
         List<String> OutputSet = new List<String>();
         SymbolTable ST = new SymbolTable();
 
+        int column = 1;
+        int line = 1;
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -39,6 +42,7 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("ErrorCase1.txt");
+            column = 1; line = 1;
 
 
             if (File.Exists(CodePath))
@@ -63,6 +67,7 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("ErrorCase2.txt");
+            column = 1; line = 1;
 
 
             if (File.Exists(CodePath))
@@ -86,6 +91,7 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("ErrorCase3.txt");
+            column = 1; line = 1;
 
 
             if (File.Exists(CodePath))
@@ -110,8 +116,9 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase1.txt");
+            column = 1; line = 1;
 
-
+            /*
             if (File.Exists(CodePath))
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
@@ -125,17 +132,21 @@ namespace LexicalAnalysis
                 SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
                 parser.CloseFiles();
-            }
+            }*/
 
-
-            /*
             if (File.Exists(CodePath))
             {
+
+                Entrada = File.Open(CodePath, FileMode.Open);
+                ReadText = new StreamReader(Entrada);
+                SymbolTable ST = new SymbolTable();
+
                 do
                 {
+                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST, line, column);
+
                     if (tokenAux != null)
                     {
-                        tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST);
                         TokenList.Add(tokenAux);
                     }
                 }
@@ -146,7 +157,6 @@ namespace LexicalAnalysis
             seeTokens.Show();
 
             Lexer.CloseFile(Entrada, ReadText);
-            */
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -154,6 +164,7 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase2.txt");
+            column = 1; line = 1;
 
 
             if (File.Exists(CodePath))
@@ -178,6 +189,7 @@ namespace LexicalAnalysis
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase3.txt");
+            column = 1; line = 1;
 
 
             if (File.Exists(CodePath))
