@@ -123,6 +123,7 @@ namespace LexicalAnalysis
         private void button4_Click(object sender, EventArgs e)
         {
             TokenList.Clear();
+            TokenSet.Clear();
             CodePath = OurMethods.readFile("SuccessCase1.txt");
 
             Entrada = File.Open(CodePath, FileMode.Open);
