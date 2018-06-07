@@ -41,7 +41,7 @@
             Método para sinalizar um erro e o lugar onde ele foi encontrado
             </summary>
         </member>
-        <member name="M:myExtension.Lexer.CloseFile(System.IO.Stream,System.IO.StreamReader)">
+        <member name="M:myExtension.Lexer.CloseFile">
             <summary>
             Método usado para fechar o arquivo após a leitura
             </summary>
@@ -138,7 +138,7 @@
             Classe que contém todos os métodos utilizados durante a execução do analisador sintático
             </summary>
         </member>
-        <member name="M:SyntaxAnalysis.Parser.#ctor(System.IO.Stream,System.IO.StreamReader,System.Collections.Generic.List{System.String},LexicalAnalysis.SymbolTable)">
+        <member name="M:SyntaxAnalysis.Parser.#ctor(myExtension.Lexer,System.Collections.Generic.List{System.String})">
             <summary>
             Método construtor do Parser 
             </summary>
@@ -146,6 +146,7 @@
             <param name="readText"></param>
             <param name="outputSet"></param>
             <param name="ST"></param>
+            
         </member>
         <member name="M:SyntaxAnalysis.Parser.flagSyntaxError(System.String)">
             <summary>

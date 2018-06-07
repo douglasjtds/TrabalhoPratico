@@ -16,8 +16,8 @@ namespace LexicalAnalysis
     public partial class TelaInicial : Form
     {
         string CodePath;                 //String que contem o caminho do arquivo
-        Stream Entrada;                  //Stream de abertura do arquivo
-        StreamReader ReadText;           //StreamReader de leitura do arquivo
+        Stream Entrada;                  
+        StreamReader ReadText;           
         Token tokenAux;
         List<Token> TokenList = new List<Token>();
         List<String> OutputSet = new List<String>();
@@ -41,6 +41,7 @@ namespace LexicalAnalysis
 
         private void button1_Click(object sender, EventArgs e)
         {
+            
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("ErrorCase1.txt");
@@ -53,19 +54,21 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
                 SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
                 parser.CloseFiles();
-            }
+            } 
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
+          
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("ErrorCase2.txt");
@@ -78,14 +81,15 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
                 SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
                 parser.CloseFiles();
-            }
+            } 
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -101,7 +105,8 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
@@ -126,7 +131,8 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
@@ -159,11 +165,11 @@ namespace LexicalAnalysis
             SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
 
-            Lexer.CloseFile(Entrada, ReadText);
+            lexer.CloseFile();
         }
 
         private void button5_Click(object sender, EventArgs e)
-        {
+        { 
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase2.txt");
@@ -176,19 +182,20 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
                 SeeTokens seeTokens = new SeeTokens(OutputSet, this);
                 seeTokens.Show();
                 parser.CloseFiles();
-            }
+            } 
 
         }
 
         private void button6_Click(object sender, EventArgs e)
-        {
+        { 
             TokenList.Clear();
             OutputSet.Clear();
             CodePath = Lexer.readFile("SuccessCase3.txt");
@@ -201,7 +208,8 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                parser = new Parser(lexer, OutputSet);
 
                 parser.prog();
 
@@ -247,12 +255,13 @@ namespace LexicalAnalysis
         {
             try
             {
+                textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
+
 
                 TokenList.Clear();
                 OutputSet.Clear();
-
                 CodePath = textBox1.Text;
-                textBox1.Text = "Ex: C:\\Users\\Gustavo\\Desktop\\AlgoritmoPasC.txt";
+                column = 1; line = 1;
 
                 if (File.Exists(CodePath))
                 {
@@ -260,7 +269,8 @@ namespace LexicalAnalysis
                     ReadText = new StreamReader(Entrada);
                     SymbolTable ST = new SymbolTable();
 
-                    parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                    lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                    parser = new Parser(lexer, OutputSet);
 
                     parser.prog();
 
@@ -278,16 +288,16 @@ namespace LexicalAnalysis
             {
                 MessageBox.Show("Caminho informado inválido");
 
-            }
+            } 
         }
 
         private void abrirToolStripMenuItem_Click(object sender, EventArgs e)
-        {
+        { 
             OpenFileDialog openFileDialog1 = new OpenFileDialog
             {
                 Title = "Arquivo do programa em PasC para ser executado:",
                 DefaultExt = "txt",
-                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
+                Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*|pasc files (*.pasc)|*.pasc"
             };
 
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
@@ -296,6 +306,7 @@ namespace LexicalAnalysis
                 CodePath = fileName;
                 TokenList.Clear();
                 OutputSet.Clear();
+                column = 1; line = 1;
 
                 if (File.Exists(CodePath))
                 {
@@ -303,7 +314,8 @@ namespace LexicalAnalysis
                     ReadText = new StreamReader(Entrada);
                     SymbolTable ST = new SymbolTable();
 
-                    parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                    lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+                    parser = new Parser(lexer, OutputSet);
 
                     parser.prog();
 
@@ -312,7 +324,7 @@ namespace LexicalAnalysis
                     parser.CloseFiles();
                 }
 
-            }
+            } 
         }
 
         private void textBox1_ModifiedChanged(object sender, EventArgs e)
@@ -327,8 +339,10 @@ namespace LexicalAnalysis
 
         private void button8_Click(object sender, EventArgs e)
         {
-            //Tem que mudar isso pra mostrar a ST
+            //Tem que mudar isso pra mostrar a ST ao inves do conjunto de saída
 
+
+            //SeeTokens seeTokens = new SeeTokens(ST.ST, this);
             SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
         }

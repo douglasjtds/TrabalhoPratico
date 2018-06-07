@@ -29,6 +29,39 @@ namespace LexicalAnalysis
             }
         }
 
+        /*  TRYING IMPLEMENT FOR A GENERIC LIST
+        IEnumerable ListaToken;
+        
+        public SeeTokens(IEnumerable ListaToken, Form Form1)
+        {
+            this.ListaToken = ListaToken;
+
+            InitializeComponent();
+
+            if (ListaToken.GetType() is IList)
+            {
+                List<String> Lista = ListaToken.ToList();
+
+                foreach (String auxToken in ListaToken)
+                {
+                    logBox.AppendText("\r\n");
+                    logBox.AppendText("\r\n" + auxToken);
+                }
+            }
+            else if(ListaToken.GetType() is IDictionary)
+            {
+                foreach(Token token in ListaToken)
+                {
+                    logBox.AppendText("\r\n");
+                    logBox.AppendText("\r\n" + token.ToString());
+                }
+            }
+
+        } 
+             
+             
+        */
+
         private void SeeTokens_Load(object sender, EventArgs e)
         {
 

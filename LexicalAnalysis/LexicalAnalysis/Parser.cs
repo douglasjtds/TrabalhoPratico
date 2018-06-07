@@ -16,12 +16,13 @@ namespace SyntaxAnalysis
 
         Lexer lexer;
         Token token;
+        List<String> outputSet;
+        /*
         Stream entrada;
         StreamReader readText;
-        List<String> outputSet;
         SymbolTable ST;
         int countLine;
-        int countColumn;
+        int countColumn;*/
 
         /// <summary>
         /// Método construtor do Parser 
@@ -30,16 +31,17 @@ namespace SyntaxAnalysis
         /// <param name="readText"></param>
         /// <param name="outputSet"></param>
         /// <param name="ST"></param>
-        public Parser(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST)
+        /// 
+        public Parser(Lexer lexer, List<String> outputSet)
         {
-            this.ST = ST;
+            /*this.ST = ST;
             this.entrada = entrada;
             this.readText = readText;
-            this.outputSet = outputSet;
             countLine = 1;
-            countColumn = 1;
-            //lexer = new Lexer();
-            //token = lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
+            countColumn = 1;*/
+            this.lexer = lexer;
+            this.outputSet = outputSet;
+            token = lexer.performsAutomaton();
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace SyntaxAnalysis
 
             do
             {
-                //token = lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
+                token = lexer.performsAutomaton();
             }
             while (token == null);
 
@@ -86,7 +88,7 @@ namespace SyntaxAnalysis
 
         public void CloseFiles()
         {
-            Lexer.CloseFile(entrada, readText);
+            lexer.CloseFile();
         }
 
         /// <summary>

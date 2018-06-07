@@ -13,7 +13,7 @@ namespace LexicalAnalysis
     /// </summary>
     public class SymbolTable
     {
-        public static Dictionary<Token, string> ST;
+        public Dictionary<Token, string> ST;
 
 
         public SymbolTable()
@@ -64,6 +64,15 @@ namespace LexicalAnalysis
             #endregion
         }
 
+        /*
+        public Dictionary<Token, string> ST
+        {
+            get
+            {
+                return ST;
+            }
+        }
+        */
 
         /// <summary>
         /// Verifica se já tem esse lexema na Tabela de símbolos. Se tiver, retorna ele. Se não tiver, adiciona e retorna ele.

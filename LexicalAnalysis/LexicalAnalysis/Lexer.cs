@@ -1027,7 +1027,7 @@ namespace myExtension
         /// </summary>
         /// <param name="entrada"></param>
         /// <param name="readText"></param>
-        public static void CloseFile(Stream entrada, StreamReader readText)
+        public void CloseFile(/*Stream entrada, StreamReader readText*/)
         {
             try
             {
