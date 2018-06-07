@@ -13,6 +13,23 @@ namespace myExtension
     public class Lexer
     {
 
+        Stream entrada;
+        StreamReader readText;
+        List<String> outputSet;
+        SymbolTable ST;
+        int CountLine;
+        int CountColumn;
+
+        public Lexer(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST, int CountLine, int CountColumn)
+        {
+            this.entrada = entrada;
+            this.readText = readText;
+            this.outputSet = outputSet;
+            this.ST = ST;
+            this.CountLine = CountLine;
+            this.CountColumn = CountColumn;
+        }
+
         /// <summary>
         /// Método usado para ler o arquivo que seria o programa em PasC de acordo com o botão pressionado.      
         /// </summary>
@@ -35,7 +52,7 @@ namespace myExtension
         /// <param name="outputSet"></param>
         /// <returns>Token</returns>
         /// <remarks>Deve ser chamado para iniciar a execução do autômato</remarks>
-        public static Token performsAutomaton(Stream entrada, StreamReader readText, List<String> outputSet, SymbolTable ST, int CountLine, int CountColumn)
+        public Token performsAutomaton()
         {
             const int END_OF_FILE = -1;
             int lookahead = 0;
@@ -990,7 +1007,7 @@ namespace myExtension
         /// <param name="column">Representa a coluna atual que o leitor está</param>
         /// <param name="line">Representa a linha atual que o leitor está</param>
         /// <returns>Retorna a posição atual da linha e da coluna</returns>
-        public static string currentLineAndColumn(int line, int column)
+        public   string currentLineAndColumn(int line, int column)
         {
             return " Linha: " + line + ", Coluna: " + column;
         }
@@ -999,7 +1016,7 @@ namespace myExtension
         /// <summary>
         /// Método para sinalizar um erro e o lugar onde ele foi encontrado
         /// </summary>
-        public static string flagError(string lexema, int line, int column)
+        public   string flagError(string lexema, int line, int column)
         {
             return "[ERRO LÉXICO]: Caracter '" + lexema + "' inesperado na " + currentLineAndColumn(line, column) + " ";
         }

@@ -245,7 +245,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(158, 44);
             this.button8.TabIndex = 12;
-            this.button8.Text = "Exibir as saídas do último arquivo";
+            this.button8.Text = "Exibir TS do último arquivo";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 

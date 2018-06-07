@@ -22,9 +22,11 @@ namespace LexicalAnalysis
         List<Token> TokenList = new List<Token>();
         List<String> OutputSet = new List<String>();
         SymbolTable ST = new SymbolTable();
+        Parser parser;
+        Lexer lexer;
 
-        int column = 1;
-        int line = 1;
+        int column;
+        int line;
 
         public TelaInicial()
         {
@@ -51,7 +53,7 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -76,7 +78,7 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -93,14 +95,13 @@ namespace LexicalAnalysis
             CodePath = Lexer.readFile("ErrorCase3.txt");
             column = 1; line = 1;
 
-
             if (File.Exists(CodePath))
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -125,7 +126,7 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -141,9 +142,11 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
+                lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
+
                 do
                 {
-                    tokenAux = Lexer.performsAutomaton(Entrada, ReadText, OutputSet, ST, line, column);
+                    tokenAux = lexer.performsAutomaton();
 
                     if (tokenAux != null)
                     {
@@ -173,7 +176,7 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -198,7 +201,7 @@ namespace LexicalAnalysis
                 ReadText = new StreamReader(Entrada);
                 SymbolTable ST = new SymbolTable();
 
-                Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                 parser.prog();
 
@@ -257,7 +260,7 @@ namespace LexicalAnalysis
                     ReadText = new StreamReader(Entrada);
                     SymbolTable ST = new SymbolTable();
 
-                    Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                    parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                     parser.prog();
 
@@ -300,7 +303,7 @@ namespace LexicalAnalysis
                     ReadText = new StreamReader(Entrada);
                     SymbolTable ST = new SymbolTable();
 
-                    Parser parser = new Parser(Entrada, ReadText, OutputSet, ST);
+                    parser = new Parser(Entrada, ReadText, OutputSet, ST);
 
                     parser.prog();
 
@@ -324,6 +327,8 @@ namespace LexicalAnalysis
 
         private void button8_Click(object sender, EventArgs e)
         {
+            //Tem que mudar isso pra mostrar a ST
+
             SeeTokens seeTokens = new SeeTokens(OutputSet, this);
             seeTokens.Show();
         }

@@ -38,7 +38,8 @@ namespace SyntaxAnalysis
             this.outputSet = outputSet;
             countLine = 1;
             countColumn = 1;
-            token = Lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
+            //lexer = new Lexer();
+            //token = lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
         }
 
         /// <summary>
@@ -61,7 +62,7 @@ namespace SyntaxAnalysis
 
             do
             {
-                token = Lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
+                //token = lexer.performsAutomaton(entrada, readText, outputSet, ST, countLine, countColumn);
             }
             while (token == null);
 
