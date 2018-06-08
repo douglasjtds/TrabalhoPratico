@@ -1,12 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using myExtension;
 using SyntaxAnalysis;
@@ -52,7 +46,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -79,7 +73,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -103,7 +97,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -129,7 +123,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -146,7 +140,7 @@ namespace LexicalAnalysis
 
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
 
@@ -180,7 +174,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -206,7 +200,7 @@ namespace LexicalAnalysis
             {
                 Entrada = File.Open(CodePath, FileMode.Open);
                 ReadText = new StreamReader(Entrada);
-                SymbolTable ST = new SymbolTable();
+                ST = new SymbolTable();
 
                 lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                 parser = new Parser(lexer, OutputSet);
@@ -267,7 +261,7 @@ namespace LexicalAnalysis
                 {
                     Entrada = File.Open(CodePath, FileMode.Open);
                     ReadText = new StreamReader(Entrada);
-                    SymbolTable ST = new SymbolTable();
+                    ST = new SymbolTable();
 
                     lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                     parser = new Parser(lexer, OutputSet);
@@ -312,7 +306,7 @@ namespace LexicalAnalysis
                 {
                     Entrada = File.Open(CodePath, FileMode.Open);
                     ReadText = new StreamReader(Entrada);
-                    SymbolTable ST = new SymbolTable();
+                    ST = new SymbolTable();
 
                     lexer = new Lexer(Entrada, ReadText, OutputSet, ST, line, column);
                     parser = new Parser(lexer, OutputSet);
@@ -343,7 +337,7 @@ namespace LexicalAnalysis
 
 
             //SeeTokens seeTokens = new SeeTokens(ST.ST, this);
-            SeeTokens seeTokens = new SeeTokens(OutputSet, this);
+            SeeTokens seeTokens = new SeeTokens(ST.ST, this);
             seeTokens.Show();
         }
     }

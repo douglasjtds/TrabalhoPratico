@@ -1,5 +1,5 @@
-program Teste
-num var1;
+progra Teste
+var1;
 num var2;
 char compiler2;
 {

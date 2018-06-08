@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Windows.Forms;
-using System.Text;
 using LexicalAnalysis;
 using System.Collections.Generic;
 using myExtension;
